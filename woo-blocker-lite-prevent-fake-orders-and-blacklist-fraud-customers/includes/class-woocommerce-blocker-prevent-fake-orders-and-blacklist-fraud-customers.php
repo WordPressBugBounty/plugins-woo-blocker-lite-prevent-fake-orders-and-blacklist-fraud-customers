@@ -71,7 +71,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
      */
     public function __construct() {
         $this->plugin_name = 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers';
-        $this->version = '2.2.2';
+        $this->version = '2.2.3';
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
@@ -187,6 +187,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
         $this->loader->add_action( 'bulk_actions-edit-blocked_user', $plugin_admin, 'custom_bulk_edit_action_for_banned_user' );
         $this->loader->add_action( "admin_notices", $plugin_admin, "woocommerce_blocker_pro_plugin_custom_plugin_header" );
         $this->loader->add_action( 'admin_head', $plugin_admin, 'remove_premium_blocker_custom_menu' );
+        $this->loader->add_action( 'wp_ajax_wcblu_block_order_details_update_blacklist', $plugin_admin, 'wcblu_block_order_details_update_blacklist' );
         $custom_page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
         if ( !empty( $custom_page ) && isset( $custom_page ) && ('woocommerce_blacklist_users' === $custom_page || 'wcblu-import-export-setting' === $custom_page || 'wblp-get-started' === $custom_page || 'wcblu-upgrade-dashboard' === $custom_page || 'wcblu-auto-rules' === $custom_page || 'wcblu-dashboard' === $custom_page || 'edd-wcblu-dashboard' === $custom_page || 'wcblu-general-settings' === $custom_page) ) {
             $this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'wcblu_admin_footer_review' );
@@ -216,7 +217,19 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
     private function define_public_hooks() {
         $plugin_public = new Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Public($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-        $this->loader->add_action( 'woocommerce_checkout_process', $plugin_public, 'woo_email_domain_validation' );
+        $checkout_page_id = wc_get_page_id( 'checkout' );
+        $checkout_page_content = get_post_field( 'post_content', $checkout_page_id );
+        if ( has_block( 'woocommerce/checkout', $checkout_page_content ) ) {
+            $this->loader->add_action(
+                'woocommerce_store_api_checkout_update_order_from_request',
+                $plugin_public,
+                'woo_email_domain_validation',
+                10,
+                2
+            );
+        } else {
+            $this->loader->add_action( 'woocommerce_checkout_process', $plugin_public, 'woo_email_domain_validation' );
+        }
         $this->loader->add_filter(
             'woocommerce_process_registration_errors',
             $plugin_public,

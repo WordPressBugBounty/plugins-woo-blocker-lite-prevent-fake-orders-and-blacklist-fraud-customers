@@ -27,7 +27,7 @@ function wbclu_free_general_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
     echo esc_html__( 'Enable Automatic Fraud Check', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/514-how-to-enable-auto-fraud-score-calculation-in-your-woocommerce-store" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                     </div>
                     <button type="submit" name="wcblu_gs_submit" class="button button-primary wcblu_submit" value="Save Changes"><?php 
     echo esc_html__( 'Save Changes', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
@@ -60,7 +60,7 @@ function wbclu_free_general_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
     echo esc_html__( 'Pre-Purchase Assessment', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/1066-prevent-order-placement-for-high-risk-fraud-scores-at-checkout" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-settings res-cl">
@@ -113,7 +113,7 @@ function wbclu_free_general_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
     echo esc_html__( 'Change Order Status based on Risk Score', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/519-how-to-cancel-orders-or-put-them-on-hold-based-on-fraud-score" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-settings res-cl">
@@ -236,7 +236,7 @@ function wbclu_free_general_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
     echo esc_html__( 'Set Risk Thresholds', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/515-how-to-set-risk-thresholds-to-low-medium-or-high" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-settings res-cl">
@@ -302,7 +302,7 @@ function wbclu_free_general_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
     echo esc_html__( 'Email Alerts', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/520-how-to-send-email-notification-to-admin-for-high-risk-orders" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-settings res-cl">
@@ -398,7 +398,7 @@ function wbclu_free_general_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
     echo esc_html__( 'Whitelist Options: Email, Payment Method, Role, and IP Address', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/516-how-to-do-special-email-whitelisting-using-fraud-prevention-plugin" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-settings res-cl">
@@ -498,6 +498,66 @@ function wbclu_free_general_settings_content() {
                                 <div class="wcblu_rule_field">
                                     <textarea name="wcblu_settings_whitelist_ips" id="wcblu_settings_whitelist_ips" style="width:100%; height: 100px;" class="" placeholder="">0.0.0.0</textarea>
                                 </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="heading_div">
+                    <div class="heading_section">
+                        <h2><?php 
+    echo esc_html__( 'Google reCAPTCHA Settings', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?><a href="https://docs.thedotstore.com/article/1057-how-to-enhance-security-with-recaptcha-to-protect-your-checkout-from-bots" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
+                    </div>
+                </div>
+                <table class="form-table table-outer general-settings res-cl">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="titledesc">
+                                <label> <?php 
+    echo esc_html__( 'Enable reCAPTCHA', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                                    <div class="wcbfc-tooltip-rules">
+                                        <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+    echo esc_html__( 'Enable reCAPTCHA on checkout page', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                    </div>
+                                </label>
+                            </th>
+                            <td>
+                                <label class="switch">
+                                    <input checked type="checkbox" id="wcbfc_recaptcha_status" name="wcbfc_recaptcha_status" value="">   
+                                    <div class="slider round"></div>
+                                </label>
+                                <div class="wcblu_captcha_settings show_it">
+                                    <div class="wcblu_rule_field">
+                                        <select name="wcbfc_recaptcha_version" id="wcbfc_recaptcha_version" class="">
+                                            <option value=""><?php 
+    echo esc_html__( 'Select Captcha Version', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></option>
+                                            <option value="wcblu_v2_keys" selected>
+                                                <?php 
+    echo esc_html__( 'v2 reCAPTCHA', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                                            </option>
+                                            <option value="wcblu_v3_keys">
+                                                <?php 
+    echo esc_html__( 'v3 reCAPTCHA', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="wcblu_v2_keys wcblu_versions_key" style="display:block;">
+                                        <div class="wcblu_rule_field"><input type="text" name="wcblu_v2_keys_value" placeholder="Enter v2 Site Key"></div>
+                                        <div class="wcblu_rule_field"><input type="text" name="wcblu_v2_secret_keys_value" placeholder="Enter v2 Secret Key"></div>
+                                    </div>
+                                    <div class="wcblu_v3_keys wcblu_versions_key" style="display:none;">
+                                        <div class="wcblu_rule_field"><input type="text" name="wcblu_v3_keys_value" placeholder="Enter v3 Site Key"></div>
+                                        <div class="wcblu_rule_field"><input type="text" name="wcblu_v3_secret_keys_value" placeholder="Enter v3 Secret Key"></div>
+                                        <p class="wcbfc-pl-compatiblity-notice" style="margin-top: 12px;"><span class="dashicons dashicons-warning" style="color:#d0a823;"></span><?php 
+    echo esc_html_e( ' This feature will only works with classic checkout.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></p>
+                                    </div>
+                                <div>
                             </td>
                         </tr>
                     </tbody>

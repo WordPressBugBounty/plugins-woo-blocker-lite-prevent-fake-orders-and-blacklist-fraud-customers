@@ -243,7 +243,34 @@
 				$(this).parent().next().next('.wcblu_rule_field').hide();
 			}
 		});
+		$('body').on('change', '#wcbfc_recaptcha_version', function () {
+			var version = $(this).val();
+			$('.wcblu_versions_key').hide();
+			if( 'wcblu_v2_keys' === version ){
+				$('.wcblu_v2_keys').show();
+			}else if( 'wcblu_v3_keys' === version ){
+				$('.wcblu_v3_keys').show();
+			} else {
+				$('.wcblu_versions_key'). hide();
+			}
+		});
+		$('body').on('click', '#wcbfc_recaptcha_status', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+				$(this).parent().next('.wcblu_captcha_settings').show();
+			} else {
+				$(this).attr('value', '0');
+				$(this).parent().next('.wcblu_captcha_settings').hide();
+			}
+		});
 		$('body').on('click', '#wcbfc_billing_phone_number_order', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+			} else {
+				$(this).attr('value', '0');
+			}
+		});
+		$('body').on('click', '#wcbfc_billing_shipping_geo_match', function () {
 			if ($(this).is(':checked')) {
 				$(this).attr('value', '1');
 			} else {
@@ -279,6 +306,13 @@
 			}
 		});
 		$('body').on('click', '#wcbfc_too_many_o_failed_a_check', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+			} else {
+				$(this).attr('value', '0');
+			}
+		});
+		$('body').on('click', '#wcbfc_no_of_allow_order_between_time', function () {
 			if ($(this).is(':checked')) {
 				$(this).attr('value', '1');
 			} else {
@@ -908,6 +942,12 @@
 			jQuery(this).css('z-index', event.type === 'mouseenter' ? '9' : '');
 		});
 		
+		$('body').on('click', '#wcbfc_email_notification,#wcbfc_update_order_status_on_score,#wcbfc_fraud_check_before_pay', function () {
+			var f_name = jQuery('input[name="wcbfc_fraud_check_status"]').is(':checked');
+			if( false === f_name && true === jQuery(this).is(':checked') ){
+				alert('Please Enable Automatic Fraud Check');
+			}
+		});
 	});
 } )(jQuery);
 

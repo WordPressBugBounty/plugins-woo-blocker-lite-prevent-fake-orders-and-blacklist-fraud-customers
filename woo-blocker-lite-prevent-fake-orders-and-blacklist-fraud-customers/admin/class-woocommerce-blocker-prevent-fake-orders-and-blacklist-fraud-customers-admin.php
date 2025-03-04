@@ -87,21 +87,55 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
          * between the defined hooks and the functions defined in this
          * class.
          */
-        wp_enqueue_style(
-            $this->plugin_name,
-            plugin_dir_url( __FILE__ ) . 'css/woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.css',
-            array(),
-            $this->version,
-            'all'
+        $order_blacklist = array('dotstore-plugins_page_woocommerce_blacklist_users', 'woocommerce_page_wc-orders', 'download_page_edd-payment-history');
+        global $pagenow;
+        $get_action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        $get_post = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        // Check if we're on an order edit page
+        if ( $pagenow === 'post.php' && isset( $get_post ) && isset( $get_action ) && $get_action === 'edit' ) {
+            $post_id = intval( $get_post );
+            $post_type = get_post_type( $post_id );
+            if ( $post_type === 'shop_order' ) {
+                $order_blacklist[] = 'post.php';
+            }
+        }
+        if ( in_array( $hook, $order_blacklist, true ) ) {
+            wp_enqueue_style(
+                $this->plugin_name,
+                plugin_dir_url( __FILE__ ) . 'css/woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.css',
+                array(),
+                $this->version,
+                'all'
+            );
+            wp_enqueue_script(
+                'jquery-wblp-order-widget-js',
+                plugin_dir_url( __FILE__ ) . 'js/wblp-order-widget.js',
+                array(),
+                $this->version,
+                false
+            );
+            wp_localize_script( 'jquery-wblp-order-widget-js', 'adminajax', array(
+                'ajaxurl' => admin_url( 'admin-ajax.php' ),
+                'nonce'   => wp_create_nonce( 'wcblu-ajax-nonce' ),
+            ) );
+        }
+        $valid_hooks = array(
+            'admin_page_wblp-get-started',
+            'admin_page_woocommerce_blacklist_users',
+            'dotstore-plugins_page_woocommerce_blacklist_users',
+            'blocked_user',
+            'dotstore-plugins_page_wcblu-import-export-setting',
+            'dotstore-plugins_page_wblp-get-started',
+            'dotstore-plugins_page_wblp-information',
+            'dotstore-plugins_page_wcblu-general-settings',
+            'dotstore-plugins_page_wcblu-auto-rules',
+            'admin_page_woocommerce_blacklist_users-account',
+            'dotstore-plugins_page_wcblu-upgrade-dashboard',
+            'dotstore-plugins_page_wcblu-dashboard',
+            'toplevel_page_woocommerce_blacklist_users',
+            'dotstore-plugins_page_edd-wcblu-dashboard'
         );
-        wp_enqueue_style(
-            $this->plugin_name . 'plugin-setup-wizard',
-            plugin_dir_url( __FILE__ ) . 'css/plugin-setup-wizard.css',
-            array(),
-            $this->version,
-            'all'
-        );
-        if ( 'admin_page_wblp-get-started' === $hook || 'admin_page_woocommerce_blacklist_users' === $hook || 'dotstore-plugins_page_woocommerce_blacklist_users' === $hook || 'blocked_user' === $typenow || 'dotstore-plugins_page_wcblu-import-export-setting' === $hook || 'dotstore-plugins_page_wblp-get-started' === $hook || 'dotstore-plugins_page_wblp-information' === $hook || 'dotstore-plugins_page_wcblu-general-settings' === $hook || 'dotstore-plugins_page_wcblu-auto-rules' === $hook || 'admin_page_woocommerce_blacklist_users-account' === $hook || 'dotstore-plugins_page_wcblu-upgrade-dashboard' === $hook || 'dotstore-plugins_page_wcblu-dashboard' === $hook || 'toplevel_page_woocommerce_blacklist_users' === $hook || 'dotstore-plugins_page_edd-wcblu-dashboard' === $hook ) {
+        if ( in_array( $hook, $valid_hooks, true ) || 'blocked_user' === $typenow ) {
             wp_enqueue_style(
                 'main-style',
                 plugin_dir_url( __FILE__ ) . 'css/style.css',
@@ -168,6 +202,13 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                     'all'
                 );
             }
+            wp_enqueue_style(
+                $this->plugin_name . 'plugin-setup-wizard',
+                plugin_dir_url( __FILE__ ) . 'css/plugin-setup-wizard.css',
+                array(),
+                $this->version,
+                'all'
+            );
         }
         if ( 'dotstore-plugins_page_wcblu-dashboard' === $hook || 'dotstore-plugins_page_edd-wcblu-dashboard' === $hook ) {
             wp_enqueue_script(
@@ -628,6 +669,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                 FILTER_SANITIZE_FULL_SPECIAL_CHARS,
                 FILTER_SANITIZE_FULL_SPECIAL_CHARS
             );
+            $wcbfc_recaptcha_status = filter_input( INPUT_POST, 'wcbfc_recaptcha_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_recaptcha_version = filter_input( INPUT_POST, 'wcbfc_recaptcha_version', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcblu_v2_keys_value = filter_input( INPUT_POST, 'wcblu_v2_keys_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcblu_v3_keys_value = filter_input( INPUT_POST, 'wcblu_v3_keys_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcblu_v2_secret_keys_value = filter_input( INPUT_POST, 'wcblu_v2_secret_keys_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcblu_v3_secret_keys_value = filter_input( INPUT_POST, 'wcblu_v3_secret_keys_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_fraud_check_status = ( empty( $wcbfc_fraud_check_status ) ? 'off' : $wcbfc_fraud_check_status );
             $wcbfc_fraud_check_before_pay = ( empty( $wcbfc_fraud_check_before_pay ) ? '0' : $wcbfc_fraud_check_before_pay );
             $wcblu_pre_payment_message = ( empty( $wcblu_pre_payment_message ) ? '' : $wcblu_pre_payment_message );
@@ -646,6 +693,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcblu_whitelist_user_roles = ( empty( $wcblu_whitelist_user_roles ) ? array() : $wcblu_whitelist_user_roles );
             $wcbfc_enable_whitelist_ips = ( empty( $wcbfc_enable_whitelist_ips ) ? '0' : $wcbfc_enable_whitelist_ips );
             $wcblu_settings_whitelist_ips = ( empty( $wcblu_settings_whitelist_ips ) ? '' : $wcblu_settings_whitelist_ips );
+            $wcbfc_recaptcha_status = ( empty( $wcbfc_recaptcha_status ) ? 'off' : $wcbfc_recaptcha_status );
+            $wcbfc_recaptcha_version = ( empty( $wcbfc_recaptcha_version ) ? '' : $wcbfc_recaptcha_version );
+            $wcblu_v2_keys_value = ( empty( $wcblu_v2_keys_value ) ? '' : $wcblu_v2_keys_value );
+            $wcblu_v3_keys_value = ( empty( $wcblu_v3_keys_value ) ? '' : $wcblu_v3_keys_value );
+            $wcblu_v2_secret_keys_value = ( empty( $wcblu_v2_secret_keys_value ) ? '' : $wcblu_v2_secret_keys_value );
+            $wcblu_v3_secret_keys_value = ( empty( $wcblu_v3_secret_keys_value ) ? '' : $wcblu_v3_secret_keys_value );
             /**
              * Whitelist the user roles
              */
@@ -694,6 +747,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcblugeneraloption_array['wcblu_whitelist_user_roles'] = $wcblu_whitelist_user_roles;
             $wcblugeneraloption_array['wcbfc_enable_whitelist_ips'] = $wcbfc_enable_whitelist_ips;
             $wcblugeneraloption_array['wcblu_settings_whitelist_ips'] = $wcblu_settings_whitelist_ips;
+            $wcblugeneraloption_array['wcbfc_recaptcha_status'] = $wcbfc_recaptcha_status;
+            $wcblugeneraloption_array['wcbfc_recaptcha_version'] = $wcbfc_recaptcha_version;
+            $wcblugeneraloption_array['wcblu_v2_keys_value'] = $wcblu_v2_keys_value;
+            $wcblugeneraloption_array['wcblu_v3_keys_value'] = $wcblu_v3_keys_value;
+            $wcblugeneraloption_array['wcblu_v2_secret_keys_value'] = $wcblu_v2_secret_keys_value;
+            $wcblugeneraloption_array['wcblu_v3_secret_keys_value'] = $wcblu_v3_secret_keys_value;
             $wcblugeneralopt_array = wp_json_encode( $wcblugeneraloption_array );
             update_option( 'wcblu_general_option', $wcblugeneralopt_array );
         }
@@ -744,6 +803,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbfc_unsafe_countries_ip = filter_input( INPUT_POST, 'wcbfc_unsafe_countries_ip', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_unsafe_countries_weight = filter_input( INPUT_POST, 'wcbfc_unsafe_countries_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_billing_phone_number_order = filter_input( INPUT_POST, 'wcbfc_billing_phone_number_order', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_billing_shipping_geo_match = filter_input( INPUT_POST, 'wcbfc_billing_shipping_geo_match', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_billing_shipping_geo_match_weight = filter_input( INPUT_POST, 'wcbfc_billing_shipping_geo_match_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_phone_number_order_weight = filter_input( INPUT_POST, 'wcbfc_billing_phone_number_order_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_ip_multiple_check = filter_input( INPUT_POST, 'wcbfc_ip_multiple_check', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_ip_multiple_time_span = filter_input( INPUT_POST, 'wcbfc_ip_multiple_time_span', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
@@ -762,6 +823,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbfc_too_many_o_failed_a_check_weight = filter_input( INPUT_POST, 'wcbfc_too_many_o_failed_a_check_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_too_many_failed_oats_attempt_try = filter_input( INPUT_POST, 'wcbfc_too_many_failed_oats_attempt_try', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_too_many_failed_oats_strings = filter_input( INPUT_POST, 'wcbfc_too_many_failed_oats_strings', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_no_of_allow_order_between_time = filter_input( INPUT_POST, 'wcbfc_no_of_allow_order_between_time', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_no_of_allow_order_between_time_weight = filter_input( INPUT_POST, 'wcbfc_no_of_allow_order_between_time_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_maximum_allowed_number_of_orders_between_time = filter_input( INPUT_POST, 'wcbfc_maximum_allowed_number_of_orders_between_time', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_start_time_timepicker = filter_input( INPUT_POST, 'wcbfc_start_time_timepicker', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_end_time_timepicker = filter_input( INPUT_POST, 'wcbfc_end_time_timepicker', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_geo_match_key = filter_input( INPUT_POST, 'wcbfc_geo_match_key', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_first_order_status = ( empty( $wcbfc_first_order_status ) ? '0' : $wcbfc_first_order_status );
             $wcbfc_first_order_weight = ( empty( $wcbfc_first_order_weight ) ? '0' : $wcbfc_first_order_weight );
             $wcbfc_first_order_custom = ( empty( $wcbfc_first_order_custom ) ? '0' : $wcbfc_first_order_custom );
@@ -780,6 +847,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcblu_define_unsafe_countries_list = ( empty( $wcblu_define_unsafe_countries_list ) ? array() : $wcblu_define_unsafe_countries_list );
             $wcbfc_unsafe_countries_weight = ( empty( $wcbfc_unsafe_countries_weight ) ? '0' : $wcbfc_unsafe_countries_weight );
             $wcbfc_billing_phone_number_order = ( empty( $wcbfc_billing_phone_number_order ) ? '0' : $wcbfc_billing_phone_number_order );
+            $wcbfc_billing_shipping_geo_match = ( empty( $wcbfc_billing_shipping_geo_match ) ? '0' : $wcbfc_billing_shipping_geo_match );
+            $wcbfc_billing_shipping_geo_match_weight = ( empty( $wcbfc_billing_shipping_geo_match_weight ) ? '0' : $wcbfc_billing_shipping_geo_match_weight );
             $wcbfc_phone_number_order_weight = ( empty( $wcbfc_phone_number_order_weight ) ? '0' : $wcbfc_phone_number_order_weight );
             $wcbfc_ip_multiple_check = ( empty( $wcbfc_ip_multiple_check ) ? '0' : $wcbfc_ip_multiple_check );
             $wcbfc_ip_multiple_time_span = ( empty( $wcbfc_ip_multiple_time_span ) ? '30' : $wcbfc_ip_multiple_time_span );
@@ -798,6 +867,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbfc_too_many_o_failed_a_check_weight = ( empty( $wcbfc_too_many_o_failed_a_check_weight ) ? '0' : $wcbfc_too_many_o_failed_a_check_weight );
             $wcbfc_too_many_failed_oats_attempt_try = ( empty( $wcbfc_too_many_failed_oats_attempt_try ) ? '0' : $wcbfc_too_many_failed_oats_attempt_try );
             $wcbfc_too_many_failed_oats_strings = ( empty( $wcbfc_too_many_failed_oats_strings ) ? '' : $wcbfc_too_many_failed_oats_strings );
+            $wcbfc_no_of_allow_order_between_time = ( empty( $wcbfc_no_of_allow_order_between_time ) ? '0' : $wcbfc_no_of_allow_order_between_time );
+            $wcbfc_no_of_allow_order_between_time_weight = ( empty( $wcbfc_no_of_allow_order_between_time_weight ) ? '0' : $wcbfc_no_of_allow_order_between_time_weight );
+            $wcbfc_maximum_allowed_number_of_orders_between_time = ( empty( $wcbfc_maximum_allowed_number_of_orders_between_time ) ? '0' : $wcbfc_maximum_allowed_number_of_orders_between_time );
+            $wcbfc_start_time_timepicker = ( empty( $wcbfc_start_time_timepicker ) ? '0' : $wcbfc_start_time_timepicker );
+            $wcbfc_end_time_timepicker = ( empty( $wcbfc_end_time_timepicker ) ? '0' : $wcbfc_end_time_timepicker );
+            $wcbfc_geo_match_key = ( empty( $wcbfc_geo_match_key ) ? '0' : $wcbfc_geo_match_key );
             $wcbluruleoption_array['wcbfc_first_order_status'] = $wcbfc_first_order_status;
             $wcbluruleoption_array['wcbfc_first_order_weight'] = $wcbfc_first_order_weight;
             $wcbluruleoption_array['wcbfc_first_order_custom'] = $wcbfc_first_order_custom;
@@ -817,6 +892,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbluruleoption_array['wcbfc_unsafe_countries_weight'] = $wcbfc_unsafe_countries_weight;
             $wcbluruleoption_array['wcbfc_billing_phone_number_order'] = $wcbfc_billing_phone_number_order;
             $wcbluruleoption_array['wcbfc_billing_phone_number_order_weight'] = $wcbfc_phone_number_order_weight;
+            $wcbluruleoption_array['wcbfc_billing_shipping_geo_match'] = $wcbfc_billing_shipping_geo_match;
+            $wcbluruleoption_array['wcbfc_billing_shipping_geo_match_weight'] = $wcbfc_billing_shipping_geo_match_weight;
             $wcbluruleoption_array['wcbfc_ip_multiple_check'] = $wcbfc_ip_multiple_check;
             $wcbluruleoption_array['wcbfc_ip_multiple_time_span'] = $wcbfc_ip_multiple_time_span;
             $wcbluruleoption_array['wcbfc_ip_multiple_weight'] = $wcbfc_ip_multiple_weight;
@@ -834,6 +911,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbluruleoption_array['wcbfc_too_many_o_failed_a_check_weight'] = $wcbfc_too_many_o_failed_a_check_weight;
             $wcbluruleoption_array['wcbfc_too_many_failed_oats_attempt_try'] = $wcbfc_too_many_failed_oats_attempt_try;
             $wcbluruleoption_array['wcbfc_too_many_failed_oats_strings'] = $wcbfc_too_many_failed_oats_strings;
+            $wcbluruleoption_array['wcbfc_no_of_allow_order_between_time'] = $wcbfc_no_of_allow_order_between_time;
+            $wcbluruleoption_array['wcbfc_no_of_allow_order_between_time_weight'] = $wcbfc_no_of_allow_order_between_time_weight;
+            $wcbluruleoption_array['wcbfc_maximum_allowed_number_of_orders_between_time'] = $wcbfc_maximum_allowed_number_of_orders_between_time;
+            $wcbluruleoption_array['wcbfc_start_time_timepicker'] = $wcbfc_start_time_timepicker;
+            $wcbluruleoption_array['wcbfc_end_time_timepicker'] = $wcbfc_end_time_timepicker;
+            $wcbluruleoption_array['wcbfc_geo_match_key'] = $wcbfc_geo_match_key;
             $wcbluruleopt_array = wp_json_encode( $wcbluruleoption_array );
             update_option( 'wcblu_rules_option', $wcbluruleopt_array );
         }
@@ -1022,12 +1105,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbfc_fraud_check_status = ( empty( $getGeneralSettingsArray['wcbfc_fraud_check_status'] ) ? 'off' : $getGeneralSettingsArray['wcbfc_fraud_check_status'] );
             $order_score = get_post_meta( $order->get_id(), 'wcbfc_order_score', true );
             $order_score = ( empty( $order_score ) ? '0' : $order_score );
+            if ( class_exists( "Automattic\\WooCommerce\\Internal\\DataStores\\Orders\\CustomOrdersTableController" ) ) {
+                $screen = ( wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled() ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order' );
+            } else {
+                $screen = 'shop_order';
+            }
             if ( isset( $wcbfc_fraud_check_status ) && 'on' === $wcbfc_fraud_check_status ) {
-                if ( class_exists( "Automattic\\WooCommerce\\Internal\\DataStores\\Orders\\CustomOrdersTableController" ) ) {
-                    $screen = ( wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled() ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order' );
-                } else {
-                    $screen = 'shop_order';
-                }
                 add_meta_box(
                     'wcblu-meta-box-id',
                     esc_html__( 'Fraud Risk', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
@@ -1037,6 +1120,15 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                     'high'
                 );
             }
+            // Block order widget
+            add_meta_box(
+                'wcblu-bo-meta-box-id',
+                esc_html__( 'Block Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                array($this, 'wcblu_bo_meta_box_callback'),
+                $screen,
+                'side',
+                'high'
+            );
         }
     }
 
@@ -1148,6 +1240,126 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
 			});
 		</script>
 		<?php 
+    }
+
+    /**
+     * Block order widget in order 
+     */
+    public function wcblu_bo_meta_box_callback( $order ) {
+        $block_flag = false;
+        if ( class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+            // HPOS usage is enabled.
+            $order_id = $order->get_id();
+        } else {
+            // Traditional CPT-based orders are in use.
+            $order_id = $order->ID;
+        }
+        $order = wc_get_order( $order_id );
+        if ( isset( $order ) && $order instanceof WC_Order ) {
+            $first_name = $order->get_billing_first_name();
+            // Get billing first name
+            $last_name = $order->get_billing_last_name();
+            // Get billing last name
+            $email = $order->get_billing_email();
+            // Get billing email
+            $ip_address = $order->get_customer_ip_address();
+            // Get customer IP address
+        } else {
+            $first_name = $last_name = $email = $ip_address = '';
+        }
+        $wcblu_option = get_option( 'wcblu_option', '' );
+        // Get option with a default value
+        $wcblu_optionArray = json_decode( $wcblu_option, true );
+        // Ensure $wcblu_optionArray is an array to avoid undefined index notices
+        if ( !is_array( $wcblu_optionArray ) ) {
+            $wcblu_optionArray = [];
+        }
+        // Use null coalescing operator to handle missing keys
+        $wcblu_block_first_name = ( is_array( $wcblu_optionArray['wcblu_block_first_name'] ?? null ) ? $wcblu_optionArray['wcblu_block_first_name'] : [] );
+        $wcblu_block_last_name = ( is_array( $wcblu_optionArray['wcblu_block_last_name'] ?? null ) ? $wcblu_optionArray['wcblu_block_last_name'] : [] );
+        $wcblu_block_email = ( is_array( $wcblu_optionArray['wcblu_block_email'] ?? null ) ? $wcblu_optionArray['wcblu_block_email'] : [] );
+        $wcblu_block_ip = ( is_array( $wcblu_optionArray['wcblu_block_ip'] ?? null ) ? $wcblu_optionArray['wcblu_block_ip'] : [] );
+        $block_flag = in_array( $first_name, $wcblu_block_first_name, true ) || in_array( $last_name, $wcblu_block_last_name, true ) || in_array( $email, $wcblu_block_email, true ) || in_array( $ip_address, $wcblu_block_ip, true );
+        if ( $block_flag ) {
+            ?>
+			<p class="description"><?php 
+            echo esc_html__( 'This order has been blocked.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></p>
+		<?php 
+        } else {
+            ?>
+			<p class="description"><?php 
+            echo esc_html__( 'Click the button below to block this order.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?>
+			<?php 
+            echo wp_kses_post( wc_help_tip( __( 'The customer\'s details (First Name, Last Name, Email, and IP) will be added to the blacklist, preventing future order placements.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) ) );
+            ?>
+			<div><a href="javascript:void(0)" class="wcblu-block-order-button button" id="wcbli_bo_btn"><?php 
+            echo esc_html__( 'Block Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></a></div>
+		<?php 
+        }
+    }
+
+    /**
+     * Block order widget in order 
+     */
+    public function wcblu_block_order_details_update_blacklist() {
+        check_ajax_referer( 'wcblu-ajax-nonce', 'nonce' );
+        $order_id = filter_input( INPUT_POST, 'order_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        $order = wc_get_order( $order_id );
+        $first_name = $order->get_billing_first_name();
+        // Get billing first name
+        $last_name = $order->get_billing_last_name();
+        // Get billing last name
+        $email = $order->get_billing_email();
+        // Get billing email
+        $ip_address = $order->get_customer_ip_address();
+        // Get customer IP address
+        $wcbluoption_array = get_option( 'wcblu_option', array() );
+        $wcbluoption_array = ( !empty( $wcbluoption_array ) ? json_decode( $wcbluoption_array, true ) : array() );
+        // Ensure the main option is an array
+        if ( !is_array( $wcbluoption_array ) ) {
+            $wcbluoption_array = array();
+        }
+        // Ensure each key exists and is an array
+        $keys = [
+            'wcblu_block_first_name',
+            'wcblu_block_last_name',
+            'wcblu_block_email',
+            'wcblu_block_ip'
+        ];
+        foreach ( $keys as $key ) {
+            if ( !isset( $wcbluoption_array[$key] ) || !is_array( $wcbluoption_array[$key] ) ) {
+                $wcbluoption_array[$key] = [];
+            }
+        }
+        $has_value = false;
+        // Add new values
+        if ( !empty( $first_name ) ) {
+            $wcbluoption_array['wcblu_block_first_name'][] = $first_name;
+            $has_value = true;
+        }
+        if ( !empty( $last_name ) ) {
+            $wcbluoption_array['wcblu_block_last_name'][] = $last_name;
+            $has_value = true;
+        }
+        if ( !empty( $email ) ) {
+            $wcbluoption_array['wcblu_block_email'][] = $email;
+            $has_value = true;
+        }
+        if ( !empty( $ip_address ) ) {
+            $wcbluoption_array['wcblu_block_ip'][] = $ip_address;
+            $has_value = true;
+        }
+        if ( $has_value ) {
+            $wcbluoption_array = wp_json_encode( $wcbluoption_array );
+            update_option( 'wcblu_option', $wcbluoption_array );
+            $return = 'Blocked';
+        } else {
+            $return = 'not_blocked';
+        }
+        wp_send_json( $return );
     }
 
     /**

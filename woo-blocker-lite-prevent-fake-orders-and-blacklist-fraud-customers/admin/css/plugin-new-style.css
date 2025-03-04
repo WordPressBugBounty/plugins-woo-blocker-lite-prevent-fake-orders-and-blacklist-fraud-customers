@@ -419,7 +419,7 @@ table.form-table.table-outer.general-settings.res-cl .text, #wcblu_plugin_genera
 .wcbfc-tooltip-rules .wcbfc-tooltiptext {
     visibility: hidden;
     position: absolute;
-    width: 150px;
+    width: 250px;
     background: #333;
     color: #fff;
     text-align: center;
@@ -447,7 +447,7 @@ table.form-table.table-outer.general-settings.res-cl .text, #wcblu_plugin_genera
 .wcbfc-tooltip-bottom {
     top: 135%;
     left: 50%;
-    margin-left: -75px;
+    margin-left: -125px;
 }
 .wcbfc-rule-weight-label{
     vertical-align: middle !important;
@@ -465,6 +465,25 @@ table.form-table.table-outer.general-settings.res-cl .text, #wcblu_plugin_genera
 #wcblu_plugin_general_settings .slider:before {position: absolute;content: "";height: 13px;width: 13px;left: 4px;bottom: 3px;background-color: white;-webkit-transition: .4s;transition: .4s;}
 #wcblu_plugin_general_settings .slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;-webkit-transition: .4s;transition: .4s;}
 .dots-settings-left-side table.table-outer tr td .wcblu_field.wcblu_align_text label {vertical-align: baseline !important;}
+
+.dots-settings-inner-main table.form-table.table-outer.general-rules.res-cl input#wcbfc_start_time_timepicker,
+.dots-settings-inner-main table.form-table.table-outer.general-rules.res-cl input#wcbfc_end_time_timepicker{
+    background-color: #fff;width: 100px;
+}
+p.wcbfc-short-info {
+    font-size: 12px !important;
+    margin-top: 8px !important;
+}
+
+.dots-settings-inner-main .dots-settings-left-side a.main-title-tooltip {
+    padding-left: 5px;
+}
+
+.dots-settings-inner-main .dots-settings-left-side a.main-title-tooltip .dashicons-info:before {
+    font-size: 16px !important;
+    color:#4a4a4a;
+    vertical-align: middle;
+}
 
 #wcblu_plugin_general_rules textarea#wcbfc_too_many_failed_oats_strings {padding: 5px 10px;min-height: 30px;}
 /* End: Tooltip CSS (tiptip JS) */

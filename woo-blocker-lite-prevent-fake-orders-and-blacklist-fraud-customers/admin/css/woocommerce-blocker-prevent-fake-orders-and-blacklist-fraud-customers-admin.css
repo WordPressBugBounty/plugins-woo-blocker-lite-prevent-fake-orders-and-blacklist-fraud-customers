@@ -85,3 +85,26 @@ p.woocommerce_extra_cost_overview{max-width:100%!important;margin-left:auto;marg
 #edd-payments-filter span.dashicons.dashicons-shield-alt.empty {color: #e5e5e5;}
 #edd-payments-filter span.dashicons.dashicons-shield-alt.wh-empty {color: #adadad;}
 p.wcbfc-pl-compatiblity-notice {margin-top: 12px !important;display: inline-block;font-style: italic;}
+/* For EDD fraud column */
+/* Block button css in order page */
+#wcblu-bo-meta-box-id .wcblu-block-order-button {
+  /* background-color: #d54e21;
+  color: #ffffff;
+  border-color: #d63638; */
+  display: inline-block;
+  margin: 5px 0;
+  /* padding: 5px 10px; */
+  /* border-radius: 4px; */
+  text-decoration: none;
+}
+
+#wcblu-bo-meta-box-id .wcblu-block-order-button:hover,
+#wcblu-bo-meta-box-id .wcblu-block-order-button:focus,
+#wcblu-bo-meta-box-id .wcblu-block-order-button:active {
+    /* background-color: #d23738;
+    border-color: #d23738;
+    color: #ffffff;  */
+    text-decoration: none;
+    outline: none;
+    box-shadow: unset;
+}

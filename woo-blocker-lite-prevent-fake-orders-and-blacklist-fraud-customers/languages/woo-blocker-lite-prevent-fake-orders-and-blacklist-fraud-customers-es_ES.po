@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fraud Prevention Plugin for WooCommerce\n"
 "POT-Creation-Date: 2021-08-25 19:02+0530\n"
-"PO-Revision-Date: 2024-08-28 14:31+0000\n"
+"PO-Revision-Date: 2025-02-21 09:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (Spain)\n"
 "Language: es_ES\n"
@@ -17,24 +17,31 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "X-Loco-Version: 2.6.11; wp-6.6.1"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2097
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2223
 msgid " Fraud check done."
 msgstr "Verificación de fraude realizada."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2100
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2226
 msgid " Payment method whitelisted"
 msgstr "Método de pago incluido en la lista blanca"
 
+#: admin/partials/wcblu-general-settings.php:417
+#: admin/partials/wcblu-general-settings.php:1107
+msgid " This feature will only works with classic checkout."
+msgstr "Esta característica solo funcionará con el pago clásico."
+
 #: admin/partials/wcblu-rule-settings.php:152
 #: admin/partials/wcblu-rule-settings.php:192
-#: admin/partials/wcblu-rule-settings.php:288
-#: admin/partials/wcblu-rule-settings.php:339
+#: admin/partials/wcblu-rule-settings.php:242
+#: admin/partials/wcblu-rule-settings.php:338
 #: admin/partials/wcblu-rule-settings.php:389
-#: admin/partials/wcblu-rule-settings.php:926
-#: admin/partials/wcblu-rule-settings.php:982
-#: admin/partials/wcblu-rule-settings.php:1110
-#: admin/partials/wcblu-rule-settings.php:1177
-#: admin/partials/wcblu-rule-settings.php:1268
+#: admin/partials/wcblu-rule-settings.php:439
+#: admin/partials/wcblu-rule-settings.php:1051
+#: admin/partials/wcblu-rule-settings.php:1107
+#: admin/partials/wcblu-rule-settings.php:1173
+#: admin/partials/wcblu-rule-settings.php:1301
+#: admin/partials/wcblu-rule-settings.php:1368
+#: admin/partials/wcblu-rule-settings.php:1459
 #: includes/woocommerce-blocker-admin-functions.php:134
 #: includes/woocommerce-blocker-admin-functions.php:316
 #: includes/woocommerce-blocker-admin-functions.php:506
@@ -58,10 +65,10 @@ msgstr "Método de pago incluido en la lista blanca"
 msgid " This feature will only works with woocommerce orders."
 msgstr "Esta característica solo funcionará con pedidos de WooCommerce."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1846
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2074
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2076
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2080
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1972
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2200
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2202
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2206
 msgid " User IP is Whitelisted."
 msgstr "La IP del usuario está en la lista blanca."
 
@@ -92,7 +99,7 @@ msgstr ""
 msgid "%1$s requires either %2$s or %3$s to be installed & activated!"
 msgstr "¡%1$s requiere que %2$s o %3$s estén instalados y activados!"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1633
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1784
 msgid ""
 "%s Prevent fake orders and Blacklist fraud customers plugin allows your "
 "WooCommerce store to refuse orders from specific user, based on blacklist "
@@ -119,7 +126,7 @@ msgstr "Garantía de devolución de dinero de 14 días"
 msgid "14-Day Satisfaction Guarantee"
 msgstr "Garantía de satisfacción de 14 días"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1788
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1939
 msgid ""
 "<strong>We need your support</strong> to keep updating and improving the "
 "plugin. Please <a href=\"%1$s\" target=\"_blank\">help us by leaving a good "
@@ -133,7 +140,7 @@ msgstr ""
 msgid "A demo file is also available for reference."
 msgstr "Un archivo de demostración también está disponible como referencia."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1696
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1847
 msgid ""
 "Ability to review fraudulent checkouts OR registration attempts based on "
 "rule."
@@ -172,8 +179,8 @@ msgstr ""
 "Agregue las direcciones de correo electrónico de los pedidos informados con "
 "un alto riesgo de fraude a la lista negra automáticamente"
 
-#: admin/partials/wcblu-rule-settings.php:440
-#: admin/partials/wcblu-rule-settings.php:1335
+#: admin/partials/wcblu-rule-settings.php:490
+#: admin/partials/wcblu-rule-settings.php:1526
 #: includes/woocommerce-blocker-admin-functions.php:160
 #: includes/woocommerce-blocker-admin-functions.php:1076
 msgid "Add emails separated by comma"
@@ -255,11 +262,11 @@ msgstr "Agregue varios códigos postales para bloquear usuarios"
 msgid "Add multiple zones to block users"
 msgstr "Agregue varias zonas para bloquear usuarios"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1393
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1544
 msgid "Add New"
 msgstr "Agregar nueva"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1394
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1545
 msgid "Add New Block User"
 msgstr "Agregar nueva usuaria de bloque"
 
@@ -290,11 +297,11 @@ msgid "Add Zip code separated by comma"
 msgstr "Agregar código postal separado por coma"
 
 #: admin/partials/wcblu-general-settings.php:282
-#: admin/partials/wcblu-general-settings.php:801
+#: admin/partials/wcblu-general-settings.php:859
 msgid "Additional Recipients"
 msgstr "Destinatarias adicionales"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1689
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1840
 msgid ""
 "Additionally, an admin can get the detail report of genuine block user \"who "
 "try to buy products more than one time\" and contact them to resolve issue."
@@ -326,12 +333,12 @@ msgstr ""
 "usuario."
 
 #: admin/partials/wcblu-general-settings.php:244
-#: admin/partials/wcblu-general-settings.php:752
+#: admin/partials/wcblu-general-settings.php:810
 msgid "Admin Email Alert Activation"
 msgstr "Activación de alerta por correo electrónico del administrador"
 
-#: admin/partials/wcblu-rule-settings.php:633
-#: admin/partials/wcblu-rule-settings.php:1667
+#: admin/partials/wcblu-rule-settings.php:683
+#: admin/partials/wcblu-rule-settings.php:1859
 msgid "Allow Number of Attempts"
 msgstr "Permitir número de intentos"
 
@@ -361,7 +368,7 @@ msgstr ""
 "de intentos."
 
 #: admin/partials/wcblu-general-settings.php:251
-#: admin/partials/wcblu-general-settings.php:759
+#: admin/partials/wcblu-general-settings.php:817
 msgid ""
 "An admin email notification will be sent if an orders scores equal to or "
 "greater than this number. Select 0 to disable."
@@ -376,7 +383,7 @@ msgid "AND"
 msgstr "Y"
 
 #: admin/partials/wcblu-rule-settings.php:118
-#: admin/partials/wcblu-rule-settings.php:875
+#: admin/partials/wcblu-rule-settings.php:1000
 msgid "Are Billing and Shipping Addresses Same?"
 msgstr "¿Las direcciones de facturación y envío son las mismas?"
 
@@ -402,11 +409,11 @@ msgstr ""
 msgid "Astra"
 msgstr "Astra"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:294
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:332
 msgid "Attempt"
 msgstr "Intento"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1746
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1897
 msgid "Attempts"
 msgstr "Intentos"
 
@@ -433,7 +440,7 @@ msgid "Be our friend on"
 msgstr "Se nuestra amiga"
 
 #: admin/partials/wcblu-general-settings.php:55
-#: admin/partials/wcblu-general-settings.php:479
+#: admin/partials/wcblu-general-settings.php:537
 msgid "Before Payment Checking"
 msgstr "Antes del pago Comprobación"
 
@@ -450,21 +457,26 @@ msgstr "Correo electrónico de usuario de fraude masivo de lista negra"
 msgid "Blacklist Settings"
 msgstr "Configuración de la lista negra"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1719
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1870
 msgid "Blacklist Users Report"
 msgstr "Informe de usuarios de la lista negra"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1694
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1194
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1326
+msgid "Block Order"
+msgstr "Orden de bloque"
+
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1845
 msgid "Block user based on Email, IP, State, Country, Zipcode, and Domain."
 msgstr ""
 "Bloquear al usuario según el correo electrónico, la dirección IP, el estado, "
 "el país, el código postal y el dominio."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1695
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1846
 msgid "Block user from web centralize data using API."
 msgstr "Bloquear al usuario de la web centralizar datos usando API."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1497
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1648
 msgid "Block Users Lite"
 msgstr "Bloquear usuarios Lite"
 
@@ -477,9 +489,9 @@ msgstr "Bloquear usuarios con múltiples actividades"
 msgid "Blocked User List"
 msgstr "Lista de usuarios bloqueados"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1390
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1391
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1392
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1541
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1542
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1543
 msgid "Blocked Users"
 msgstr "Usuarios bloqueados"
 
@@ -511,12 +523,16 @@ msgid "Browse Blacklisted User Details"
 msgstr "Examinar los detalles de los usuarios en la lista negra"
 
 #: admin/partials/wcblu-general-settings.php:108
-#: admin/partials/wcblu-general-settings.php:576
+#: admin/partials/wcblu-general-settings.php:634
 msgid "Cancel Score"
 msgstr "Cancelar puntuación"
 
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3886
+msgid "Captcha"
+msgstr "Captcha"
+
 #: admin/partials/wcblu-general-settings.php:85
-#: admin/partials/wcblu-general-settings.php:535
+#: admin/partials/wcblu-general-settings.php:593
 msgid "Change Order Status based on Risk Score"
 msgstr "Cambiar el estado de la orden según la puntuación de riesgo"
 
@@ -532,26 +548,26 @@ msgstr ""
 "de usuarios bloqueados. Todos los usuarios bloqueados aparecerán en una "
 "lista con el título de su correo electrónico."
 
-#: admin/partials/wcblu-rule-settings.php:201
-#: admin/partials/wcblu-rule-settings.php:991
+#: admin/partials/wcblu-rule-settings.php:251
+#: admin/partials/wcblu-rule-settings.php:1182
 #| msgid "Check Customer behind Proxy or VPN?"
 msgid "Check Customer behind Proxy or VPN"
 msgstr "Verifique al cliente detrás del proxy o VPN"
 
 #: admin/partials/wcblu-rule-settings.php:32
-#: admin/partials/wcblu-rule-settings.php:757
+#: admin/partials/wcblu-rule-settings.php:881
 #| msgid "Check Customer's First Order?"
 msgid "Check Customer's First Order"
 msgstr "Consultar el primer pedido del cliente"
 
-#: admin/partials/wcblu-rule-settings.php:386
-#: admin/partials/wcblu-rule-settings.php:1265
+#: admin/partials/wcblu-rule-settings.php:436
+#: admin/partials/wcblu-rule-settings.php:1456
 msgid "Check high-risk countries using user IP."
 msgstr ""
 "Compruebe los países de alto riesgo utilizando la IP del usuario.\n"
 
 #: admin/partials/wcblu-rule-settings.php:69
-#: admin/partials/wcblu-rule-settings.php:810
+#: admin/partials/wcblu-rule-settings.php:935
 #| msgid "Check If First Orders in Processing State?"
 msgid "Check If First Orders in Processing State"
 msgstr "Compruebe si los primeros pedidos están en estado de procesamiento"
@@ -561,6 +577,16 @@ msgstr "Compruebe si los primeros pedidos están en estado de procesamiento"
 #: includes/woocommerce-blocker-admin-functions.php:626
 msgid "Click here to download demo file"
 msgstr "Haga clic aquí para descargar el archivo de demostración"
+
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1325
+msgid ""
+"Click the button below to block this order. The customer's details (name, "
+"email, and IP) will be added to the blacklist, preventing future order "
+"placements."
+msgstr ""
+"Haga clic en el botón a continuación para bloquear este pedido. Los datos "
+"del cliente (nombre, correo electrónico e IP) se añadirán a la lista negra, "
+"impidiendo realizar futuros pedidos."
 
 #: admin/partials/dots-upgrade-dashboard.php:154
 msgid "Close"
@@ -577,6 +603,19 @@ msgstr "Niveles de umbral de riesgo configurables"
 msgid "Continue"
 msgstr "Continuar"
 
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4070
+msgid "Could not get response from recaptcha server, please refresh page."
+msgstr ""
+"No se pudo obtener respuesta del servidor recaptcha, actualice la página."
+
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3972
+msgid "Could not get response from recaptcha server."
+msgstr "No se pudo obtener respuesta del servidor recaptcha."
+
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3979
+msgid "Could not verify request."
+msgstr "No se pudo verificar la solicitud."
+
 #: includes/woocommerce-blocker-admin-functions.php:512
 #: includes/woocommerce-blocker-admin-functions.php:1236
 msgid "Country"
@@ -586,6 +625,11 @@ msgstr "País"
 #: includes/woocommerce-blocker-admin-functions.php:1360
 msgid "Country error message"
 msgstr "Mensaje de error de país"
+
+#: admin/partials/wcblu-rule-settings.php:743
+#: admin/partials/wcblu-rule-settings.php:1932
+msgid "Current Time: "
+msgstr "Hora actual:"
 
 #: admin/partials/dots-upgrade-dashboard.php:238
 msgid "Customer Profile Image"
@@ -607,7 +651,7 @@ msgstr ""
 "necesidades y preferencias específicas."
 
 #: admin/partials/wcblu-general-settings.php:73
-#: admin/partials/wcblu-general-settings.php:518
+#: admin/partials/wcblu-general-settings.php:576
 msgid ""
 "Customize the message displayed when a fraud check is triggered and block "
 "users at checkout"
@@ -623,24 +667,24 @@ msgstr "Panel"
 msgid "Dashboard EDD"
 msgstr "Tablero EDD"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1376
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1527
 msgid "Data has been successfully imported!"
 msgstr "¡Los datos se han importado correctamente!"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1519
-#: admin/partials/wcblu-general-settings.php:434
-#: admin/partials/wcblu-rule-settings.php:736
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1670
+#: admin/partials/wcblu-general-settings.php:492
+#: admin/partials/wcblu-rule-settings.php:860
 #| msgid "Data hase been updated."
 msgid "Data has been updated."
 msgstr "Se actualizaron los datos."
 
-#: admin/partials/wcblu-rule-settings.php:267
-#: admin/partials/wcblu-rule-settings.php:1089
+#: admin/partials/wcblu-rule-settings.php:317
+#: admin/partials/wcblu-rule-settings.php:1280
 msgid "Days to check past IP and physical addresses"
 msgstr "Días para comprobar direcciones IP y físicas anteriores"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:317
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1824
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:355
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1975
 msgid "Delete Permanently"
 msgstr "borrar permanentemente"
 
@@ -652,7 +696,7 @@ msgstr "Informes detallados de pedidos fraudulentos del panel"
 msgid "Discover Our Top Key Features"
 msgstr "Descubra nuestras principales características clave"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1699
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1850
 msgid ""
 "Display blocked users report and admin can check how many time they tried to "
 "website."
@@ -660,7 +704,7 @@ msgstr ""
 "Muestra el informe de usuarios bloqueados y el administrador puede verificar "
 "cuántas veces intentaron visitar el sitio web."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1698
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1849
 msgid ""
 "Display standard WooCommerce notices, error messages can be customized via "
 "back-end settings."
@@ -676,9 +720,14 @@ msgstr "hacer el cortejo"
 msgid "Do you offer support for the plugin? What’s it like?"
 msgstr "¿Ofrecen soporte para el complemento? ¿Cómo es?"
 
-#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:301
+#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:346
 msgid "Docs"
 msgstr "Docs"
+
+#: admin/partials/wcblu-rule-settings.php:198
+#: admin/partials/wcblu-rule-settings.php:1113
+msgid "Does Geo Location Match?"
+msgstr "¿Coincide la ubicación geográfica?"
 
 #: includes/woocommerce-blocker-admin-functions.php:351
 #: includes/woocommerce-blocker-admin-functions.php:1154
@@ -703,13 +752,13 @@ msgstr "Mensaje de error de extensión de dominio"
 msgid "Done"
 msgstr "Hecho"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1461
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1612
 #| msgid "DotStore Plugins"
 msgid "Dotstore Plugins"
 msgstr "Dotstore Plugins"
 
 #: admin/partials/wcblu-rule-settings.php:19
-#: admin/partials/wcblu-rule-settings.php:744
+#: admin/partials/wcblu-rule-settings.php:868
 msgid ""
 "Each rule that is matched will add the configured \"Rule Weight\" value to "
 "the overall fraud score. In this section you can configure general fraud "
@@ -719,7 +768,7 @@ msgstr ""
 "la puntuación de fraude general. En esta sección podrás configurar reglas "
 "generales de detección de fraude."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1701
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1852
 msgid "Easy to use interface to create and review blacklist rules."
 msgstr "Interfaz fácil de usar para crear y revisar reglas de listas negras."
 
@@ -727,22 +776,22 @@ msgstr "Interfaz fácil de usar para crear y revisar reglas de listas negras."
 msgid "Easy to Whitelist Exclusive Emails"
 msgstr "Correos electrónicos exclusivos fáciles de incluir en la lista blanca"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1395
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1546
 msgid "Edit"
 msgstr "Editar"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1396
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1547
 msgid "Edit Block User"
 msgstr "Editar usuario de bloque"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:293
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:331
 #: includes/woocommerce-blocker-admin-functions.php:141
 #: includes/woocommerce-blocker-admin-functions.php:1062
 msgid "Email"
 msgstr "Correo electrónico"
 
 #: admin/partials/wcblu-general-settings.php:305
-#: admin/partials/wcblu-general-settings.php:824
+#: admin/partials/wcblu-general-settings.php:882
 msgid ""
 "Email addresses listed above will not be subject to fraud checks. Enter one "
 "email address per line."
@@ -752,7 +801,7 @@ msgstr ""
 "electrónico por línea."
 
 #: admin/partials/wcblu-general-settings.php:226
-#: admin/partials/wcblu-general-settings.php:716
+#: admin/partials/wcblu-general-settings.php:774
 msgid "Email Alerts"
 msgstr "Alertas por correo electrónico"
 
@@ -761,17 +810,17 @@ msgstr "Alertas por correo electrónico"
 msgid "Email error message"
 msgstr "Mensaje de error de correo electrónico"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1745
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1896
 msgid "Email id"
 msgstr "Identificación de correo"
 
 #: admin/partials/wcblu-general-settings.php:249
-#: admin/partials/wcblu-general-settings.php:757
+#: admin/partials/wcblu-general-settings.php:815
 msgid "Email Notification Score"
 msgstr "Puntuación de notificación por correo electrónico"
 
 #: admin/partials/wcblu-general-settings.php:303
-#: admin/partials/wcblu-general-settings.php:822
+#: admin/partials/wcblu-general-settings.php:880
 msgid "Email Whitelist"
 msgstr "Lista blanca de correo electrónico"
 
@@ -782,7 +831,7 @@ msgid "Emails Blocked"
 msgstr "Correos electrónicos bloqueados"
 
 #: admin/partials/wcblu-general-settings.php:23
-#: admin/partials/wcblu-general-settings.php:447
+#: admin/partials/wcblu-general-settings.php:505
 msgid "Enable Automatic Fraud Check"
 msgstr "Habilitar verificación automática de fraude"
 
@@ -791,19 +840,29 @@ msgid "Enable external blacklist"
 msgstr "Habilitar lista negra externa"
 
 #: admin/partials/wcblu-general-settings.php:370
-#: admin/partials/wcblu-general-settings.php:983
+#: admin/partials/wcblu-general-settings.php:1041
 msgid "Enable IP Whitelisting"
 msgstr "Habilitar la lista blanca de IP"
 
 #: admin/partials/wcblu-general-settings.php:326
-#: admin/partials/wcblu-general-settings.php:860
+#: admin/partials/wcblu-general-settings.php:918
 msgid "Enable Payment Method Whitelisting"
 msgstr "Habilitar la lista blanca de métodos de pago"
 
 #: admin/partials/wcblu-rule-settings.php:158
-#: admin/partials/wcblu-rule-settings.php:932
+#: admin/partials/wcblu-rule-settings.php:1057
 msgid "Enable phone number and billing country check"
 msgstr "Habilitar verificación de número de teléfono y país de facturación"
+
+#: admin/partials/wcblu-general-settings.php:387
+#: admin/partials/wcblu-general-settings.php:1059
+msgid "Enable reCAPTCHA"
+msgstr "Habilitar reCAPTCHA"
+
+#: admin/partials/wcblu-general-settings.php:389
+#: admin/partials/wcblu-general-settings.php:1061
+msgid "Enable reCAPTCHA on checkout page"
+msgstr "Habilite reCAPTCHA en la página de pago"
 
 #: admin/partials/dots-upgrade-dashboard.php:113
 #| msgid ""
@@ -817,12 +876,12 @@ msgstr ""
 "innecesarias ni verificaciones adicionales."
 
 #: admin/partials/wcblu-general-settings.php:92
-#: admin/partials/wcblu-general-settings.php:542
+#: admin/partials/wcblu-general-settings.php:600
 msgid "Enable Update Order Status"
 msgstr "Habilitar estado de orden de actualización"
 
 #: admin/partials/wcblu-general-settings.php:348
-#: admin/partials/wcblu-general-settings.php:931
+#: admin/partials/wcblu-general-settings.php:989
 msgid "Enable User Roles Whitelisting"
 msgstr "Habilitar la lista blanca de roles de usuario"
 
@@ -843,6 +902,11 @@ msgstr ""
 #: includes/woocommerce-blocker-admin-functions.php:912
 msgid "Enble external black list"
 msgstr "Enble lista negra externa"
+
+#: admin/partials/wcblu-rule-settings.php:736
+#: admin/partials/wcblu-rule-settings.php:1925
+msgid "End Time"
+msgstr "Hora de finalización"
 
 #: includes/woocommerce-blocker-admin-functions.php:829
 msgid ""
@@ -923,7 +987,7 @@ msgstr ""
 msgid "Export"
 msgstr "Exportar"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1324
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1475
 msgid "Export Done!"
 msgstr "¡Exportación hecha!"
 
@@ -954,7 +1018,7 @@ msgid "First name error message"
 msgstr "Mensaje de error de nombre"
 
 #: admin/partials/wcblu-rule-settings.php:24
-#: admin/partials/wcblu-rule-settings.php:749
+#: admin/partials/wcblu-rule-settings.php:873
 msgid "First Time Purchase Rules"
 msgstr "Reglas de compra por primera vez"
 
@@ -972,22 +1036,22 @@ msgstr ""
 "Para el bloqueo de números comodines, agregue (*) después de los dígitos."
 
 #: admin/partials/wcblu-general-settings.php:66
-#: admin/partials/wcblu-general-settings.php:511
+#: admin/partials/wcblu-general-settings.php:569
 msgid "Fraud check before payment"
 msgstr "Comprobación de fraude antes del pago"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1808
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1869
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1894
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1934
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1995
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2020
 msgid "Fraud check done."
 msgstr "Comprobación de fraude realizada."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1104
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1191
 msgid "Fraud Risk"
 msgstr "Riesgo de fraude"
 
 #: admin/partials/wcblu-general-settings.php:31
-#: admin/partials/wcblu-general-settings.php:455
+#: admin/partials/wcblu-general-settings.php:513
 msgid "Fraud Score Check"
 msgstr "Comprobación de puntuación de fraude"
 
@@ -998,15 +1062,21 @@ msgid "Fraudulent Orders Cancelled"
 msgstr "Pedidos fraudulentos cancelados"
 
 #: admin/partials/wcblu-rule-settings.php:18
-#: admin/partials/wcblu-rule-settings.php:743
+#: admin/partials/wcblu-rule-settings.php:867
 msgid "General Rules"
 msgstr "Reglas generales"
 
 #: admin/partials/header/plugin-header.php:143
 #: admin/partials/wcblu-general-settings.php:15
-#: admin/partials/wcblu-general-settings.php:438
+#: admin/partials/wcblu-general-settings.php:496
 msgid "General Settings"
 msgstr "Configuración general"
+
+#: admin/partials/wcblu-rule-settings.php:220
+#: admin/partials/wcblu-rule-settings.php:1151
+msgid "Get 50K free requests/month, upgrade anytime."
+msgstr ""
+"Obtenga 50.000 solicitudes gratuitas al mes y actualice en cualquier momento."
 
 #: admin/partials/dots-plugin-setup-wizard.php:37
 msgid ""
@@ -1028,13 +1098,18 @@ msgstr "Hazte premium"
 msgid "Get The Premium Version"
 msgstr "Obtenga la versión premium"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1669
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1820
 msgid ""
 "Go to Woocommerce Blocker - Prevent fake orders and Blacklist fraud "
 "customers Settings"
 msgstr ""
 "Vaya a Woocommerce Blocker: evite pedidos falsos y la configuración de "
 "clientes fraudulentos en la lista negra"
+
+#: admin/partials/wcblu-general-settings.php:380
+#: admin/partials/wcblu-general-settings.php:1052
+msgid "Google reCAPTCHA Settings"
+msgstr "Configuración de reCAPTCHA de Google"
 
 #: admin/partials/dots-upgrade-dashboard.php:212
 msgid "Great for website owners with a single WooCommerce Store"
@@ -1053,53 +1128,57 @@ msgstr ""
 #: admin/partials/wcblu-general-settings.php:165
 #: admin/partials/wcblu-general-settings.php:215
 #: admin/partials/wcblu-general-settings.php:273
-#: admin/partials/wcblu-general-settings.php:611
-#: admin/partials/wcblu-general-settings.php:655
-#: admin/partials/wcblu-general-settings.php:705
-#: admin/partials/wcblu-general-settings.php:792
+#: admin/partials/wcblu-general-settings.php:669
+#: admin/partials/wcblu-general-settings.php:713
+#: admin/partials/wcblu-general-settings.php:763
+#: admin/partials/wcblu-general-settings.php:850
 #: admin/partials/wcblu-rule-settings.php:60
 #: admin/partials/wcblu-rule-settings.php:97
 #: admin/partials/wcblu-rule-settings.php:146
 #: admin/partials/wcblu-rule-settings.php:186
-#: admin/partials/wcblu-rule-settings.php:229
-#: admin/partials/wcblu-rule-settings.php:282
-#: admin/partials/wcblu-rule-settings.php:333
-#: admin/partials/wcblu-rule-settings.php:373
-#: admin/partials/wcblu-rule-settings.php:433
-#: admin/partials/wcblu-rule-settings.php:491
-#: admin/partials/wcblu-rule-settings.php:532
-#: admin/partials/wcblu-rule-settings.php:580
-#: admin/partials/wcblu-rule-settings.php:626
-#: admin/partials/wcblu-rule-settings.php:801
-#: admin/partials/wcblu-rule-settings.php:854
-#: admin/partials/wcblu-rule-settings.php:920
-#: admin/partials/wcblu-rule-settings.php:976
-#: admin/partials/wcblu-rule-settings.php:1035
-#: admin/partials/wcblu-rule-settings.php:1104
-#: admin/partials/wcblu-rule-settings.php:1171
-#: admin/partials/wcblu-rule-settings.php:1227
-#: admin/partials/wcblu-rule-settings.php:1328
-#: admin/partials/wcblu-rule-settings.php:1484
-#: admin/partials/wcblu-rule-settings.php:1539
-#: admin/partials/wcblu-rule-settings.php:1601
-#: admin/partials/wcblu-rule-settings.php:1660
+#: admin/partials/wcblu-rule-settings.php:236
+#: admin/partials/wcblu-rule-settings.php:279
+#: admin/partials/wcblu-rule-settings.php:332
+#: admin/partials/wcblu-rule-settings.php:383
+#: admin/partials/wcblu-rule-settings.php:423
+#: admin/partials/wcblu-rule-settings.php:483
+#: admin/partials/wcblu-rule-settings.php:541
+#: admin/partials/wcblu-rule-settings.php:582
+#: admin/partials/wcblu-rule-settings.php:630
+#: admin/partials/wcblu-rule-settings.php:676
+#: admin/partials/wcblu-rule-settings.php:721
+#: admin/partials/wcblu-rule-settings.php:926
+#: admin/partials/wcblu-rule-settings.php:979
+#: admin/partials/wcblu-rule-settings.php:1045
+#: admin/partials/wcblu-rule-settings.php:1101
+#: admin/partials/wcblu-rule-settings.php:1167
+#: admin/partials/wcblu-rule-settings.php:1226
+#: admin/partials/wcblu-rule-settings.php:1295
+#: admin/partials/wcblu-rule-settings.php:1362
+#: admin/partials/wcblu-rule-settings.php:1418
+#: admin/partials/wcblu-rule-settings.php:1519
+#: admin/partials/wcblu-rule-settings.php:1675
+#: admin/partials/wcblu-rule-settings.php:1730
+#: admin/partials/wcblu-rule-settings.php:1792
+#: admin/partials/wcblu-rule-settings.php:1852
+#: admin/partials/wcblu-rule-settings.php:1910
 msgid "High Importance"
 msgstr "Alta importancia"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1164
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1248
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1253
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1399
 #: admin/partials/dots-dashboard.php:170
 #: admin/partials/dots-edd-dashboard.php:155
 msgid "High Risk"
 msgstr "Alto riesgo"
 
 #: admin/partials/wcblu-general-settings.php:197
-#: admin/partials/wcblu-general-settings.php:687
+#: admin/partials/wcblu-general-settings.php:745
 msgid "High Risk threshold"
 msgstr "Umbral de alto riesgo"
 
-#: admin/partials/wcblu-rule-settings.php:398
-#: admin/partials/wcblu-rule-settings.php:1277
+#: admin/partials/wcblu-rule-settings.php:448
+#: admin/partials/wcblu-rule-settings.php:1468
 msgid "High-Risk Email Domains"
 msgstr "Dominios de correo electrónico de alto riesgo"
 
@@ -1124,7 +1203,7 @@ msgid "I have more questions…"
 msgstr "Tengo más preguntas..."
 
 #: admin/partials/wcblu-general-settings.php:33
-#: admin/partials/wcblu-general-settings.php:457
+#: admin/partials/wcblu-general-settings.php:515
 msgid ""
 "If this is enabled, the fraud check will automatically check for all rules "
 "and general settings, count the score and prevent the fraud orders."
@@ -1134,7 +1213,7 @@ msgstr ""
 "puntaje y evitará las órdenes de fraude."
 
 #: admin/partials/wcblu-general-settings.php:94
-#: admin/partials/wcblu-general-settings.php:544
+#: admin/partials/wcblu-general-settings.php:602
 msgid ""
 "If this is enabled, the order status will be updated as score value's status."
 msgstr ""
@@ -1142,7 +1221,7 @@ msgstr ""
 "valor de la puntuación."
 
 #: admin/partials/wcblu-general-settings.php:57
-#: admin/partials/wcblu-general-settings.php:481
+#: admin/partials/wcblu-general-settings.php:539
 msgid ""
 "If this is enabled, this option will prevent the customer to place an order "
 "at the checkout page if the fraud score is equal to or higher than a high "
@@ -1186,13 +1265,18 @@ msgstr ""
 "En esta sección puede agregar sus mensajes personalizados O nuestro mensaje "
 "se imprimirá por defecto."
 
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3961
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4056
+msgid "Invalid recaptcha."
+msgstr "Recaptcha no válido."
+
 #: includes/woocommerce-blocker-admin-functions.php:325
 #: includes/woocommerce-blocker-admin-functions.php:1129
 msgid "IP address"
 msgstr "dirección IP"
 
 #: admin/partials/wcblu-general-settings.php:361
-#: admin/partials/wcblu-general-settings.php:958
+#: admin/partials/wcblu-general-settings.php:1016
 msgid ""
 "IP addresses listed above will not be subject to fraud checks. Enter one IP "
 "address per line."
@@ -1206,27 +1290,27 @@ msgid "IP error message"
 msgstr "Mensaje de error de IP"
 
 #: admin/partials/wcblu-general-settings.php:359
-#: admin/partials/wcblu-general-settings.php:956
+#: admin/partials/wcblu-general-settings.php:1014
 msgid "IP Whitelisting"
 msgstr "Lista blanca de IP"
 
 #: admin/partials/wcblu-rule-settings.php:108
-#: admin/partials/wcblu-rule-settings.php:865
+#: admin/partials/wcblu-rule-settings.php:990
 msgid "IP, Billing and Shipping Address-based Rules"
 msgstr "Reglas basadas en direcciones IP, de facturación y de envío"
 
-#: admin/partials/wcblu-rule-settings.php:305
-#: admin/partials/wcblu-rule-settings.php:1127
+#: admin/partials/wcblu-rule-settings.php:355
+#: admin/partials/wcblu-rule-settings.php:1318
 msgid "Is International Order?"
 msgstr "¿Es Orden Internacional?"
 
-#: admin/partials/wcblu-rule-settings.php:345
-#: admin/partials/wcblu-rule-settings.php:1183
+#: admin/partials/wcblu-rule-settings.php:395
+#: admin/partials/wcblu-rule-settings.php:1374
 msgid "Is order from high-risk country?"
 msgstr "¿Es el pedido de un país de alto riesgo?"
 
-#: admin/partials/wcblu-rule-settings.php:405
-#: admin/partials/wcblu-rule-settings.php:1284
+#: admin/partials/wcblu-rule-settings.php:455
+#: admin/partials/wcblu-rule-settings.php:1475
 #| msgid "Is suspicious email domain?"
 msgid "Is suspicious email domain"
 msgstr "¿Es un dominio de correo electrónico sospechoso?"
@@ -1241,7 +1325,7 @@ msgstr ""
 msgid "It will show the risk icon on the order listing page."
 msgstr "Mostrará el icono de riesgo en la página de listado de pedidos."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1691
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1842
 msgid "Key Features:"
 msgstr "Características principales:"
 
@@ -1277,12 +1361,17 @@ msgstr "LearnWoo"
 msgid "License"
 msgstr "Licencia"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1702
+#: admin/partials/wcblu-rule-settings.php:692
+#: admin/partials/wcblu-rule-settings.php:1868
+msgid "Limit Number of Orders between Time"
+msgstr "Limitar el número de órdenes entre el tiempo"
+
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1853
 msgid "Localization compatible."
 msgstr "Compatible con la localización."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1158
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1242
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1247
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1393
 #: admin/partials/dots-dashboard.php:153 admin/partials/dots-dashboard.php:332
 #: admin/partials/dots-edd-dashboard.php:138
 #: admin/partials/dots-edd-dashboard.php:363
@@ -1294,8 +1383,13 @@ msgstr "Riesgo bajo"
 msgid "Low Risk 🔒"
 msgstr "Bajo riesgo 🔒"
 
-#: admin/partials/wcblu-rule-settings.php:591
-#: admin/partials/wcblu-rule-settings.php:1612
+#: admin/partials/wcblu-rule-settings.php:728
+#: admin/partials/wcblu-rule-settings.php:1917
+msgid "Maximum Allowed Number of Orders Between Time"
+msgstr "Número máximo permitido de pedidos entre momentos"
+
+#: admin/partials/wcblu-rule-settings.php:641
+#: admin/partials/wcblu-rule-settings.php:1803
 msgid ""
 "Maximum number of orders that a user can make in the specified time span"
 msgstr ""
@@ -1306,8 +1400,8 @@ msgstr ""
 msgid "Medium"
 msgstr "Medio"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1161
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1245
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1250
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1396
 #: admin/partials/dots-dashboard.php:166 admin/partials/dots-dashboard.php:344
 #: admin/partials/dots-edd-dashboard.php:151
 #: admin/partials/dots-edd-dashboard.php:375
@@ -1321,7 +1415,7 @@ msgid "Medium Risk Orders"
 msgstr "Órdenes de riesgo medio"
 
 #: admin/partials/wcblu-general-settings.php:193
-#: admin/partials/wcblu-general-settings.php:683
+#: admin/partials/wcblu-general-settings.php:741
 msgid "Medium Risk threshold"
 msgstr "Umbral de riesgo medio"
 
@@ -1331,7 +1425,7 @@ msgid "Medium Risk 🔒"
 msgstr "Riesgo medio 🔒"
 
 #: admin/partials/wcblu-general-settings.php:71
-#: admin/partials/wcblu-general-settings.php:516
+#: admin/partials/wcblu-general-settings.php:574
 msgid "Message for Blocked users"
 msgstr "Mensaje para usuarios bloqueadas"
 
@@ -1339,36 +1433,40 @@ msgstr "Mensaje para usuarios bloqueadas"
 #: admin/partials/wcblu-general-settings.php:162
 #: admin/partials/wcblu-general-settings.php:212
 #: admin/partials/wcblu-general-settings.php:270
-#: admin/partials/wcblu-general-settings.php:608
-#: admin/partials/wcblu-general-settings.php:652
-#: admin/partials/wcblu-general-settings.php:702
-#: admin/partials/wcblu-general-settings.php:789
+#: admin/partials/wcblu-general-settings.php:666
+#: admin/partials/wcblu-general-settings.php:710
+#: admin/partials/wcblu-general-settings.php:760
+#: admin/partials/wcblu-general-settings.php:847
 #: admin/partials/wcblu-rule-settings.php:57
 #: admin/partials/wcblu-rule-settings.php:94
 #: admin/partials/wcblu-rule-settings.php:143
 #: admin/partials/wcblu-rule-settings.php:183
-#: admin/partials/wcblu-rule-settings.php:226
-#: admin/partials/wcblu-rule-settings.php:279
-#: admin/partials/wcblu-rule-settings.php:330
-#: admin/partials/wcblu-rule-settings.php:370
-#: admin/partials/wcblu-rule-settings.php:430
-#: admin/partials/wcblu-rule-settings.php:488
-#: admin/partials/wcblu-rule-settings.php:529
-#: admin/partials/wcblu-rule-settings.php:577
-#: admin/partials/wcblu-rule-settings.php:623
-#: admin/partials/wcblu-rule-settings.php:798
-#: admin/partials/wcblu-rule-settings.php:851
-#: admin/partials/wcblu-rule-settings.php:917
-#: admin/partials/wcblu-rule-settings.php:973
-#: admin/partials/wcblu-rule-settings.php:1032
-#: admin/partials/wcblu-rule-settings.php:1101
-#: admin/partials/wcblu-rule-settings.php:1168
-#: admin/partials/wcblu-rule-settings.php:1224
-#: admin/partials/wcblu-rule-settings.php:1325
-#: admin/partials/wcblu-rule-settings.php:1481
-#: admin/partials/wcblu-rule-settings.php:1536
-#: admin/partials/wcblu-rule-settings.php:1598
-#: admin/partials/wcblu-rule-settings.php:1657
+#: admin/partials/wcblu-rule-settings.php:233
+#: admin/partials/wcblu-rule-settings.php:276
+#: admin/partials/wcblu-rule-settings.php:329
+#: admin/partials/wcblu-rule-settings.php:380
+#: admin/partials/wcblu-rule-settings.php:420
+#: admin/partials/wcblu-rule-settings.php:480
+#: admin/partials/wcblu-rule-settings.php:538
+#: admin/partials/wcblu-rule-settings.php:579
+#: admin/partials/wcblu-rule-settings.php:627
+#: admin/partials/wcblu-rule-settings.php:673
+#: admin/partials/wcblu-rule-settings.php:718
+#: admin/partials/wcblu-rule-settings.php:923
+#: admin/partials/wcblu-rule-settings.php:976
+#: admin/partials/wcblu-rule-settings.php:1042
+#: admin/partials/wcblu-rule-settings.php:1098
+#: admin/partials/wcblu-rule-settings.php:1164
+#: admin/partials/wcblu-rule-settings.php:1223
+#: admin/partials/wcblu-rule-settings.php:1292
+#: admin/partials/wcblu-rule-settings.php:1359
+#: admin/partials/wcblu-rule-settings.php:1415
+#: admin/partials/wcblu-rule-settings.php:1516
+#: admin/partials/wcblu-rule-settings.php:1672
+#: admin/partials/wcblu-rule-settings.php:1727
+#: admin/partials/wcblu-rule-settings.php:1789
+#: admin/partials/wcblu-rule-settings.php:1849
+#: admin/partials/wcblu-rule-settings.php:1907
 msgid "Moderate"
 msgstr "Moderada"
 
@@ -1385,13 +1483,13 @@ msgstr ""
 msgid "month"
 msgstr "month"
 
-#: admin/partials/wcblu-rule-settings.php:597
-#: admin/partials/wcblu-rule-settings.php:1618
+#: admin/partials/wcblu-rule-settings.php:647
+#: admin/partials/wcblu-rule-settings.php:1810
 msgid "Multiple Failed order attempts?"
 msgstr "¿Múltiples intentos de pedido fallidos?"
 
-#: admin/partials/wcblu-rule-settings.php:243
-#: admin/partials/wcblu-rule-settings.php:1049
+#: admin/partials/wcblu-rule-settings.php:293
+#: admin/partials/wcblu-rule-settings.php:1240
 msgid "Multiple Orders Attempts using Different Addresses from Same IP "
 msgstr ""
 "Múltiples intentos de pedidos utilizando diferentes direcciones de la misma "
@@ -1415,27 +1513,32 @@ msgstr "Necesita atención 🔒"
 msgid "Never miss an important update"
 msgstr "Nunca te pierdas una actualización importante"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1397
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1548
 msgid "New Block User"
 msgstr "Nuevo usuario de bloque"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1401
+#: admin/partials/wcblu-rule-settings.php:216
+#: admin/partials/wcblu-rule-settings.php:1147
+msgid "No BigDataCloud account?"
+msgstr "¿No tienes una cuenta de BigDataCloud?"
+
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1552
 msgid "No Block User found"
 msgstr "No se encontró ningún usuario de bloque"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1402
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1553
 msgid "No Block User found in Trash"
 msgstr "No se ha encontrado ningún usuario de bloqueo en la papelera"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1311
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1462
 msgid "No data to export! please setup setting then export."
 msgstr ""
 "¡No hay datos para exportar! por favor configure la configuración y luego "
 "exporte."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:505
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:561
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:616
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:543
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:599
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:654
 msgid "No file selected"
 msgstr "Ningún archivo seleccionado"
 
@@ -1448,36 +1551,40 @@ msgstr "Aún no se ha realizado ninguna verificación de fraude en este pedido."
 #: admin/partials/wcblu-general-settings.php:159
 #: admin/partials/wcblu-general-settings.php:209
 #: admin/partials/wcblu-general-settings.php:267
-#: admin/partials/wcblu-general-settings.php:605
-#: admin/partials/wcblu-general-settings.php:649
-#: admin/partials/wcblu-general-settings.php:699
-#: admin/partials/wcblu-general-settings.php:786
+#: admin/partials/wcblu-general-settings.php:663
+#: admin/partials/wcblu-general-settings.php:707
+#: admin/partials/wcblu-general-settings.php:757
+#: admin/partials/wcblu-general-settings.php:844
 #: admin/partials/wcblu-rule-settings.php:54
 #: admin/partials/wcblu-rule-settings.php:91
 #: admin/partials/wcblu-rule-settings.php:140
 #: admin/partials/wcblu-rule-settings.php:180
-#: admin/partials/wcblu-rule-settings.php:223
-#: admin/partials/wcblu-rule-settings.php:276
-#: admin/partials/wcblu-rule-settings.php:327
-#: admin/partials/wcblu-rule-settings.php:367
-#: admin/partials/wcblu-rule-settings.php:427
-#: admin/partials/wcblu-rule-settings.php:485
-#: admin/partials/wcblu-rule-settings.php:526
-#: admin/partials/wcblu-rule-settings.php:574
-#: admin/partials/wcblu-rule-settings.php:620
-#: admin/partials/wcblu-rule-settings.php:795
-#: admin/partials/wcblu-rule-settings.php:848
-#: admin/partials/wcblu-rule-settings.php:914
-#: admin/partials/wcblu-rule-settings.php:970
-#: admin/partials/wcblu-rule-settings.php:1029
-#: admin/partials/wcblu-rule-settings.php:1098
-#: admin/partials/wcblu-rule-settings.php:1165
-#: admin/partials/wcblu-rule-settings.php:1221
-#: admin/partials/wcblu-rule-settings.php:1322
-#: admin/partials/wcblu-rule-settings.php:1478
-#: admin/partials/wcblu-rule-settings.php:1533
-#: admin/partials/wcblu-rule-settings.php:1595
-#: admin/partials/wcblu-rule-settings.php:1654
+#: admin/partials/wcblu-rule-settings.php:230
+#: admin/partials/wcblu-rule-settings.php:273
+#: admin/partials/wcblu-rule-settings.php:326
+#: admin/partials/wcblu-rule-settings.php:377
+#: admin/partials/wcblu-rule-settings.php:417
+#: admin/partials/wcblu-rule-settings.php:477
+#: admin/partials/wcblu-rule-settings.php:535
+#: admin/partials/wcblu-rule-settings.php:576
+#: admin/partials/wcblu-rule-settings.php:624
+#: admin/partials/wcblu-rule-settings.php:670
+#: admin/partials/wcblu-rule-settings.php:715
+#: admin/partials/wcblu-rule-settings.php:920
+#: admin/partials/wcblu-rule-settings.php:973
+#: admin/partials/wcblu-rule-settings.php:1039
+#: admin/partials/wcblu-rule-settings.php:1095
+#: admin/partials/wcblu-rule-settings.php:1161
+#: admin/partials/wcblu-rule-settings.php:1220
+#: admin/partials/wcblu-rule-settings.php:1289
+#: admin/partials/wcblu-rule-settings.php:1356
+#: admin/partials/wcblu-rule-settings.php:1412
+#: admin/partials/wcblu-rule-settings.php:1513
+#: admin/partials/wcblu-rule-settings.php:1669
+#: admin/partials/wcblu-rule-settings.php:1724
+#: admin/partials/wcblu-rule-settings.php:1786
+#: admin/partials/wcblu-rule-settings.php:1846
+#: admin/partials/wcblu-rule-settings.php:1904
 msgid "No Importance"
 msgstr "Sin importancia"
 
@@ -1486,12 +1593,12 @@ msgid "No problem, we’re happy to help! Please reach out at %s."
 msgstr ""
 "¡No hay problema, estaremos encantados de ayudarte! Comuníquese con %s."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1768
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1919
 msgid "No Record Found"
 msgstr "ningún record fue encontrado"
 
 #: admin/partials/wcblu-general-settings.php:141
-#: admin/partials/wcblu-general-settings.php:620
+#: admin/partials/wcblu-general-settings.php:678
 msgid "On-Hold Score"
 msgstr "Puntuación en espera"
 
@@ -1513,18 +1620,18 @@ msgstr ""
 msgid "OR"
 msgstr "O"
 
-#: admin/partials/wcblu-rule-settings.php:463
-#: admin/partials/wcblu-rule-settings.php:1439
+#: admin/partials/wcblu-rule-settings.php:513
+#: admin/partials/wcblu-rule-settings.php:1630
 msgid "Order amount above average?"
 msgstr "¿Cantidad del pedido superior a la media?"
 
-#: admin/partials/wcblu-rule-settings.php:456
-#: admin/partials/wcblu-rule-settings.php:1432
+#: admin/partials/wcblu-rule-settings.php:506
+#: admin/partials/wcblu-rule-settings.php:1623
 msgid "Order Amounts and Attempts "
 msgstr "Montos de pedidos e intentos "
 
-#: admin/partials/wcblu-rule-settings.php:504
-#: admin/partials/wcblu-rule-settings.php:1497
+#: admin/partials/wcblu-rule-settings.php:554
+#: admin/partials/wcblu-rule-settings.php:1688
 #| msgid "Order exceeds maximum?"
 msgid "Order exceeds maximum"
 msgstr "El pedido supera el máximo"
@@ -1540,7 +1647,7 @@ msgid "Orders Detected 🔒"
 msgstr "Pedidos detectados 🔒"
 
 #: admin/partials/wcblu-general-settings.php:110
-#: admin/partials/wcblu-general-settings.php:578
+#: admin/partials/wcblu-general-settings.php:636
 msgid ""
 "Orders with a score equal to or greater than this number will be "
 "automatically cancelled. Select 0 to disable."
@@ -1549,7 +1656,7 @@ msgstr ""
 "automáticamente. Seleccione 0 para deshabilitar."
 
 #: admin/partials/wcblu-general-settings.php:143
-#: admin/partials/wcblu-general-settings.php:622
+#: admin/partials/wcblu-general-settings.php:680
 msgid ""
 "Orders with a score equal to or greater than this number will be "
 "automatically set on hold. Select 0 to disable."
@@ -1557,8 +1664,8 @@ msgstr ""
 "Los pedidos con una puntuación igual o superior a este número se pondrán "
 "automáticamente en espera. Seleccione 0 para deshabilitar."
 
-#: admin/partials/wcblu-rule-settings.php:298
-#: admin/partials/wcblu-rule-settings.php:1120
+#: admin/partials/wcblu-rule-settings.php:348
+#: admin/partials/wcblu-rule-settings.php:1311
 msgid "Origin Countries"
 msgstr "Países de origen"
 
@@ -1578,7 +1685,7 @@ msgstr ""
 "permite un enfoque personalizado para detectar y bloquear actividades "
 "sospechosas en la tienda."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1403
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1554
 msgid "Parent Block User Listing"
 msgstr "Listado de usuarios del bloque principal"
 
@@ -1586,8 +1693,8 @@ msgstr "Listado de usuarios del bloque principal"
 msgid "Pay $%s today. Renews in 12 months."
 msgstr "Paga $%s hoy. Se renueva en 12 meses."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2245
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2362
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2382
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2519
 msgid "Payment Method is Whitelisted."
 msgstr "El método de pago está en la lista blanca."
 
@@ -1623,19 +1730,19 @@ msgstr "Mensaje de error del número de teléfono"
 msgid "Place order"
 msgstr "Realizar pedido"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:117
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:186
 msgid "Please add email address to place order"
 msgstr "Agregue la dirección de correo electrónico para realizar el pedido"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:120
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:158
 msgid "Please add JSON file"
 msgstr "Agregue un archivo JSON"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1351
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1502
 msgid "Please add JSON file!"
 msgstr "¡Agregue un archivo JSON!"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:124
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:193
 msgid "Please add valid email address to place order"
 msgstr ""
 "Agregue una dirección de correo electrónico válida para realizar el pedido"
@@ -1648,25 +1755,25 @@ msgstr ""
 "Verifique más detalles, como capturas de pantalla mostradas, una dirección, "
 "la cantidad de intentos, la ubicación donde se prohibió al usuario, etc."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:121
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:159
 msgid "Please choose JSON file"
 msgstr "Elija un archivo JSON"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1484
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1606
 msgid "Please enter email address."
 msgstr "Ingrese la dirección de correo electrónico."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1491
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1613
 msgid "Please enter valid email address"
 msgstr "Por favor ingrese una dirección de correo electrónico válida"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:480
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:536
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:590
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:518
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:574
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:628
 msgid "Please upload a file to import"
 msgstr "Por favor sube un archivo para importar"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1685
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1836
 msgid "Plugin Overview"
 msgstr "Descripción general del complemento"
 
@@ -1675,7 +1782,7 @@ msgid "Plugin Tour"
 msgstr "Tour de complementos"
 
 #: admin/partials/wcblu-general-settings.php:48
-#: admin/partials/wcblu-general-settings.php:472
+#: admin/partials/wcblu-general-settings.php:530
 msgid "Pre-Purchase Assessment"
 msgstr "Evaluación previa a la compra"
 
@@ -1705,6 +1812,15 @@ msgstr "Tour rapido"
 msgid "Read the Setup Guide"
 msgstr "Lea la guía de configuración"
 
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3900
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3976
+msgid "Recaptcha is a required field."
+msgstr "Recaptcha es un campo obligatorio."
+
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4073
+msgid "Recaptcha not responding, please refresh page."
+msgstr "Recaptcha no responde, actualice la página."
+
 #: admin/partials/dots-dashboard.php:368
 #: admin/partials/dots-edd-dashboard.php:399
 msgid "Recent Order Data"
@@ -1732,13 +1848,13 @@ msgstr "Relación"
 msgid "Reset all settings"
 msgstr "Restablecer todos los ajustes"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:465
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:519
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:575
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:503
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:557
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:613
 msgid "Return Code: %1$s %2$s"
 msgstr "Código de retorno: %1$s %2$s"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1747
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1898
 msgid "Review details"
 msgstr "Revisar detalles"
 
@@ -1746,28 +1862,32 @@ msgstr "Revisar detalles"
 #: admin/partials/wcblu-rule-settings.php:82
 #: admin/partials/wcblu-rule-settings.php:131
 #: admin/partials/wcblu-rule-settings.php:171
-#: admin/partials/wcblu-rule-settings.php:214
-#: admin/partials/wcblu-rule-settings.php:263
-#: admin/partials/wcblu-rule-settings.php:318
-#: admin/partials/wcblu-rule-settings.php:358
-#: admin/partials/wcblu-rule-settings.php:418
-#: admin/partials/wcblu-rule-settings.php:476
-#: admin/partials/wcblu-rule-settings.php:517
-#: admin/partials/wcblu-rule-settings.php:565
-#: admin/partials/wcblu-rule-settings.php:611
-#: admin/partials/wcblu-rule-settings.php:786
-#: admin/partials/wcblu-rule-settings.php:839
-#: admin/partials/wcblu-rule-settings.php:905
-#: admin/partials/wcblu-rule-settings.php:961
-#: admin/partials/wcblu-rule-settings.php:1020
-#: admin/partials/wcblu-rule-settings.php:1085
-#: admin/partials/wcblu-rule-settings.php:1156
-#: admin/partials/wcblu-rule-settings.php:1212
-#: admin/partials/wcblu-rule-settings.php:1313
-#: admin/partials/wcblu-rule-settings.php:1469
-#: admin/partials/wcblu-rule-settings.php:1524
-#: admin/partials/wcblu-rule-settings.php:1586
-#: admin/partials/wcblu-rule-settings.php:1645
+#: admin/partials/wcblu-rule-settings.php:211
+#: admin/partials/wcblu-rule-settings.php:264
+#: admin/partials/wcblu-rule-settings.php:313
+#: admin/partials/wcblu-rule-settings.php:368
+#: admin/partials/wcblu-rule-settings.php:408
+#: admin/partials/wcblu-rule-settings.php:468
+#: admin/partials/wcblu-rule-settings.php:526
+#: admin/partials/wcblu-rule-settings.php:567
+#: admin/partials/wcblu-rule-settings.php:615
+#: admin/partials/wcblu-rule-settings.php:661
+#: admin/partials/wcblu-rule-settings.php:706
+#: admin/partials/wcblu-rule-settings.php:911
+#: admin/partials/wcblu-rule-settings.php:964
+#: admin/partials/wcblu-rule-settings.php:1030
+#: admin/partials/wcblu-rule-settings.php:1086
+#: admin/partials/wcblu-rule-settings.php:1142
+#: admin/partials/wcblu-rule-settings.php:1211
+#: admin/partials/wcblu-rule-settings.php:1276
+#: admin/partials/wcblu-rule-settings.php:1347
+#: admin/partials/wcblu-rule-settings.php:1403
+#: admin/partials/wcblu-rule-settings.php:1504
+#: admin/partials/wcblu-rule-settings.php:1660
+#: admin/partials/wcblu-rule-settings.php:1715
+#: admin/partials/wcblu-rule-settings.php:1777
+#: admin/partials/wcblu-rule-settings.php:1837
+#: admin/partials/wcblu-rule-settings.php:1895
 msgid "Rule Weight"
 msgstr "Peso de la regla"
 
@@ -1775,20 +1895,20 @@ msgstr "Peso de la regla"
 msgid "Rules"
 msgstr "Normas"
 
-#: admin/partials/wcblu-rule-settings.php:250
-#: admin/partials/wcblu-rule-settings.php:1056
+#: admin/partials/wcblu-rule-settings.php:300
+#: admin/partials/wcblu-rule-settings.php:1247
 #| msgid "Same IP but Different Customer Addresses?"
 msgid "Same IP but Different Customer Addresses"
 msgstr "Misma IP pero diferentes direcciones de clientes"
 
 #: admin/partials/wcblu-general-settings.php:25
-#: admin/partials/wcblu-general-settings.php:379
-#: admin/partials/wcblu-general-settings.php:449
-#: admin/partials/wcblu-general-settings.php:993
+#: admin/partials/wcblu-general-settings.php:425
+#: admin/partials/wcblu-general-settings.php:507
+#: admin/partials/wcblu-general-settings.php:1115
 #: admin/partials/wcblu-rule-settings.php:26
-#: admin/partials/wcblu-rule-settings.php:643
-#: admin/partials/wcblu-rule-settings.php:751
-#: admin/partials/wcblu-rule-settings.php:1677
+#: admin/partials/wcblu-rule-settings.php:750
+#: admin/partials/wcblu-rule-settings.php:875
+#: admin/partials/wcblu-rule-settings.php:1940
 #: includes/woocommerce-blocker-admin-functions.php:54
 #: includes/woocommerce-blocker-admin-functions.php:934
 #: includes/woocommerce-blocker-admin-functions.php:973
@@ -1796,7 +1916,7 @@ msgstr "Misma IP pero diferentes direcciones de clientes"
 msgid "Save Changes"
 msgstr "Guardar cambios"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1400
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1551
 msgid "Search Block Users"
 msgstr "Usuarios de bloque de búsqueda"
 
@@ -1815,12 +1935,17 @@ msgstr "Seleccionar todo"
 msgid "Select browser to block users"
 msgstr "Seleccionar navegador para bloquear usuarios"
 
+#: admin/partials/wcblu-general-settings.php:401
+#: admin/partials/wcblu-general-settings.php:1091
+msgid "Select Captcha Version"
+msgstr "Seleccione la versión Captcha"
+
 #: admin/partials/dots-plugin-setup-wizard.php:81
 msgid "Select One"
 msgstr "Seleccione uno"
 
 #: admin/partials/wcblu-general-settings.php:317
-#: admin/partials/wcblu-general-settings.php:836
+#: admin/partials/wcblu-general-settings.php:894
 msgid ""
 "Selected payment methods will not be considered for Cancel Order Score and "
 "On-Hold Order Score evaluation for each order."
@@ -1830,7 +1955,7 @@ msgstr ""
 "para cada pedido."
 
 #: admin/partials/wcblu-general-settings.php:339
-#: admin/partials/wcblu-general-settings.php:907
+#: admin/partials/wcblu-general-settings.php:965
 msgid ""
 "Selected User Roles will not be considered for Cancel Order Score and On-"
 "Hold Order Score evaluation for each order."
@@ -1840,26 +1965,26 @@ msgstr ""
 "para cada pedido."
 
 #: admin/partials/wcblu-general-settings.php:235
-#: admin/partials/wcblu-general-settings.php:725
+#: admin/partials/wcblu-general-settings.php:783
 msgid "Send a notification mail to the site admin showing fraud score checks."
 msgstr ""
 "Envíe un correo de notificación al administrador del sitio que muestre las "
 "verificaciones de puntaje de fraude."
 
 #: admin/partials/wcblu-general-settings.php:233
-#: admin/partials/wcblu-general-settings.php:723
+#: admin/partials/wcblu-general-settings.php:781
 msgid "Send Admin Email"
 msgstr "Enviar correo electrónico de administrador"
 
 #: admin/partials/wcblu-general-settings.php:176
 #: admin/partials/wcblu-general-settings.php:183
-#: admin/partials/wcblu-general-settings.php:666
-#: admin/partials/wcblu-general-settings.php:673
+#: admin/partials/wcblu-general-settings.php:724
+#: admin/partials/wcblu-general-settings.php:731
 msgid "Set Risk Thresholds"
 msgstr "Establecer umbrales de riesgo"
 
 #: admin/partials/wcblu-general-settings.php:16
-#: admin/partials/wcblu-general-settings.php:439
+#: admin/partials/wcblu-general-settings.php:497
 msgid ""
 "Set up the automatic blocking options for the Fraud Prevention plugin on "
 "this page."
@@ -1874,7 +1999,7 @@ msgstr ""
 "Establezca el peso de su regla, como se muestra en la captura de pantalla."
 
 #: admin/partials/header/plugin-header.php:171
-#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:300
+#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:345
 msgid "Settings"
 msgstr "Ajustes"
 
@@ -1892,6 +2017,11 @@ msgstr "Zona de envío"
 msgid "Shop Plugins"
 msgstr "Comprar complementos"
 
+#: admin/partials/wcblu-rule-settings.php:218
+#: admin/partials/wcblu-rule-settings.php:1149
+msgid "Sign up here"
+msgstr "Regístrate aquí"
+
 #: admin/partials/dots-upgrade-dashboard.php:105
 #| msgid ""
 #| "So if the first three rule applies, add a 10 + 20 + 20 = 50 fraud score."
@@ -1904,7 +2034,7 @@ msgstr ""
 msgid "Social Media"
 msgstr "Medios de comunicación social"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:405
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:443
 #: includes/woocommerce-blocker-admin-functions.php:38
 msgid ""
 "Sorry :( This Address has been blocked due to some reason. Kindly contact "
@@ -1913,14 +2043,14 @@ msgstr ""
 "Lo sentimos :( Esta dirección ha sido bloqueada por algún motivo. Por favor "
 "comuníquese con el administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:400
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:438
 #: includes/woocommerce-blocker-admin-functions.php:43
 msgid "Sorry :( This domain extension has been blocked, Kindly contact admin."
 msgstr ""
 "Lo sentimos :( Esta extensión de dominio ha sido bloqueada, por favor "
 "contacte al administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:399
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:437
 #: includes/woocommerce-blocker-admin-functions.php:34
 #: includes/woocommerce-blocker-admin-functions.php:966
 msgid ""
@@ -1930,7 +2060,7 @@ msgstr ""
 "Lo sentimos :( Este dominio ha sido bloqueado por algún motivo. Por favor, "
 "póngase en contacto con el administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:402
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:440
 #: includes/woocommerce-blocker-admin-functions.php:36
 msgid ""
 "Sorry :( This first name has been blocked due to some reason. Kindly contact "
@@ -1939,7 +2069,7 @@ msgstr ""
 "Lo sentimos :( Este apellido ha sido bloqueado por algún motivo. Por favor "
 "contacte al administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:404
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:442
 #: includes/woocommerce-blocker-admin-functions.php:37
 msgid ""
 "Sorry :( This last name has been blocked due to some reason. Kindly contact "
@@ -1948,7 +2078,7 @@ msgstr ""
 "Lo sentimos :( Este apellido ha sido bloqueado por algún motivo. Por favor "
 "contacte al administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:401
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:439
 #: includes/woocommerce-blocker-admin-functions.php:35
 msgid ""
 "Sorry :( This phone number has been blocked due to some reason. Kindly "
@@ -1957,9 +2087,9 @@ msgstr ""
 "Lo sentimos :( Este número de teléfono ha sido bloqueado por algún motivo. "
 "Por favor, póngase en contacto con el administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:407
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:870
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:883
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:445
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:992
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1005
 msgid ""
 "Sorry :( This user role has been blocked due to some reason. Kindly contact "
 "admin."
@@ -1967,14 +2097,14 @@ msgstr ""
 "Lo sentimos :( Esta función de usuario ha sido bloqueada por algún motivo. "
 "Por favor, póngase en contacto con el administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:406
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:444
 msgid ""
 "Sorry :( This zone has been blocked due to some reason. Kindly contact admin."
 msgstr ""
 "Lo sentimos :( Esta zona ha sido bloqueada por algún motivo. Por favor "
 "contacte al administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:397
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:435
 #: includes/woocommerce-blocker-admin-functions.php:32
 msgid ""
 "Sorry :( We are not shipping this products in this country.  Kindly contact "
@@ -1983,7 +2113,7 @@ msgstr ""
 "Lo sentimos :( No enviamos estos productos en este país. Por favor contacte "
 "al administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:398
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:436
 #: includes/woocommerce-blocker-admin-functions.php:33
 #: includes/woocommerce-blocker-admin-functions.php:964
 msgid ""
@@ -1993,7 +2123,7 @@ msgstr ""
 "Lo sentimos :( No estamos enviando estos productos en esta ubicación. Por "
 "favor contacte al administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:396
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:434
 #: includes/woocommerce-blocker-admin-functions.php:31
 #: includes/woocommerce-blocker-admin-functions.php:963
 msgid ""
@@ -2002,6 +2132,11 @@ msgid ""
 msgstr ""
 "Lo sentimos :( No enviamos estos productos en este estado. Por favor "
 "contacte al administrador."
+
+#: admin/partials/wcblu-rule-settings.php:732
+#: admin/partials/wcblu-rule-settings.php:1921
+msgid "Start Time"
+msgstr "Hora de inicio"
 
 #: includes/woocommerce-blocker-admin-functions.php:441
 #: includes/woocommerce-blocker-admin-functions.php:1200
@@ -2018,7 +2153,7 @@ msgid "Suggest"
 msgstr "Sugerir"
 
 #: admin/partials/header/plugin-header.php:47
-#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:302
+#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:347
 msgid "Support"
 msgstr "Apoyo"
 
@@ -2036,8 +2171,8 @@ msgstr ""
 "mejor valorado. Nuestra interfaz fácil de usar facilita la configuración y "
 "previene actividades fraudulentas."
 
-#: admin/partials/wcblu-rule-settings.php:498
-#: admin/partials/wcblu-rule-settings.php:1491
+#: admin/partials/wcblu-rule-settings.php:548
+#: admin/partials/wcblu-rule-settings.php:1682
 msgid ""
 "The amount over the average transaction value that will trigger the rule "
 "(expressed as a multiplier)."
@@ -2072,15 +2207,15 @@ msgstr ""
 "Hay una lista de dominios de correo electrónico desechables / temporales en "
 "%1$s Github %2$s"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:403
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:441
 #: includes/woocommerce-blocker-admin-functions.php:41
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1726
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1848
 msgid "This browser has been blocked due to some reason, Kindly contact admin."
 msgstr ""
 "Este navegador ha sido bloqueado por alguna razón, por favor contacte al "
 "administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:394
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:432
 #: includes/woocommerce-blocker-admin-functions.php:30
 #: includes/woocommerce-blocker-admin-functions.php:962
 msgid ""
@@ -2090,8 +2225,8 @@ msgstr ""
 "Esta dirección de correo electrónico ha sido bloqueada, intente con otra "
 "dirección de correo electrónico o póngase en contacto con el administrador."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1014
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1029
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1136
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1151
 msgid ""
 "This email domain extension has been blacklisted. Please try another email "
 "address"
@@ -2099,26 +2234,26 @@ msgstr ""
 "Esta extensión de dominio de correo electrónico ha sido incluida en la lista "
 "negra. Intente con otra dirección de correo electrónico"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:928
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:944
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1503
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1685
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1700
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1050
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1066
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1625
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1807
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1822
 msgid ""
 "This email domain has been blacklisted. Please try another email address"
 msgstr ""
 "Este dominio de correo electrónico ha sido incluido en la lista negra. "
 "Intente con otra dirección de correo electrónico"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:852
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1497
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1612
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:974
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1619
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1734
 msgid "This email has been blacklisted. Please try another email address."
 msgstr ""
 "Este correo electrónico ha sido incluido en la lista negra. Intente con otra "
 "dirección de correo electrónico."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:395
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:433
 #: includes/woocommerce-blocker-admin-functions.php:39
 #: includes/woocommerce-blocker-admin-functions.php:965
 msgid ""
@@ -2127,7 +2262,11 @@ msgstr ""
 "Esta dirección IP ha sido bloqueada por alguna razón, por favor contacte al "
 "administrador."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1686
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1323
+msgid "This order has been blocked."
+msgstr "Este pedido ha sido bloqueado."
+
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1837
 msgid ""
 "This plugin can be used to refuse orders from specific users, based on "
 "customize blacklisting criteria.\n"
@@ -2161,8 +2300,8 @@ msgstr ""
 "Esta zona ha sido bloqueada por alguna razón, por favor contacte al "
 "administrador."
 
-#: admin/partials/wcblu-rule-settings.php:587
-#: admin/partials/wcblu-rule-settings.php:1608
+#: admin/partials/wcblu-rule-settings.php:637
+#: admin/partials/wcblu-rule-settings.php:1799
 msgid "Time span (hours) to check"
 msgstr ""
 "Intervalo de tiempo (horas) para comprobar\n"
@@ -2178,7 +2317,7 @@ msgstr ""
 "nuestro %s para ver tutoriales en vídeo detallados."
 
 #: admin/partials/wcblu-general-settings.php:284
-#: admin/partials/wcblu-general-settings.php:803
+#: admin/partials/wcblu-general-settings.php:861
 msgid ""
 "To send email notifications to additional addresses, enter them, separated "
 "by commas, above."
@@ -2186,8 +2325,8 @@ msgstr ""
 "Para enviar notificaciones por correo electrónico a direcciones adicionales, "
 "introdúzcalas, separadas por comas, arriba."
 
-#: admin/partials/wcblu-rule-settings.php:552
-#: admin/partials/wcblu-rule-settings.php:1559
+#: admin/partials/wcblu-rule-settings.php:602
+#: admin/partials/wcblu-rule-settings.php:1750
 msgid "Too many order attempts?"
 msgstr "¿Demasiados intentos de pedido?"
 
@@ -2236,7 +2375,7 @@ msgid "Unlock Premium Features with a %s%% Discount!"
 msgstr "¡Desbloquea funciones premium con un %s%% de descuento!"
 
 #: admin/partials/wcblu-general-settings.php:103
-#: admin/partials/wcblu-general-settings.php:571
+#: admin/partials/wcblu-general-settings.php:629
 msgid "Update order status according the order score."
 msgstr ""
 "Actualice el estado del pedido según la puntuación del pedido.\n"
@@ -2308,15 +2447,15 @@ msgstr "Mensaje de error del navegador de usuario"
 msgid "User Deleted Permanantly"
 msgstr "Usuario eliminada permanentemente"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1797
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2034
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2230
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2345
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1923
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2160
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2367
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2502
 msgid "User Email is Whitelisted."
 msgstr "El correo electrónico del usuario está en la lista blanca."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2269
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2386
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2406
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2543
 #| msgid "User role is Whitelisted."
 msgid "User IP is Whitelisted."
 msgstr "La IP del usuario está en la lista blanca."
@@ -2330,24 +2469,34 @@ msgstr "Rol del usuario"
 msgid "User Role error message"
 msgstr "Mensaje de error de función de usuario"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2399
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2556
 msgid "User Role is Whitelisted."
 msgstr "La función de usuario está en la lista blanca."
 
 #: admin/partials/wcblu-general-settings.php:337
-#: admin/partials/wcblu-general-settings.php:905
+#: admin/partials/wcblu-general-settings.php:963
 msgid "User Roles Whitelisting"
 msgstr "Lista blanca de roles de usuario"
+
+#: admin/partials/wcblu-general-settings.php:403
+#: admin/partials/wcblu-general-settings.php:1093
+msgid "v2 reCAPTCHA"
+msgstr "reCAPTCHA v2"
+
+#: admin/partials/wcblu-general-settings.php:406
+#: admin/partials/wcblu-general-settings.php:1096
+msgid "v3 reCAPTCHA"
+msgstr "reCAPTCHA v3"
 
 #: admin/partials/dots-upgrade-dashboard.php:252
 msgid "Verified Customer"
 msgstr "Cliente verificado"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1398
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1549
 msgid "View"
 msgstr "Vista"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1399
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1550
 msgid "View Block User"
 msgstr "Ver usuario de bloque"
 
@@ -2373,10 +2522,10 @@ msgstr ""
 "El administrador del sitio web no le permite realizar este pedido. Por favor "
 "contacte al administrador."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2242
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2254
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2359
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2371
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2379
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2391
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2516
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2528
 msgid ""
 "Website Administrator does not allow you to place this order. Please contact "
 "our support team. Sorry for any inconvenience."
@@ -2389,7 +2538,7 @@ msgstr ""
 msgid "Welcome to Fraud Prevention Plugin"
 msgstr "Bienvenido al complemento de prevención de fraude"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1628
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1779
 msgid "Welcome To Woocommerce Blocker"
 msgstr "Bienvenido a Woocommerce Blocker"
 
@@ -2406,19 +2555,19 @@ msgid "What’s your refund policy?"
 msgstr "¿Cuál es su política de reembolso?"
 
 #: admin/partials/wcblu-general-settings.php:296
-#: admin/partials/wcblu-general-settings.php:815
+#: admin/partials/wcblu-general-settings.php:873
 msgid "Whitelist Options: Email, Payment Method, Role, and IP Address"
 msgstr ""
 "Opciones de lista blanca: correo electrónico, método de pago, función y "
 "dirección IP"
 
 #: admin/partials/wcblu-general-settings.php:315
-#: admin/partials/wcblu-general-settings.php:834
+#: admin/partials/wcblu-general-settings.php:892
 msgid "Whitelist Payment Method"
 msgstr "Método de pago de la lista blanca"
 
 #: admin/partials/wcblu-general-settings.php:185
-#: admin/partials/wcblu-general-settings.php:675
+#: admin/partials/wcblu-general-settings.php:733
 msgid ""
 "With above setting you may set the risk threadhold ( Low, Medium, High ) "
 "between 0-100."
@@ -2426,11 +2575,11 @@ msgstr ""
 "Con la configuración anterior, puede establecer el subproceso de riesgo "
 "(bajo, medio, alto) entre 0 y 100."
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1700
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1851
 msgid "Work with WooCommerce 2.0+ and Word Press 3.9+"
 msgstr "Trabaja con WooCommerce 2.0+ y Word Press 3.9+"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1697
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1848
 msgid "Works in both checkout and registration pages."
 msgstr "Funciona tanto en las páginas de pago como en las de registro."
 
@@ -2482,6 +2631,10 @@ msgstr ""
 "tiene un problema que no podemos resolver, consideraremos con gusto "
 "ofrecerle un reembolso del 100 % de su dinero."
 
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4061
+msgid "You are not a human, please refresh page."
+msgstr "No eres un humano, actualiza la página."
+
 #: admin/partials/dots-upgrade-dashboard.php:116
 msgid "You can add multiple email addresses here."
 msgstr "Puede agregar varias direcciones de correo electrónico aquí."
@@ -2502,44 +2655,44 @@ msgstr ""
 "Puede usar la etiqueta \"{country}\" en el aviso que se reemplazará con el "
 "nombre del país del bloque seleccionado en caso de error"
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1270
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1392
 msgid "Your Address has been blacklisted."
 msgstr "Su dirección ha sido incluida en la lista negra."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1406
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1528
 msgid "Your Country has been blacklisted."
 msgstr "Su país ha sido incluido en la lista negra."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1102
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1224
 msgid "Your first name has been blacklisted."
 msgstr "Su dirección IP ha sido incluida en la lista negra."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1325
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1338
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1346
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1477
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1583
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1447
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1460
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1468
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1599
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1705
 msgid "Your IP address has been blacklisted."
 msgstr "Su dirección IP ha sido incluida en la lista negra."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1136
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1258
 msgid "Your last name has been blacklisted."
 msgstr "Su apellido ha sido incluido en la lista negra."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1067
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1189
 msgid "Your Phone number has been blacklisted."
 msgstr "Su número de teléfono ha sido incluido en la lista negra."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1380
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1502
 msgid "Your State has been blacklisted."
 msgstr "Su estado ha sido incluido en la lista negra."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1435
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1557
 msgid "Your Zip has been blacklisted."
 msgstr "Tu Zip ha sido incluido en la lista negra."
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1229
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1239
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1351
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1361
 msgid "Your Zone has been blacklisted."
 msgstr "Su zona ha sido incluida en la lista negra."
 

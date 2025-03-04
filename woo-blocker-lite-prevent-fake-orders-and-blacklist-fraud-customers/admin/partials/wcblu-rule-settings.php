@@ -30,7 +30,7 @@ function wbclu_free_rules_settings_content() {
                 <div class="heading_section">
                     <h2><?php 
     echo esc_html__( 'First Time Purchase Rules', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/1067-first-time-purchase-rules" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                 </div>
                 <button type="submit" name="wcblu_gr_submit" class="button button-primary wcblu_submit" value="Save Changes"><?php 
     echo esc_html__( 'Save Changes', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
@@ -142,7 +142,7 @@ function wbclu_free_rules_settings_content() {
                 <div class="heading_section">
                     <h2><?php 
     echo esc_html__( 'IP, Billing and Shipping Address-based Rules', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/1068-how-to-configure-ip-billing-and-shipping-address-based-rules" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                 </div>
             </div>
             <table class="form-table table-outer general-rules res-cl">
@@ -266,6 +266,82 @@ function wbclu_free_rules_settings_content() {
         ?>
                         </td>
                     </tr>
+                    <tr> 
+                        <th scope="row" class="titledesc">
+                            <label><?php 
+        echo esc_html__( 'Does Geo Location Match?', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                <div class="wcbfc-tooltip-rules">
+                                    <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+        echo esc_attr( 'If you enable this rule, It will check if the customer\'s shipping or billing state matches the Geo Location state.' );
+        ?></span>
+                                </div>
+                            </label>
+                        </th>
+                        <td>
+                            <div class="wcbfc-control-settings">
+                                <label class="switch" for="wcbfc_billing_shipping_geo_match">
+                                    <div class="slider round"></div>
+                                </label>
+                                <div class="wcblu_rule_field">
+                                    <input name="wcbfc_billing_shipping_geo_match_weight" id="wcbfc_billing_shipping_geo_match_weight" type="number" style="width: 5em;" value="0" class="wcbfc_rules_weights" placeholder="" min="0" step="1" max="100">
+                                    <label class="wcbfc-rule-weight-label"><?php 
+        echo esc_html__( 'Rule Weight', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></label>
+                                </div>
+                                <div class="wcblu_rule_field">
+                                    <input name="wcbfc_geo_match_key" id="wcbfc_geo_match_key" type="text" style="width: 100%;" value="" class="wcbfc_geo_match_key" placeholder="API Key for bigdatacloud.com">
+                                    <p class="wcbfc-short-info">
+                                        <?php 
+        esc_html_e( 'No BigDataCloud account?', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?> 
+                                        <a href="<?php 
+        echo esc_url( 'https://www.bigdatacloud.com/' );
+        ?>" target="_blank">
+                                            <?php 
+        esc_html_e( 'Sign up here', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                        </a> – 
+                                        <?php 
+        esc_html_e( 'Get 50K free requests/month, upgrade anytime.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="wcbfc-control-points">
+                                <progress max="100" class="wcbfc-progressBar" value=""></progress>
+                                <span class="wcbfc-tooltip progress-tooltip">0</span>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="segment good">
+                                            <span class="text"><?php 
+        echo esc_html__( 'No Importance', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                        </div>
+                                        <div class="segment average">
+                                            <span class="text"><?php 
+        echo esc_html__( 'Moderate', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                        </div>
+                                        <div class="segment poor">
+                                            <span class="text"><?php 
+        echo esc_html__( 'High Importance', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php 
+        if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+            ?> 
+                                <p class="wcbfc-pl-compatiblity-notice"><span class="dashicons dashicons-warning" style="color:#d0a823;"></span><?php 
+            echo esc_html_e( ' This feature will only works with woocommerce orders.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></p>
+                            <?php 
+        }
+        ?>
+                        </td>
+                    </tr>
                     <?php 
     }
     ?>
@@ -327,7 +403,7 @@ function wbclu_free_rules_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
         echo esc_html__( 'Multiple Orders Attempts using Different Addresses from Same IP ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?></h2>
+        ?><a href="https://docs.thedotstore.com/article/1069-detecting-multiple-order-attempts-using-different-addresses-from-the-same-ip" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-rules res-cl">
@@ -408,7 +484,7 @@ function wbclu_free_rules_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
         echo esc_html__( 'Origin Countries', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?></h2>
+        ?><a href="https://docs.thedotstore.com/article/1070-how-to-configure-origin-countries-rules" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-rules res-cl">
@@ -550,7 +626,7 @@ function wbclu_free_rules_settings_content() {
                 <div class="heading_section">
                     <h2><?php 
     echo esc_html__( 'High-Risk Email Domains', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/1071-how-to-configure-the-high-risk-email-domain-rule" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                 </div>
             </div>
             <table class="form-table table-outer general-rules res-cl">
@@ -624,7 +700,7 @@ function wbclu_free_rules_settings_content() {
                 <div class="heading_section">
                     <h2><?php 
     echo esc_html__( 'Order Amounts and Attempts ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></h2>
+    ?><a href="https://docs.thedotstore.com/article/1072-how-to-configure-order-amounts-and-attempts-rules" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
                 </div>
             </div>
             <table class="form-table table-outer general-rules res-cl">
@@ -863,6 +939,83 @@ function wbclu_free_rules_settings_content() {
                             </div>
                             <div class="wcblu_rule_field">
                                 <textarea rows="4" name="wcbfc_too_many_failed_oats_strings" id="wcbfc_too_many_failed_oats_strings" cols="50" style="width:100%; height: 100px;" placeholder="Enter failed attempt message or keywords from order notes to block..."></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="titledesc">
+                            <label><?php 
+    echo esc_html__( 'Limit Number of Orders between Time', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                                <div class="wcbfc-tooltip-rules">
+                                    <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+    echo esc_attr( 'Turning on this rule restricts the number of orders that can be placed within a specific time frame each day.' );
+    ?></span>
+                                </div>
+                            </label>
+                        </th>
+                        <td>
+                            <div class="wcbfc-control-settings">
+                                <label class="switch" for="wcbfc_no_of_allow_order_between_time">
+                                    <input type="checkbox" id="wcbfc_no_of_allow_order_between_time" name="wcbfc_no_of_allow_order_between_time" value="">
+                                    <div class="slider round"></div>
+                                </label>
+                                <div class="wcblu_rule_field">
+                                    <input name="wcbfc_no_of_allow_order_between_time_weight" id="wcbfc_no_of_allow_order_between_time_weight" type="number" style="width: 5em;" value="40" class="wcbfc_rules_weights" placeholder="" min="0" step="1" max="100">
+                                    <label class="wcbfc-rule-weight-label"><?php 
+    echo esc_html__( 'Rule Weight', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></label>
+                                </div>
+                            </div>
+                            <div class="wcbfc-control-points">
+                                <progress max="100" class="wcbfc-progressBar" value="15"></progress>
+                                <span class="wcbfc-tooltip progress-tooltip">0</span>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="segment good">
+                                            <span class="text"><?php 
+    echo esc_html__( 'No Importance', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                        <div class="segment average">
+                                            <span class="text"><?php 
+    echo esc_html__( 'Moderate', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                        <div class="segment poor">
+                                            <span class="text"><?php 
+    echo esc_html__( 'High Importance', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wcblu_rule_field">
+                                <input name="wcbfc_maximum_allowed_number_of_orders_between_time" id="wcbfc_maximum_allowed_number_of_orders_between_time" type="number" style="width: 5em;" value="2" class="" placeholder="" min="0" >
+                                <label><?php 
+    echo esc_html__( 'Maximum Allowed Number of Orders Between Time', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></label>
+                            </div>
+                            <div class="wcblu_rule_field">
+                                <input id="wcbfc_start_time_timepicker" name="wcbfc_start_time_timepicker" type="text" placeholder="Select Date.." data-id="timePicker" readonly="readonly" value="">
+                                <label><?php 
+    echo esc_html__( 'Start Time', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></label>
+                            </div>
+                            <div class="wcblu_rule_field">
+                                <input id="wcbfc_end_time_timepicker" name="wcbfc_end_time_timepicker" type="text" placeholder="Select Date.." data-id="timePicker" readonly="readonly" value="">
+                                <label><?php 
+    echo esc_html__( 'End Time', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></label>
+                            </div>
+                            <div class="wcblu_rule_field">
+                                <?php 
+    $time_zone = new \DateTimeZone(wp_timezone_string());
+    $now = new \DateTime('NOW', $time_zone);
+    ?>
+                                <span><?php 
+    echo esc_html__( 'Current Time: ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . esc_attr( $now->format( 'H:i:s' ) );
+    ?></span>
                             </div>
                         </td>
                     </tr>

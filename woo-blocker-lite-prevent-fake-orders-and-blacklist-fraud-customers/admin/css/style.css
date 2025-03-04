@@ -321,7 +321,7 @@ img.sidebar_plugin_icone{width:45px}
 }
 
 /* sidebar css end */
-#dotsstoremain th.titledesc{font-size:13px!important;color:#333;padding:20px;border:1px solid #ddd;line-height:20px;background:#fff;width:20%}
+#dotsstoremain th.titledesc{font-size:13px!important;color:#333;padding:20px;border:1px solid #ddd;line-height:20px;background:#fff;width:26%}
 .wcblu-main-table a{text-decoration:none}
 a#fee-delete-field{font-size:25px;vertical-align:middle}
 .wcblu-main-table h2{font-size:16px;text-align:left;font-weight:bold;color:#333;border-bottom:0;margin:15px 0;}
@@ -569,7 +569,7 @@ span.responce_message.error {
 }
 
 .heading_div {display: block;width: -webkit-fill-available;}
-.heading_section {width: 50%;float: left;}
+.heading_section {width: 55%;float: left;}
 .migration_section {float: right;margin-left: 10px;margin-top: 10px;}
 input#migrate_data {text-align: center;}
 .migarion_hide {display: none;}
@@ -634,6 +634,9 @@ span.wcbfc-description-tooltip-icon {
     width: 16px!important;
     cursor: pointer;
 }
+.wcblu_captcha_settings.hide_it{ display: none; }
+.wcblu_captcha_settings.show_it{ display: block; }
+.wcblu_versions_key input {width: 50%}
 #wcblu_plugin_general_settings tr.hide_it{ display: none; }
 #wcblu_plugin_general_settings tr.show_it{ display: table-row; }
 .wcbfc-tooltip-sh{ display: none; }
@@ -718,6 +721,7 @@ span.wcbfc-description-tooltip-icon {
     .dotstore-plugins_page_woocommerce_blacklist_users .wcblu-main-table table.table-outer{table-layout:fixed}
     .logo-detail,.dots-header-right{width:98%!important}
     .button-group>div{clear:both;float:left!important;margin-bottom:5px;margin-left:0}
+    .wcblu_versions_key input {width: 98%}
 }
 @media screen and (max-width:639px){
     .upgrade-to-pro-modal-main .pro-modal-wrapper{padding:25px;}

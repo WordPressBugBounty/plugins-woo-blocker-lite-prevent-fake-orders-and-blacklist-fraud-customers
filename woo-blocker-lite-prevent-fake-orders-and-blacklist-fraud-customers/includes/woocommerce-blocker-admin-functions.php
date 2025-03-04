@@ -238,8 +238,10 @@ function wcblu_get_setting_html_for_free_user(  $getpluginoptionarray  ) {
     ?>
 				</select>
 				<p><?php 
-    esc_html_e( 'Add multiple email to block users', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></p>
+    esc_html_e( 'Add multiple email to block users ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?><a target="_blank" href="https://docs.thedotstore.com/article/518-how-to-automatic-blacklist-emails-based-on-fraud-score"><?php 
+    esc_html_e( 'Learn More.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></a></p>
 			</td>
 		</tr>
 		<tr>
@@ -312,8 +314,10 @@ function wcblu_get_setting_html_for_free_user(  $getpluginoptionarray  ) {
     ?>
 				</select>
 				<p><?php 
-    esc_html_e( 'Add multiple IP address to block users', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></p>
+    esc_html_e( 'Add multiple IP address to block users ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?><a target="_blank" href="https://docs.thedotstore.com/article/152-block-fraud-customers-by-ip-geo-location"><?php 
+    esc_html_e( 'Learn More.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></a></p>
 			</td>
 		</tr>
 		<tr>
@@ -347,8 +351,10 @@ function wcblu_get_setting_html_for_free_user(  $getpluginoptionarray  ) {
     ?>
 				</select>
 				<p><?php 
-    esc_html_e( 'Add multiple domain to block users e.g gmail.com', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></p>
+    esc_html_e( 'Add multiple domain to block users e.g gmail.com ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?><a target="_blank" href="https://docs.thedotstore.com/article/153-block-fraud-customers-by-domain"><?php 
+    esc_html_e( 'Learn More.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></a></p>
 			</td>
 		</tr>
 		<tr>
@@ -423,8 +429,10 @@ function wcblu_get_setting_html_for_free_user(  $getpluginoptionarray  ) {
 
 					</select>
 					<p><?php 
-        esc_html_e( 'Add multiple state to block users', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?></p>
+        esc_html_e( 'Add multiple state to block users ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?><a target="_blank" href="https://docs.thedotstore.com/article/154-block-fraud-customers-by-state"><?php 
+        esc_html_e( 'Learn More.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></a></p>
 					<?php 
         if ( class_exists( 'Easy_Digital_Downloads' ) ) {
             ?> 
@@ -499,8 +507,10 @@ function wcblu_get_setting_html_for_free_user(  $getpluginoptionarray  ) {
 
 					</select>
 					<p><?php 
-        esc_html_e( 'Add multiple zipcode to block users', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?></p>
+        esc_html_e( 'Add multiple zipcode to block users ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?><a target="_blank" href="https://docs.thedotstore.com/article/155-block-fraud-customers-by-zipcode"><?php 
+        esc_html_e( 'Learn More.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></a></p>
 					<?php 
         if ( class_exists( 'Easy_Digital_Downloads' ) ) {
             ?> 
