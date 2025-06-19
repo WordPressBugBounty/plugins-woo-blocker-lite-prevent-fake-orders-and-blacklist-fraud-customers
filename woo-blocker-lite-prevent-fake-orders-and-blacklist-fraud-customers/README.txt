@@ -4,12 +4,12 @@ Plugin URI: https://www.thedotstore.com/
 Author: theDotstore
 Author URI: https://www.thedotstore.com/
 Contributors: dots
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 Tags: Fraud Prevention, WooCommerce Anti-Fraud, Blacklist customers, Blacklist fraud customers, Prevent fake orders
 Requires at least: 5.1 
-Tested up to: 6.7.2
+Tested up to: 6.8.1
 Requires PHP: 5.6
-WC tested up to: 9.7.0
+WC tested up to: 9.9.4
 Donate link: 
 Copyright: (c) 2015-2019 Thedotstore all rights reserved (support@thedotstore.com)
 License: GPLv3 or later
@@ -213,6 +213,14 @@ For users planning to migrate their WooCommerce store, the plugin facilitates im
 Automatic updates should work great for you.  As always, though, we recommend backing up your site prior to making any updates just to be sure nothing goes wrong.
 
 == Changelog ==
+= 2.2.4 =
+* [Bug Fix] Minor CSS-related fixes
+* [New] Added reCAPTCHA on Checkout Page.
+* [New] Added Blacklisting Options (Address, Country, Phone Number, Shipping Zone)
+* [Enhancement] Plugin UI enhancement
+* [Enhancement] Compatible with WooCommerce 9.9.x  
+* [Enhancement] Compatible with WordPress 6.8.x 
+
 = 2.2.3 =
 * [Bug Fix] Minor CSS-related fixes  
 * [Enhancement] Improved compatibility with WooCommerce PayPal Payments  

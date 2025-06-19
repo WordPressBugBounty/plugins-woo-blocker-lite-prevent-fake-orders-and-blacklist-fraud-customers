@@ -71,7 +71,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
      */
     public function __construct() {
         $this->plugin_name = 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers';
-        $this->version = '2.2.3';
+        $this->version = '2.2.4';
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
@@ -205,6 +205,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
         $this->loader->add_action( 'admin_head', $plugin_admin, 'mmqw_dot_store_icon_css' );
         $this->loader->add_action( 'wp_ajax_wcblu_plugin_setup_wizard_submit', $plugin_admin, 'wcblu_plugin_setup_wizard_submit' );
         $this->loader->add_action( 'admin_init', $plugin_admin, 'wcblu_send_wizard_data_after_plugin_activation' );
+        $this->loader->add_action( 'admin_post_submit_general_setting_form_wcblu', $plugin_admin, 'wcblu_update_general_settings' );
+        $this->loader->add_action( 'admin_post_nopriv_submit_general_setting_form_wcblu', $plugin_admin, 'wcblu_update_general_settings' );
     }
 
     /**
@@ -217,18 +219,20 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
     private function define_public_hooks() {
         $plugin_public = new Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Public($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-        $checkout_page_id = wc_get_page_id( 'checkout' );
-        $checkout_page_content = get_post_field( 'post_content', $checkout_page_id );
-        if ( has_block( 'woocommerce/checkout', $checkout_page_content ) ) {
-            $this->loader->add_action(
-                'woocommerce_store_api_checkout_update_order_from_request',
-                $plugin_public,
-                'woo_email_domain_validation',
-                10,
-                2
-            );
-        } else {
-            $this->loader->add_action( 'woocommerce_checkout_process', $plugin_public, 'woo_email_domain_validation' );
+        if ( class_exists( 'WooCommerce' ) ) {
+            $checkout_page_id = wc_get_page_id( 'checkout' );
+            $checkout_page_content = get_post_field( 'post_content', $checkout_page_id );
+            if ( has_block( 'woocommerce/checkout', $checkout_page_content ) ) {
+                $this->loader->add_action(
+                    'woocommerce_store_api_checkout_update_order_from_request',
+                    $plugin_public,
+                    'woo_email_domain_validation',
+                    10,
+                    2
+                );
+            } else {
+                $this->loader->add_action( 'woocommerce_checkout_process', $plugin_public, 'woo_email_domain_validation' );
+            }
         }
         $this->loader->add_filter(
             'woocommerce_process_registration_errors',

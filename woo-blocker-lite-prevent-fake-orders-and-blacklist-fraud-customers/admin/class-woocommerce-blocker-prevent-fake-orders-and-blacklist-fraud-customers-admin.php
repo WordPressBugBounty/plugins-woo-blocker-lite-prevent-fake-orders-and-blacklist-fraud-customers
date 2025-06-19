@@ -91,6 +91,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
         global $pagenow;
         $get_action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
         $get_post = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        $get_post_type = filter_input( INPUT_GET, 'post_type', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
         // Check if we're on an order edit page
         if ( $pagenow === 'post.php' && isset( $get_post ) && isset( $get_action ) && $get_action === 'edit' ) {
             $post_id = intval( $get_post );
@@ -98,6 +99,9 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             if ( $post_type === 'shop_order' ) {
                 $order_blacklist[] = 'post.php';
             }
+        }
+        if ( 'edit.php' === $pagenow && isset( $get_post_type ) && 'shop_order' === $get_post_type ) {
+            $order_blacklist[] = 'edit.php';
         }
         if ( in_array( $hook, $order_blacklist, true ) ) {
             wp_enqueue_style(
@@ -636,63 +640,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
          *
          */
         if ( !empty( $getformsumbitaction ) && 'submit_general_setting_form_wcblu' === $getformsumbitaction && wp_verify_nonce( sanitize_text_field( $wcblu_save_settings_nonce ), 'wcblu_plugin_general_settings' ) ) {
-            $wcbfc_fraud_check_status = filter_input( INPUT_POST, 'wcbfc_fraud_check_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_fraud_check_before_pay = filter_input( INPUT_POST, 'wcbfc_fraud_check_before_pay', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcblu_pre_payment_message = filter_input( INPUT_POST, 'wcblu_pre_payment_message', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_update_order_status_on_score = filter_input( INPUT_POST, 'wcbfc_update_order_status_on_score', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_settings_low_risk_threshold = filter_input( INPUT_POST, 'wcbfc_settings_low_risk_threshold', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_settings_high_risk_threshold = filter_input( INPUT_POST, 'wcbfc_settings_high_risk_threshold', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_email_notification = filter_input( INPUT_POST, 'wcbfc_email_notification', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_settings_cancel_score = filter_input( INPUT_POST, 'wcbfc_settings_cancel_score', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_settings_email_score = filter_input( INPUT_POST, 'wcbfc_settings_email_score', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_settings_hold_score = filter_input( INPUT_POST, 'wcbfc_settings_hold_score', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcblu_settings_custom_email = filter_input( INPUT_POST, 'wcblu_settings_custom_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcblu_settings_whitelist = filter_input( INPUT_POST, 'wcblu_settings_whitelist', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcblu_whitelist_payment_method = filter_input(
-                INPUT_POST,
-                'wcblu_whitelist_payment_method',
-                FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-                FILTER_REQUIRE_ARRAY
-            );
-            $wcbfc_enable_whitelist_payment_method = filter_input( INPUT_POST, 'wcbfc_enable_whitelist_payment_method', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_enable_whitelist_user_roles = filter_input( INPUT_POST, 'wcbfc_enable_whitelist_user_roles', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcblu_whitelist_user_roles = filter_input(
-                INPUT_POST,
-                'wcblu_whitelist_user_roles',
-                FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-                FILTER_REQUIRE_ARRAY
-            );
-            $wcbfc_enable_whitelist_ips = filter_input( INPUT_POST, 'wcbfc_enable_whitelist_ips', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcblu_settings_whitelist_ips = filter_input(
-                INPUT_POST,
-                'wcblu_settings_whitelist_ips',
-                FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-                FILTER_SANITIZE_FULL_SPECIAL_CHARS
-            );
             $wcbfc_recaptcha_status = filter_input( INPUT_POST, 'wcbfc_recaptcha_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_recaptcha_version = filter_input( INPUT_POST, 'wcbfc_recaptcha_version', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcblu_v2_keys_value = filter_input( INPUT_POST, 'wcblu_v2_keys_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcblu_v3_keys_value = filter_input( INPUT_POST, 'wcblu_v3_keys_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcblu_v2_secret_keys_value = filter_input( INPUT_POST, 'wcblu_v2_secret_keys_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcblu_v3_secret_keys_value = filter_input( INPUT_POST, 'wcblu_v3_secret_keys_value', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wcbfc_fraud_check_status = ( empty( $wcbfc_fraud_check_status ) ? 'off' : $wcbfc_fraud_check_status );
-            $wcbfc_fraud_check_before_pay = ( empty( $wcbfc_fraud_check_before_pay ) ? '0' : $wcbfc_fraud_check_before_pay );
-            $wcblu_pre_payment_message = ( empty( $wcblu_pre_payment_message ) ? '' : $wcblu_pre_payment_message );
-            $wcbfc_update_order_status_on_score = ( empty( $wcbfc_update_order_status_on_score ) ? '0' : $wcbfc_update_order_status_on_score );
-            $wcbfc_settings_low_risk_threshold = ( empty( $wcbfc_settings_low_risk_threshold ) ? '0' : $wcbfc_settings_low_risk_threshold );
-            $wcbfc_settings_high_risk_threshold = ( empty( $wcbfc_settings_high_risk_threshold ) ? '0' : $wcbfc_settings_high_risk_threshold );
-            $wcbfc_email_notification = ( empty( $wcbfc_email_notification ) ? '0' : $wcbfc_email_notification );
-            $wcbfc_settings_cancel_score = ( empty( $wcbfc_settings_cancel_score ) ? '0' : $wcbfc_settings_cancel_score );
-            $wcbfc_settings_hold_score = ( empty( $wcbfc_settings_hold_score ) ? '0' : $wcbfc_settings_hold_score );
-            $wcbfc_settings_email_score = ( empty( $wcbfc_settings_email_score ) ? '0' : $wcbfc_settings_email_score );
-            $wcblu_settings_custom_email = ( empty( $wcblu_settings_custom_email ) ? '' : $wcblu_settings_custom_email );
-            $wcblu_settings_whitelist = ( empty( $wcblu_settings_whitelist ) ? '' : $wcblu_settings_whitelist );
-            $wcblu_whitelist_payment_method = ( empty( $wcblu_whitelist_payment_method ) ? array() : $wcblu_whitelist_payment_method );
-            $wcbfc_enable_whitelist_payment_method = ( empty( $wcbfc_enable_whitelist_payment_method ) ? '' : $wcbfc_enable_whitelist_payment_method );
-            $wcbfc_enable_whitelist_user_roles = ( empty( $wcbfc_enable_whitelist_user_roles ) ? '0' : $wcbfc_enable_whitelist_user_roles );
-            $wcblu_whitelist_user_roles = ( empty( $wcblu_whitelist_user_roles ) ? array() : $wcblu_whitelist_user_roles );
-            $wcbfc_enable_whitelist_ips = ( empty( $wcbfc_enable_whitelist_ips ) ? '0' : $wcbfc_enable_whitelist_ips );
-            $wcblu_settings_whitelist_ips = ( empty( $wcblu_settings_whitelist_ips ) ? '' : $wcblu_settings_whitelist_ips );
             $wcbfc_recaptcha_status = ( empty( $wcbfc_recaptcha_status ) ? 'off' : $wcbfc_recaptcha_status );
             $wcbfc_recaptcha_version = ( empty( $wcbfc_recaptcha_version ) ? '' : $wcbfc_recaptcha_version );
             $wcblu_v2_keys_value = ( empty( $wcblu_v2_keys_value ) ? '' : $wcblu_v2_keys_value );
@@ -729,24 +682,6 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                     update_option( 'wcblu_option', $wcblu_option_array );
                 }
             }
-            $wcblugeneraloption_array['wcbfc_fraud_check_before_pay'] = $wcbfc_fraud_check_before_pay;
-            $wcblugeneraloption_array['wcblu_pre_payment_message'] = $wcblu_pre_payment_message;
-            $wcblugeneraloption_array['wcbfc_update_order_status_on_score'] = $wcbfc_update_order_status_on_score;
-            $wcblugeneraloption_array['wcbfc_settings_low_risk_threshold'] = $wcbfc_settings_low_risk_threshold;
-            $wcblugeneraloption_array['wcbfc_settings_high_risk_threshold'] = $wcbfc_settings_high_risk_threshold;
-            $wcblugeneraloption_array['wcbfc_email_notification'] = $wcbfc_email_notification;
-            $wcblugeneraloption_array['wcbfc_settings_cancel_score'] = $wcbfc_settings_cancel_score;
-            $wcblugeneraloption_array['wcbfc_settings_hold_score'] = $wcbfc_settings_hold_score;
-            $wcblugeneraloption_array['wcbfc_settings_email_score'] = $wcbfc_settings_email_score;
-            $wcblugeneraloption_array['wcblu_settings_custom_email'] = $wcblu_settings_custom_email;
-            $wcblugeneraloption_array['wcblu_settings_whitelist'] = $wcblu_settings_whitelist;
-            $wcblugeneraloption_array['wcbfc_fraud_check_status'] = $wcbfc_fraud_check_status;
-            $wcblugeneraloption_array['wcblu_whitelist_payment_method'] = $wcblu_whitelist_payment_method;
-            $wcblugeneraloption_array['wcbfc_enable_whitelist_payment_method'] = $wcbfc_enable_whitelist_payment_method;
-            $wcblugeneraloption_array['wcbfc_enable_whitelist_user_roles'] = $wcbfc_enable_whitelist_user_roles;
-            $wcblugeneraloption_array['wcblu_whitelist_user_roles'] = $wcblu_whitelist_user_roles;
-            $wcblugeneraloption_array['wcbfc_enable_whitelist_ips'] = $wcbfc_enable_whitelist_ips;
-            $wcblugeneraloption_array['wcblu_settings_whitelist_ips'] = $wcblu_settings_whitelist_ips;
             $wcblugeneraloption_array['wcbfc_recaptcha_status'] = $wcbfc_recaptcha_status;
             $wcblugeneraloption_array['wcbfc_recaptcha_version'] = $wcbfc_recaptcha_version;
             $wcblugeneraloption_array['wcblu_v2_keys_value'] = $wcblu_v2_keys_value;

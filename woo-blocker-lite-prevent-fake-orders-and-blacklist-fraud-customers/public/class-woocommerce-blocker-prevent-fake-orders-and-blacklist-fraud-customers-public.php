@@ -104,6 +104,52 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                         'nonce'     => wp_create_nonce( 'wcblu-ajax-nonce' ),
                         'geo_match' => $wcbfc_geo_match,
                     ) );
+                    $getplugingeneralopt = get_option( 'wcblu_general_option' );
+                    if ( isset( $getplugingeneralopt ) && !empty( $getplugingeneralopt ) ) {
+                        $getplugingeneraloptarray = json_decode( $getplugingeneralopt, true );
+                        $wcbfc_recaptcha_status = ( !empty( $getplugingeneraloptarray['wcbfc_recaptcha_status'] ) ? $getplugingeneraloptarray['wcbfc_recaptcha_status'] : '0' );
+                        $wcbfc_recaptcha_version = ( !empty( $getplugingeneraloptarray['wcbfc_recaptcha_version'] ) ? $getplugingeneraloptarray['wcbfc_recaptcha_version'] : 'v2' );
+                        $wcblu_v2_keys_value = ( !empty( $getplugingeneraloptarray['wcblu_v2_keys_value'] ) ? $getplugingeneraloptarray['wcblu_v2_keys_value'] : '' );
+                        $wcblu_v3_keys_value = ( !empty( $getplugingeneraloptarray['wcblu_v3_keys_value'] ) ? $getplugingeneraloptarray['wcblu_v3_keys_value'] : '' );
+                        $checkout_page_id = wc_get_page_id( 'checkout' );
+                        $checkout_page_content = get_post_field( 'post_content', $checkout_page_id );
+                        if ( has_block( 'woocommerce/checkout', $checkout_page_content ) ) {
+                            $wcblu_v3_keys_value = '';
+                        }
+                        $args = [
+                            'render' => ( $wcbfc_recaptcha_version === 'wcblu_v2_keys' ? '' : $wcblu_v3_keys_value ),
+                        ];
+                        if ( '1' === $wcbfc_recaptcha_status ) {
+                            wp_register_script(
+                                'wcblu-re-captcha',
+                                add_query_arg( $args, 'https://www.google.com/recaptcha/api.js' ),
+                                array(),
+                                '1.0'
+                            );
+                            wp_enqueue_script( 'wcblu-re-captcha' );
+                            if ( $wcbfc_recaptcha_version === 'wcblu_v2_keys' ) {
+                                wp_register_script(
+                                    'wcbfc_captcha-block-frontend',
+                                    plugins_url( 'public/js/block/build/wcbfc_captcha-block-frontend.js', __DIR__ ),
+                                    array(
+                                        'react',
+                                        'wc-blocks-checkout',
+                                        'wp-element',
+                                        'wp-i18n'
+                                    ),
+                                    // Dependencies
+                                    false,
+                                    // No version
+                                    true
+                                );
+                                wp_localize_script( 'wcbfc_captcha-block-frontend', 'wcbfc_captcha_ajax', array(
+                                    'wcbfc_captcha_key'      => $wcblu_v2_keys_value,
+                                    'wcbfc_recaptcha_status' => $wcbfc_recaptcha_status,
+                                ) );
+                                wp_enqueue_script( 'wcbfc_captcha-block-frontend' );
+                            }
+                        }
+                    }
                 }
             } else {
                 wp_enqueue_style(
@@ -170,6 +216,47 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     $flagForEnterUserToBannedList = 1;
                 }
             }
+            if ( has_block( 'woocommerce/checkout', $checkout_page_content ) && is_a( $order, 'WC_Order' ) ) {
+                $ship_to_different_address = ( isset( $request ) && $request instanceof WP_REST_Request ? $request->get_param( 'ship_to_different_address' ) : null );
+                // phpcs:ignore
+                $billing_add_1 = $order->get_billing_address_1();
+                $billing_add_2 = $order->get_billing_address_2();
+                $phone = $order->get_billing_phone();
+                $country = $order->get_billing_country();
+                $state = $order->get_billing_state();
+                $zip = $order->get_billing_postcode();
+            } else {
+                $ship_to_different_address = filter_input( INPUT_POST, 'ship_to_different_address', FILTER_SANITIZE_NUMBER_INT );
+                $billing_add_1 = trim( filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $billing_add_2 = trim( filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $phone = trim( filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $country = trim( filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $state = trim( filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $zip = trim( filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+            }
+            if ( "1" !== $ship_to_different_address || "shipping_address_type" !== $getaddresstype ) {
+                $errorAddress = '';
+                if ( isset( $billing_add_1 ) && !empty( $billing_add_1 ) ) {
+                    $errorAddress = $this->verify_address( $billing_add_1, $billing_add_2 );
+                }
+                if ( $errorAddress ) {
+                    wc_add_notice( $errorAddress, 'error' );
+                    $flagForEnterUserToBannedList = 1;
+                }
+                $errorPhone = $this->verify_phone( $phone );
+                if ( $errorPhone ) {
+                    wc_add_notice( $errorPhone, 'error' );
+                    $flagForEnterUserToBannedList = 1;
+                }
+                $errorZone = '';
+                if ( isset( $country ) && !empty( $country ) ) {
+                    $errorZone = $this->verify_zone( $country, $state, $zip );
+                }
+                if ( $errorZone ) {
+                    wc_add_notice( $errorZone, 'error' );
+                    $flagForEnterUserToBannedList = 1;
+                }
+            }
             // validate IP (Test if it is a shared client)
             $http_client_ip = filter_input( INPUT_SERVER, 'HTTP_CLIENT_IP', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $http_x_forwarded_for = filter_input( INPUT_SERVER, 'HTTP_X_FORWARDED_FOR', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
@@ -207,6 +294,15 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     wc_add_notice( $errorState, 'error' );
                     $flagForEnterUserToBannedList = 1;
                 }
+                // validate billing country
+                $errorCountry = '';
+                if ( isset( $country ) && !empty( $country ) ) {
+                    $errorCountry = $this->verify_country( $country );
+                }
+                if ( $errorCountry ) {
+                    wc_add_notice( $errorCountry, 'error' );
+                    $flagForEnterUserToBannedList = 1;
+                }
                 // validate billing zip
                 if ( has_block( 'woocommerce/checkout', $checkout_page_content ) && is_a( $order, 'WC_Order' ) ) {
                     $zip = $order->get_billing_postcode();
@@ -224,7 +320,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 // Address blocking
                 $errorAddress = '';
                 if ( isset( $billing_add_1 ) && !empty( $billing_add_1 ) && 1 !== $flagForEnterUserToBannedList ) {
-                    $errorAddress = $this->verify_address__premium_only( $billing_add_1, $billing_add_2 );
+                    $errorAddress = $this->verify_address( $billing_add_1, $billing_add_2 );
                 }
                 if ( $errorAddress ) {
                     wc_add_notice( $errorAddress, 'error' );
@@ -287,12 +383,29 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     wc_add_notice( $errorState, 'error' );
                     $flagForEnterUserToBannedList = 1;
                 }
+                if ( isset( $country ) && !empty( $country ) ) {
+                    $errorCountry = $this->verify_country( $country );
+                }
+                if ( $errorCountry ) {
+                    wc_add_notice( $errorCountry, 'error' );
+                    $flagForEnterUserToBannedList = 1;
+                }
                 $zip = filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 if ( isset( $zip ) && !empty( $zip ) ) {
                     $errorzip = $this->verify_zip( $zip );
                 }
                 if ( $errorzip ) {
                     wc_add_notice( $errorzip, 'error' );
+                    $flagForEnterUserToBannedList = 1;
+                }
+                // zone wise code
+                $state = filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+                $country = filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+                if ( isset( $state ) && !empty( $state ) || isset( $country ) && !empty( $country ) ) {
+                    $errorZone = $this->verify_zone( $country, $state, $zip );
+                }
+                if ( $errorZone ) {
+                    wc_add_notice( $errorZone, 'error' );
                     $flagForEnterUserToBannedList = 1;
                 }
                 // end here
@@ -642,6 +755,121 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
     }
 
     /**
+     * @param $phone
+     *
+     * @return string
+     * Function to return verify phone number
+     */
+    private function verify_phone( $phone ) {
+        $getpluginoption = get_option( 'wcblu_option' );
+        $getpluginoptionarray = json_decode( $getpluginoption, true );
+        $fetchSelectedPhone = ( !empty( $getpluginoptionarray['wcblu_block_phone'] ) ? $getpluginoptionarray['wcblu_block_phone'] : '' );
+        $status = '';
+        if ( isset( $fetchSelectedPhone ) && !empty( $fetchSelectedPhone ) ) {
+            if ( is_array( $fetchSelectedPhone ) ) {
+                foreach ( $fetchSelectedPhone as $singlePhone ) {
+                    $phone_exc = explode( '*', $singlePhone );
+                    if ( isset( $phone_exc[0] ) && !empty( $phone_exc[0] ) ) {
+                        $phone_wildcard = $phone_exc[0];
+                    } else {
+                        $phone_wildcard = '';
+                    }
+                    $phone_wildcar_length = strlen( $phone_wildcard );
+                    $match_phone_wildcard = substr( $phone, 0, $phone_wildcar_length );
+                    if ( $singlePhone === $phone || $phone_wildcard === $match_phone_wildcard ) {
+                        $status = convert_smilies( ( empty( $getpluginoptionarray['wcblu_domain_msg'] ) ? __( 'Your Phone number has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_phone_msg'] ) );
+                        break;
+                    }
+                }
+            }
+        } else {
+            $status = '';
+        }
+        return $status;
+    }
+
+    /**
+     * @param $country
+     * @param $state
+     * @param $zip
+     * @param $packages
+     *
+     * @return string
+     * function to return verify zones
+     */
+    private function verify_zone( $country, $state, $zip ) {
+        $getpluginoption = get_option( 'wcblu_option' );
+        $getpluginoptionarray = json_decode( $getpluginoption, true );
+        $status = '';
+        //get blacklisted zone from database
+        $fetchSelecetedzone = ( !empty( $getpluginoptionarray['wcblu_block_zone'] ) ? array_filter( $getpluginoptionarray['wcblu_block_zone'] ) : '' );
+        if ( isset( $fetchSelecetedzone ) && !empty( $fetchSelecetedzone ) ) {
+            $delivery_zones = WC_Shipping_Zones::get_zones();
+            if ( !empty( $delivery_zones ) && isset( $delivery_zones ) ) {
+                if ( is_array( $delivery_zones ) ) {
+                    foreach ( $delivery_zones as $delivery_zones_result ) {
+                        $delivery_zone_country = $delivery_zones_result['zone_locations'];
+                        if ( !empty( $delivery_zone_country ) ) {
+                            if ( is_array( $delivery_zone_country ) ) {
+                                foreach ( $delivery_zone_country as $delivery_zone_location_result ) {
+                                    $code = $delivery_zone_location_result->code;
+                                    $type = $delivery_zone_location_result->type;
+                                    if ( !empty( $type ) && 'continent' === $type ) {
+                                        $continents = WC_Countries::get_continents();
+                                        $continents_and_ccs = wp_list_pluck( $continents, 'countries' );
+                                        if ( is_array( $continents_and_ccs ) ) {
+                                            foreach ( $continents_and_ccs as $continent_code => $countries ) {
+                                                if ( !empty( $continent_code ) && $code === $continent_code ) {
+                                                    if ( in_array( $country, $countries, true ) ) {
+                                                        $status = convert_smilies( ( empty( $getpluginoptionarray['wcblu_zone_msg'] ) ? __( 'Your Zone has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_zone_msg'] ) );
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //country wise check code
+                                    if ( $country === $code || $zip === $code || $zip === $state ) {
+                                        $status = convert_smilies( ( empty( $getpluginoptionarray['wcblu_zone_msg'] ) ? __( 'Your Zone has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_zone_msg'] ) );
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $status;
+    }
+
+    /**
+     * 
+     * function to return varify address
+     */
+    private function verify_address( $address1, $address2 ) {
+        $getpluginoption = get_option( 'wcblu_option' );
+        $getpluginoptionarray = json_decode( $getpluginoption, true );
+        $fetchSelecetedAddress = ( !empty( $getpluginoptionarray['wcblu_block_address'] ) ? $getpluginoptionarray['wcblu_block_address'] : '' );
+        $status = '';
+        $Address1 = wc_strtolower( $address1 );
+        $Address2 = wc_strtolower( $address2 );
+        if ( isset( $fetchSelecetedAddress ) && !empty( $fetchSelecetedAddress ) ) {
+            if ( is_array( $fetchSelecetedAddress ) ) {
+                foreach ( $fetchSelecetedAddress as $value ) {
+                    if ( strpos( $Address1, $value ) !== false || strpos( $Address2, $value ) !== false ) {
+                        $status = convert_smilies( ( empty( $getpluginoptionarray['wcblu_address_msg'] ) ? __( 'Your Address has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_address_msg'] ) );
+                        break;
+                    }
+                }
+            }
+        } else {
+            $status = '';
+        }
+        return $status;
+    }
+
+    /**
      * @param $ip
      *
      * @return string
@@ -733,6 +961,32 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                         $status = convert_smilies( ( empty( $getpluginoptionarray['wcblu_state_msg'] ) ? __( 'Your State has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_state_msg'] ) );
                         break;
                     }
+                }
+            }
+        } else {
+            $status = '';
+        }
+        return $status;
+    }
+
+    /**
+     * @param $country
+     *
+     * @return string
+     * function to retirn verify country
+     */
+    private function verify_country( $country ) {
+        $getpluginoption = get_option( 'wcblu_option' );
+        $getpluginoptionarray = json_decode( $getpluginoption, true );
+        $status = '';
+        //get blacklisted domains from database
+        $fetchSelecetedountry = ( !empty( $getpluginoptionarray['wcblu_block_country'] ) ? array_filter( $getpluginoptionarray['wcblu_block_country'] ) : '' );
+        if ( isset( $fetchSelecetedountry ) && !empty( $fetchSelecetedountry ) ) {
+            if ( in_array( $country, $fetchSelecetedountry, true ) ) {
+                $status = convert_smilies( ( empty( $getpluginoptionarray['wcblu_country_msg'] ) ? __( 'Your Country has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_country_msg'] ) );
+                $country_name = WC()->countries->countries[$country];
+                if ( !empty( $country_name ) ) {
+                    $status = str_replace( "{country}", $country_name, $status );
                 }
             }
         } else {
@@ -1271,6 +1525,64 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             $validation_errors->add( 'g-recaptcha_error', __( 'Recaptcha not responding, please refresh page.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) );
         }
         return $validation_errors;
+    }
+
+    /**
+     * Set transient to lock down WooCommerce after multiple failed orders.
+     *
+     * @param int $order_id Order ID.
+     */
+    public function wcblu_monitor_failed_orders_behavior() {
+        $getplugingeneralopt = get_option( 'wcblu_general_option' );
+        $getplugingeneraloptarray = json_decode( $getplugingeneralopt, true );
+        $wcbfc_cbf_status = ( !empty( $getplugingeneraloptarray['wcbfc_cbf_status'] ) ? (int) $getplugingeneraloptarray['wcbfc_cbf_status'] : 0 );
+        $wcbfc_cbf_attempts = ( !empty( $getplugingeneraloptarray['wcbfc_cbf_attempts'] ) ? (int) $getplugingeneraloptarray['wcbfc_cbf_attempts'] : 0 );
+        $wcbfc_cbf_time = ( !empty( $getplugingeneraloptarray['wcbfc_cbf_time'] ) ? (int) $getplugingeneraloptarray['wcbfc_cbf_time'] : 0 );
+        if ( isset( $wcbfc_cbf_status ) && 1 === $wcbfc_cbf_status ) {
+            $args = array(
+                'status'       => 'failed',
+                'date_created' => '>' . (time() - $wcbfc_cbf_time * MINUTE_IN_SECONDS),
+                'limit'        => -1,
+                'return'       => 'ids',
+            );
+            $failed_orders = wc_get_orders( $args );
+            $failed_count = ( is_array( $failed_orders ) ? count( $failed_orders ) : 0 );
+            if ( $failed_count >= $wcbfc_cbf_attempts ) {
+                set_transient( 'wcbfc_failed_order_lock', time(), 10 * MINUTE_IN_SECONDS );
+            }
+        }
+    }
+
+    /**
+     * Disable credit card payments if a lock is active.
+     *
+     * @param array $gateways Available payment gateways.
+     * @return array
+     */
+    public function wcblu_block_checkout_on_transition( $order ) {
+        $plugin_options_raw = get_option( 'wcblu_general_option' );
+        $plugin_options = json_decode( $plugin_options_raw, true );
+        $block_status = ( !empty( $plugin_options['wcbfc_cbf_status'] ) ? (int) $plugin_options['wcbfc_cbf_status'] : 0 );
+        if ( 1 === $block_status && get_transient( 'wcbfc_failed_order_lock' ) ) {
+            $error_msg = __( 'Checkout is temporarily disabled due to multiple failed orders. Please try again later.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            $order_id = ( is_a( $order, 'WC_Order' ) ? $order->get_id() : (int) $order );
+            if ( class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
+                $order_obj = wc_get_order( $order_id );
+                if ( $order_obj ) {
+                    $order_obj->delete( true );
+                }
+            } else {
+                wp_delete_post( $order_id, true );
+            }
+            if ( !$this->wcbfc_is_checkout_block() ) {
+                wp_send_json( [
+                    'result'   => 'failure',
+                    'messages' => "<ul class='woocommerce-error' role='alert'><li>" . esc_html( $error_msg ) . "</li></ul>",
+                ] );
+            } else {
+                throw new Exception($error_msg);
+            }
+        }
     }
 
 }

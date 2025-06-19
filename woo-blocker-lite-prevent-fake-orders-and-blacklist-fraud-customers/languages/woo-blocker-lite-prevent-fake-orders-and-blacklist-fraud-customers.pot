@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Fraud Prevention For WooCommerce and EDD Premium "
-"(Premium) 2.2.3\n"
+"(Premium) 2.2.4\n"
 "Report-Msgid-Bugs-To: https://www.multidots.com/contact/\n"
-"POT-Creation-Date: 2025-03-04 10:42:28+00:00\n"
+"POT-Creation-Date: 2025-06-17 11:07:18+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,293 +25,295 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:172
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:177
 msgid "Please add JSON file"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:173
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:178
 msgid "Please choose JSON file"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:345
-#: includes/woocommerce-blocker-admin-functions.php:141
-#: includes/woocommerce-blocker-admin-functions.php:1062
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:350
 msgid "Email"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:346
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:351
 msgid "Attempt"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:369
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:2035
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:374
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:2070
 msgid "Delete Permanently"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:446
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:451
 #: includes/woocommerce-blocker-admin-functions.php:30
-#: includes/woocommerce-blocker-admin-functions.php:962
+#: includes/woocommerce-blocker-admin-functions.php:1133
 msgid ""
 "This email address has been blocked, please try other email address or "
 "Kindly contact admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:447
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:452
 #: includes/woocommerce-blocker-admin-functions.php:39
-#: includes/woocommerce-blocker-admin-functions.php:965
+#: includes/woocommerce-blocker-admin-functions.php:1136
 msgid "This IP address has been blocked due to some reason, Kindly contact admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:448
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:453
 #: includes/woocommerce-blocker-admin-functions.php:31
-#: includes/woocommerce-blocker-admin-functions.php:963
+#: includes/woocommerce-blocker-admin-functions.php:1134
 msgid ""
 "Sorry :( We are not shipping this products in this state.  Kindly contact "
 "admin. "
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:449
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:454
 #: includes/woocommerce-blocker-admin-functions.php:32
+#: includes/woocommerce-blocker-admin-functions.php:1140
 msgid ""
 "Sorry :( We are not shipping this products in this country.  Kindly contact "
 "admin. "
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:450
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:455
 #: includes/woocommerce-blocker-admin-functions.php:33
-#: includes/woocommerce-blocker-admin-functions.php:964
+#: includes/woocommerce-blocker-admin-functions.php:1135
 msgid ""
 "Sorry :( We are not shipping this products in this location. Kindly contact "
 "admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:451
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:456
 #: includes/woocommerce-blocker-admin-functions.php:34
-#: includes/woocommerce-blocker-admin-functions.php:966
+#: includes/woocommerce-blocker-admin-functions.php:1137
 msgid ""
 "Sorry :( This domain has been blocked due to some reason. Kindly contact "
 "admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:452
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:457
 #: includes/woocommerce-blocker-admin-functions.php:43
 msgid "Sorry :( This domain extension has been blocked, Kindly contact admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:453
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:458
 #: includes/woocommerce-blocker-admin-functions.php:35
+#: includes/woocommerce-blocker-admin-functions.php:1139
 msgid ""
 "Sorry :( This phone number has been blocked due to some reason. Kindly "
 "contact admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:454
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:459
 #: includes/woocommerce-blocker-admin-functions.php:36
 msgid ""
 "Sorry :( This first name has been blocked due to some reason. Kindly "
 "contact admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:455
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:460
 #: includes/woocommerce-blocker-admin-functions.php:41
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1848
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1852
 msgid "This browser has been blocked due to some reason, Kindly contact admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:456
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:461
 #: includes/woocommerce-blocker-admin-functions.php:37
 msgid ""
 "Sorry :( This last name has been blocked due to some reason. Kindly contact "
 "admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:457
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:462
 #: includes/woocommerce-blocker-admin-functions.php:38
+#: includes/woocommerce-blocker-admin-functions.php:1138
 msgid ""
 "Sorry :( This Address has been blocked due to some reason. Kindly contact "
 "admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:458
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:463
 msgid ""
 "Sorry :( This zone has been blocked due to some reason. Kindly contact "
 "admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:459
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:992
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1005
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:464
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:996
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1009
 msgid ""
 "Sorry :( This user role has been blocked due to some reason. Kindly contact "
 "admin."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:517
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:571
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:627
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:522
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:576
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:632
 msgid "Return Code: %1$s %2$s"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:532
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:588
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:642
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:537
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:593
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:647
 msgid "Please upload a file to import"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:557
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:613
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:668
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:562
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:618
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:673
 msgid "No file selected"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1203
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1238
 msgid "Fraud Risk"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1206
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1355
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1241
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1390
 msgid "Block Order"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1259
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1453
-#: admin/partials/dots-dashboard.php:153 admin/partials/dots-dashboard.php:332
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1294
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1488
+#: admin/partials/dots-dashboard.php:187 admin/partials/dots-dashboard.php:396
 #: admin/partials/dots-edd-dashboard.php:138
 #: admin/partials/dots-edd-dashboard.php:363
 msgid "Low Risk"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1262
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1456
-#: admin/partials/dots-dashboard.php:166 admin/partials/dots-dashboard.php:344
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1297
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1491
+#: admin/partials/dots-dashboard.php:200 admin/partials/dots-dashboard.php:408
 #: admin/partials/dots-edd-dashboard.php:151
 #: admin/partials/dots-edd-dashboard.php:375
 msgid "Medium Risk"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1265
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1459
-#: admin/partials/dots-dashboard.php:170
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1300
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1494
+#: admin/partials/dots-dashboard.php:204
 #: admin/partials/dots-edd-dashboard.php:155
 msgid "High Risk"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1351
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1386
 msgid "This order has been blocked."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1353
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1388
 msgid "Click the button below to block this order."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1354
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1389
 msgid ""
 "The customer's details (First Name, Last Name, Email, and IP) will be added "
 "to the blacklist, preventing future order placements."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1522
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1557
 msgid "No data to export! please setup setting then export."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1535
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1570
 msgid "Export Done!"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1562
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1597
 msgid "Please add JSON file!"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1587
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1622
 msgid "Data has been successfully imported!"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1601
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1602
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1603
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1636
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1637
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1638
 msgid "Blocked Users"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1604
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1639
 msgid "Add New"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1605
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1640
 msgid "Add New Block User"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1606
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1641
 msgid "Edit"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1607
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1642
 msgid "Edit Block User"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1608
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1643
 msgid "New Block User"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1609
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1644
 msgid "View"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1610
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1645
 msgid "View Block User"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1611
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1646
 msgid "Search Block Users"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1612
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1647
 msgid "No Block User found"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1613
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1648
 msgid "No Block User found in Trash"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1614
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1649
 msgid "Parent Block User Listing"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1672
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1707
 msgid "Dotstore Plugins"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1708
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1743
 msgid "Block Users Lite"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1730
-#: admin/partials/wcblu-general-settings.php:492
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1765
+#: admin/partials/wcblu-general-settings.php:34
+#: admin/partials/wcblu-general-settings.php:594
 #: admin/partials/wcblu-rule-settings.php:860
 msgid "Data has been updated."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1839
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1874
 msgid "Welcome To Woocommerce Blocker"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1844
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1879
 msgid ""
 "%s Prevent fake orders and Blacklist fraud customers plugin allows your "
 "WooCommerce store to refuse orders from specific user, based on blacklist "
 "rules."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1880
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1915
 msgid ""
 "Go to Woocommerce Blocker - Prevent fake orders and Blacklist fraud "
 "customers Settings"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1896
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1931
 msgid "Plugin Overview"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1897
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1932
 msgid ""
 "This plugin can be used to refuse orders from specific users, based on "
 "customize blacklisting criteria.\n"
@@ -323,179 +325,179 @@ msgid ""
 "was blocked."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1900
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1935
 msgid ""
 "Additionally, an admin can get the detail report of genuine block user "
 "\"who try to buy products more than one time\" and contact them to resolve "
 "issue."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1902
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1937
 msgid "Key Features:"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1905
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1940
 msgid "Block user based on Email, IP, State, Country, Zipcode, and Domain."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1906
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1941
 msgid "Block user from web centralize data using API."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1907
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1942
 msgid ""
 "Ability to review fraudulent checkouts OR registration attempts based on "
 "rule."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1908
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1943
 msgid "Works in both checkout and registration pages."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1909
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1944
 msgid ""
 "Display standard WooCommerce notices, error messages can be customized via "
 "back-end settings."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1910
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1945
 msgid ""
 "Display blocked users report and admin can check how many time they tried "
 "to website."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1911
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1946
 msgid "Work with WooCommerce 2.0+ and Word Press 3.9+"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1912
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1947
 msgid "Easy to use interface to create and review blacklist rules."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1913
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1948
 msgid "Localization compatible."
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1930
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1965
 msgid "Blacklist Users Report"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1956
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1991
 msgid "Email id"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1957
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1992
 msgid "Attempts"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1958
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1993
 msgid "Review details"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1979
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:2014
 msgid "No Record Found"
 msgstr ""
 
-#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:1999
+#: admin/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-admin.php:2034
 msgid ""
 "<strong>We need your support</strong> to keep updating and improving the "
 "plugin. Please <a href=\"%1$s\" target=\"_blank\">help us by leaving a good "
 "review</a> :) Thanks!"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:22
+#: admin/partials/dots-dashboard.php:59
 #: admin/partials/dots-edd-dashboard.php:23
 msgid "Orders Detected 🔒"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:34
+#: admin/partials/dots-dashboard.php:71
 #: admin/partials/dots-edd-dashboard.php:35
 msgid "Low Risk 🔒"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:46
+#: admin/partials/dots-dashboard.php:83
 #: admin/partials/dots-edd-dashboard.php:47
 msgid "Medium Risk 🔒"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:58
+#: admin/partials/dots-dashboard.php:95
 #: admin/partials/dots-edd-dashboard.php:59
 msgid "Needs Attention 🔒"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:70
+#: admin/partials/dots-dashboard.php:107
 #: admin/partials/dots-edd-dashboard.php:71
 msgid "Recent Order Data 🔒"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:80
+#: admin/partials/dots-dashboard.php:117
 #: admin/partials/dots-edd-dashboard.php:81
 msgid "Last 24 Hours Update 🔒"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:85 admin/partials/dots-dashboard.php:383
+#: admin/partials/dots-dashboard.php:122 admin/partials/dots-dashboard.php:447
 #: admin/partials/dots-edd-dashboard.php:86
 #: admin/partials/dots-edd-dashboard.php:414
 msgid "Total Transaction Amount"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:90 admin/partials/dots-dashboard.php:388
+#: admin/partials/dots-dashboard.php:127 admin/partials/dots-dashboard.php:452
 #: admin/partials/dots-edd-dashboard.php:91
 #: admin/partials/dots-edd-dashboard.php:419
 msgid "Total Number of Orders"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:95 admin/partials/dots-dashboard.php:393
+#: admin/partials/dots-dashboard.php:132 admin/partials/dots-dashboard.php:457
 #: admin/partials/dots-edd-dashboard.php:96
 #: admin/partials/dots-edd-dashboard.php:424
 msgid "Medium Risk Orders"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:100 admin/partials/dots-dashboard.php:398
+#: admin/partials/dots-dashboard.php:137 admin/partials/dots-dashboard.php:462
 #: admin/partials/dots-edd-dashboard.php:101
 #: admin/partials/dots-edd-dashboard.php:429
 msgid "High-Risk Orders on Hold"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:105 admin/partials/dots-dashboard.php:403
+#: admin/partials/dots-dashboard.php:142 admin/partials/dots-dashboard.php:467
 #: admin/partials/dots-edd-dashboard.php:106
 #: admin/partials/dots-edd-dashboard.php:434
 msgid "Fraudulent Orders Cancelled"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:110 admin/partials/dots-dashboard.php:408
+#: admin/partials/dots-dashboard.php:147 admin/partials/dots-dashboard.php:472
 #: admin/partials/dots-edd-dashboard.php:111
 #: admin/partials/dots-edd-dashboard.php:439
 msgid "High-Risk Net Transaction"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:115 admin/partials/dots-dashboard.php:413
+#: admin/partials/dots-dashboard.php:152 admin/partials/dots-dashboard.php:477
 #: admin/partials/dots-edd-dashboard.php:116
 #: admin/partials/dots-edd-dashboard.php:444
 msgid "Emails Blocked"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:149
+#: admin/partials/dots-dashboard.php:183
 #: admin/partials/dots-edd-dashboard.php:134
 msgid "No fraud checking has been done on this order yet."
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:320
+#: admin/partials/dots-dashboard.php:384
 #: admin/partials/dots-edd-dashboard.php:351
 msgid "Orders Detected"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:356
+#: admin/partials/dots-dashboard.php:420
 #: admin/partials/dots-edd-dashboard.php:387
 msgid "Needs Attention"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:368
+#: admin/partials/dots-dashboard.php:432
 #: admin/partials/dots-edd-dashboard.php:399
 msgid "Recent Order Data"
 msgstr ""
 
-#: admin/partials/dots-dashboard.php:378
+#: admin/partials/dots-dashboard.php:442
 #: admin/partials/dots-edd-dashboard.php:409
 msgid "Last 24 Hours Update"
 msgstr ""
@@ -959,7 +961,7 @@ msgid "Upgrade Now"
 msgstr ""
 
 #: admin/partials/header/plugin-header.php:47
-#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:347
+#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:355
 msgid "Support"
 msgstr ""
 
@@ -984,8 +986,8 @@ msgid "Dashboard EDD"
 msgstr ""
 
 #: admin/partials/header/plugin-header.php:143
-#: admin/partials/wcblu-general-settings.php:15
-#: admin/partials/wcblu-general-settings.php:496
+#: admin/partials/wcblu-general-settings.php:38
+#: admin/partials/wcblu-general-settings.php:598
 msgid "General Settings"
 msgstr ""
 
@@ -1002,7 +1004,7 @@ msgid "Blocked User List"
 msgstr ""
 
 #: admin/partials/header/plugin-header.php:171
-#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:345
+#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:353
 msgid "Settings"
 msgstr ""
 
@@ -1060,128 +1062,128 @@ msgstr ""
 msgid "Plugin Tour"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:16
-#: admin/partials/wcblu-general-settings.php:497
+#: admin/partials/wcblu-general-settings.php:39
+#: admin/partials/wcblu-general-settings.php:599
 msgid ""
 "Set up the automatic blocking options for the Fraud Prevention plugin on "
 "this page."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:23
-#: admin/partials/wcblu-general-settings.php:505
+#: admin/partials/wcblu-general-settings.php:48
+#: admin/partials/wcblu-general-settings.php:607
 msgid "Enable Automatic Fraud Check"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:25
-#: admin/partials/wcblu-general-settings.php:425
-#: admin/partials/wcblu-general-settings.php:507
-#: admin/partials/wcblu-general-settings.php:1115
+#: admin/partials/wcblu-general-settings.php:50
+#: admin/partials/wcblu-general-settings.php:519
+#: admin/partials/wcblu-general-settings.php:609
+#: admin/partials/wcblu-general-settings.php:1289
 #: admin/partials/wcblu-rule-settings.php:26
 #: admin/partials/wcblu-rule-settings.php:750
 #: admin/partials/wcblu-rule-settings.php:875
 #: admin/partials/wcblu-rule-settings.php:1940
 #: includes/woocommerce-blocker-admin-functions.php:54
-#: includes/woocommerce-blocker-admin-functions.php:934
-#: includes/woocommerce-blocker-admin-functions.php:973
-#: includes/woocommerce-blocker-admin-functions.php:1388
+#: includes/woocommerce-blocker-admin-functions.php:1102
+#: includes/woocommerce-blocker-admin-functions.php:1148
+#: includes/woocommerce-blocker-admin-functions.php:1862
 msgid "Save Changes"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:31
-#: admin/partials/wcblu-general-settings.php:513
+#: admin/partials/wcblu-general-settings.php:56
+#: admin/partials/wcblu-general-settings.php:615
 msgid "Fraud Score Check"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:33
-#: admin/partials/wcblu-general-settings.php:515
+#: admin/partials/wcblu-general-settings.php:58
+#: admin/partials/wcblu-general-settings.php:617
 msgid ""
 "If this is enabled, the fraud check will automatically check for all rules "
 "and general settings, count the score and prevent the fraud orders."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:48
-#: admin/partials/wcblu-general-settings.php:530
+#: admin/partials/wcblu-general-settings.php:73
+#: admin/partials/wcblu-general-settings.php:632
 msgid "Pre-Purchase Assessment"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:55
-#: admin/partials/wcblu-general-settings.php:537
+#: admin/partials/wcblu-general-settings.php:80
+#: admin/partials/wcblu-general-settings.php:639
 msgid "Before Payment Checking"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:57
-#: admin/partials/wcblu-general-settings.php:539
+#: admin/partials/wcblu-general-settings.php:82
+#: admin/partials/wcblu-general-settings.php:641
 msgid ""
 "If this is enabled, this option will prevent the customer to place an order "
 "at the checkout page if the fraud score is equal to or higher than a high "
 "risk score."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:66
-#: admin/partials/wcblu-general-settings.php:569
+#: admin/partials/wcblu-general-settings.php:91
+#: admin/partials/wcblu-general-settings.php:671
 msgid "Fraud check before payment"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:71
-#: admin/partials/wcblu-general-settings.php:574
+#: admin/partials/wcblu-general-settings.php:96
+#: admin/partials/wcblu-general-settings.php:676
 msgid "Message for Blocked users"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:73
-#: admin/partials/wcblu-general-settings.php:576
+#: admin/partials/wcblu-general-settings.php:98
+#: admin/partials/wcblu-general-settings.php:678
 msgid ""
 "Customize the message displayed when a fraud check is triggered and block "
 "users at checkout"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:78
+#: admin/partials/wcblu-general-settings.php:103
 msgid ""
 "Website Administrator does not allow you to place this order. Kindly "
 "contact admin."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:85
-#: admin/partials/wcblu-general-settings.php:593
+#: admin/partials/wcblu-general-settings.php:110
+#: admin/partials/wcblu-general-settings.php:695
 msgid "Change Order Status based on Risk Score"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:92
-#: admin/partials/wcblu-general-settings.php:600
+#: admin/partials/wcblu-general-settings.php:117
+#: admin/partials/wcblu-general-settings.php:702
 msgid "Enable Update Order Status"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:94
-#: admin/partials/wcblu-general-settings.php:602
+#: admin/partials/wcblu-general-settings.php:119
+#: admin/partials/wcblu-general-settings.php:704
 msgid ""
 "If this is enabled, the order status will be updated as score value's "
 "status."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:103
-#: admin/partials/wcblu-general-settings.php:629
+#: admin/partials/wcblu-general-settings.php:128
+#: admin/partials/wcblu-general-settings.php:731
 msgid "Update order status according the order score."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:108
-#: admin/partials/wcblu-general-settings.php:634
+#: admin/partials/wcblu-general-settings.php:133
+#: admin/partials/wcblu-general-settings.php:736
 msgid "Cancel Score"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:110
-#: admin/partials/wcblu-general-settings.php:636
+#: admin/partials/wcblu-general-settings.php:135
+#: admin/partials/wcblu-general-settings.php:738
 msgid ""
 "Orders with a score equal to or greater than this number will be "
 "automatically cancelled. Select 0 to disable."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:126
-#: admin/partials/wcblu-general-settings.php:159
-#: admin/partials/wcblu-general-settings.php:209
-#: admin/partials/wcblu-general-settings.php:267
-#: admin/partials/wcblu-general-settings.php:663
-#: admin/partials/wcblu-general-settings.php:707
-#: admin/partials/wcblu-general-settings.php:757
-#: admin/partials/wcblu-general-settings.php:844
+#: admin/partials/wcblu-general-settings.php:151
+#: admin/partials/wcblu-general-settings.php:184
+#: admin/partials/wcblu-general-settings.php:234
+#: admin/partials/wcblu-general-settings.php:292
+#: admin/partials/wcblu-general-settings.php:765
+#: admin/partials/wcblu-general-settings.php:809
+#: admin/partials/wcblu-general-settings.php:859
+#: admin/partials/wcblu-general-settings.php:946
 #: admin/partials/wcblu-rule-settings.php:54
 #: admin/partials/wcblu-rule-settings.php:91
 #: admin/partials/wcblu-rule-settings.php:140
@@ -1215,14 +1217,14 @@ msgstr ""
 msgid "No Importance"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:129
-#: admin/partials/wcblu-general-settings.php:162
-#: admin/partials/wcblu-general-settings.php:212
-#: admin/partials/wcblu-general-settings.php:270
-#: admin/partials/wcblu-general-settings.php:666
-#: admin/partials/wcblu-general-settings.php:710
-#: admin/partials/wcblu-general-settings.php:760
-#: admin/partials/wcblu-general-settings.php:847
+#: admin/partials/wcblu-general-settings.php:154
+#: admin/partials/wcblu-general-settings.php:187
+#: admin/partials/wcblu-general-settings.php:237
+#: admin/partials/wcblu-general-settings.php:295
+#: admin/partials/wcblu-general-settings.php:768
+#: admin/partials/wcblu-general-settings.php:812
+#: admin/partials/wcblu-general-settings.php:862
+#: admin/partials/wcblu-general-settings.php:949
 #: admin/partials/wcblu-rule-settings.php:57
 #: admin/partials/wcblu-rule-settings.php:94
 #: admin/partials/wcblu-rule-settings.php:143
@@ -1256,14 +1258,14 @@ msgstr ""
 msgid "Moderate"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:132
-#: admin/partials/wcblu-general-settings.php:165
-#: admin/partials/wcblu-general-settings.php:215
-#: admin/partials/wcblu-general-settings.php:273
-#: admin/partials/wcblu-general-settings.php:669
-#: admin/partials/wcblu-general-settings.php:713
-#: admin/partials/wcblu-general-settings.php:763
-#: admin/partials/wcblu-general-settings.php:850
+#: admin/partials/wcblu-general-settings.php:157
+#: admin/partials/wcblu-general-settings.php:190
+#: admin/partials/wcblu-general-settings.php:240
+#: admin/partials/wcblu-general-settings.php:298
+#: admin/partials/wcblu-general-settings.php:771
+#: admin/partials/wcblu-general-settings.php:815
+#: admin/partials/wcblu-general-settings.php:865
+#: admin/partials/wcblu-general-settings.php:952
 #: admin/partials/wcblu-rule-settings.php:60
 #: admin/partials/wcblu-rule-settings.php:97
 #: admin/partials/wcblu-rule-settings.php:146
@@ -1297,186 +1299,225 @@ msgstr ""
 msgid "High Importance"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:141
-#: admin/partials/wcblu-general-settings.php:678
+#: admin/partials/wcblu-general-settings.php:166
+#: admin/partials/wcblu-general-settings.php:780
 msgid "On-Hold Score"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:143
-#: admin/partials/wcblu-general-settings.php:680
+#: admin/partials/wcblu-general-settings.php:168
+#: admin/partials/wcblu-general-settings.php:782
 msgid ""
 "Orders with a score equal to or greater than this number will be "
 "automatically set on hold. Select 0 to disable."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:176
-#: admin/partials/wcblu-general-settings.php:183
-#: admin/partials/wcblu-general-settings.php:724
-#: admin/partials/wcblu-general-settings.php:731
+#: admin/partials/wcblu-general-settings.php:201
+#: admin/partials/wcblu-general-settings.php:208
+#: admin/partials/wcblu-general-settings.php:826
+#: admin/partials/wcblu-general-settings.php:833
 msgid "Set Risk Thresholds"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:185
-#: admin/partials/wcblu-general-settings.php:733
+#: admin/partials/wcblu-general-settings.php:210
+#: admin/partials/wcblu-general-settings.php:835
 msgid ""
 "With above setting you may set the risk threadhold ( Low, Medium, High ) "
 "between 0-100."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:193
-#: admin/partials/wcblu-general-settings.php:741
+#: admin/partials/wcblu-general-settings.php:218
+#: admin/partials/wcblu-general-settings.php:843
 msgid "Medium Risk threshold"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:197
-#: admin/partials/wcblu-general-settings.php:745
+#: admin/partials/wcblu-general-settings.php:222
+#: admin/partials/wcblu-general-settings.php:847
 msgid "High Risk threshold"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:226
-#: admin/partials/wcblu-general-settings.php:774
+#: admin/partials/wcblu-general-settings.php:251
+#: admin/partials/wcblu-general-settings.php:876
 msgid "Email Alerts"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:233
-#: admin/partials/wcblu-general-settings.php:781
+#: admin/partials/wcblu-general-settings.php:258
+#: admin/partials/wcblu-general-settings.php:883
 msgid "Send Admin Email"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:235
-#: admin/partials/wcblu-general-settings.php:783
+#: admin/partials/wcblu-general-settings.php:260
+#: admin/partials/wcblu-general-settings.php:885
 msgid "Send a notification mail to the site admin showing fraud score checks."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:244
-#: admin/partials/wcblu-general-settings.php:810
+#: admin/partials/wcblu-general-settings.php:269
+#: admin/partials/wcblu-general-settings.php:912
 msgid "Admin Email Alert Activation"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:249
-#: admin/partials/wcblu-general-settings.php:815
+#: admin/partials/wcblu-general-settings.php:274
+#: admin/partials/wcblu-general-settings.php:917
 msgid "Email Notification Score"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:251
-#: admin/partials/wcblu-general-settings.php:817
+#: admin/partials/wcblu-general-settings.php:276
+#: admin/partials/wcblu-general-settings.php:919
 msgid ""
 "An admin email notification will be sent if an orders scores equal to or "
 "greater than this number. Select 0 to disable."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:282
-#: admin/partials/wcblu-general-settings.php:859
+#: admin/partials/wcblu-general-settings.php:307
+#: admin/partials/wcblu-general-settings.php:961
 msgid "Additional Recipients"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:284
-#: admin/partials/wcblu-general-settings.php:861
+#: admin/partials/wcblu-general-settings.php:309
+#: admin/partials/wcblu-general-settings.php:963
 msgid ""
 "To send email notifications to additional addresses, enter them, separated "
 "by commas, above."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:296
-#: admin/partials/wcblu-general-settings.php:873
+#: admin/partials/wcblu-general-settings.php:321
+#: admin/partials/wcblu-general-settings.php:975
 msgid "Whitelist Options: Email, Payment Method, Role, and IP Address"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:303
-#: admin/partials/wcblu-general-settings.php:880
+#: admin/partials/wcblu-general-settings.php:328
+#: admin/partials/wcblu-general-settings.php:982
 msgid "Email Whitelist"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:305
-#: admin/partials/wcblu-general-settings.php:882
+#: admin/partials/wcblu-general-settings.php:330
+#: admin/partials/wcblu-general-settings.php:984
 msgid ""
 "Email addresses listed above will not be subject to fraud checks. Enter one "
 "email address per line."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:315
-#: admin/partials/wcblu-general-settings.php:892
+#: admin/partials/wcblu-general-settings.php:340
+#: admin/partials/wcblu-general-settings.php:994
 msgid "Whitelist Payment Method"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:317
-#: admin/partials/wcblu-general-settings.php:894
+#: admin/partials/wcblu-general-settings.php:342
+#: admin/partials/wcblu-general-settings.php:996
 msgid ""
 "Selected payment methods will not be considered for Cancel Order Score and "
 "On-Hold Order Score evaluation for each order."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:326
-#: admin/partials/wcblu-general-settings.php:918
+#: admin/partials/wcblu-general-settings.php:351
+#: admin/partials/wcblu-general-settings.php:1020
 msgid "Enable Payment Method Whitelisting"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:337
-#: admin/partials/wcblu-general-settings.php:963
+#: admin/partials/wcblu-general-settings.php:362
+#: admin/partials/wcblu-general-settings.php:1065
 msgid "User Roles Whitelisting"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:339
-#: admin/partials/wcblu-general-settings.php:965
+#: admin/partials/wcblu-general-settings.php:364
+#: admin/partials/wcblu-general-settings.php:1067
 msgid ""
 "Selected User Roles will not be considered for Cancel Order Score and "
 "On-Hold Order Score evaluation for each order."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:348
-#: admin/partials/wcblu-general-settings.php:989
+#: admin/partials/wcblu-general-settings.php:373
+#: admin/partials/wcblu-general-settings.php:1091
 msgid "Enable User Roles Whitelisting"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:359
-#: admin/partials/wcblu-general-settings.php:1014
+#: admin/partials/wcblu-general-settings.php:384
+#: admin/partials/wcblu-general-settings.php:1116
 msgid "IP Whitelisting"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:361
-#: admin/partials/wcblu-general-settings.php:1016
+#: admin/partials/wcblu-general-settings.php:386
+#: admin/partials/wcblu-general-settings.php:1118
 msgid ""
 "IP addresses listed above will not be subject to fraud checks. Enter one IP "
 "address per line."
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:370
-#: admin/partials/wcblu-general-settings.php:1041
+#: admin/partials/wcblu-general-settings.php:395
+#: admin/partials/wcblu-general-settings.php:1143
 msgid "Enable IP Whitelisting"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:380
-#: admin/partials/wcblu-general-settings.php:1052
+#: admin/partials/wcblu-general-settings.php:405
+#: admin/partials/wcblu-general-settings.php:1154
+msgid "Secure Checkout and Payment Settings"
+msgstr ""
+
+#: admin/partials/wcblu-general-settings.php:412
+#: admin/partials/wcblu-general-settings.php:1161
+msgid "Block COD for Fraudulent Users"
+msgstr ""
+
+#: admin/partials/wcblu-general-settings.php:414
+#: admin/partials/wcblu-general-settings.php:1163
+msgid ""
+"Disable Cash on Delivery for high-risk orders while allowing other payment "
+"options."
+msgstr ""
+
+#: admin/partials/wcblu-general-settings.php:427
+#: admin/partials/wcblu-general-settings.php:1194
+msgid "Checkout Lock on Failed Orders"
+msgstr ""
+
+#: admin/partials/wcblu-general-settings.php:429
+#: admin/partials/wcblu-general-settings.php:1196
+msgid ""
+"Maximum failed checkouts allowed before checkout is locked. Helps block "
+"bots."
+msgstr ""
+
+#: admin/partials/wcblu-general-settings.php:441
+#: admin/partials/wcblu-general-settings.php:1214
+msgid "Enter the allowed number of failed attempts"
+msgstr ""
+
+#: admin/partials/wcblu-general-settings.php:444
+#: admin/partials/wcblu-general-settings.php:1217
+msgid "Time frame (in minutes) to track failed orders"
+msgstr ""
+
+#: admin/partials/wcblu-general-settings.php:455
+#: admin/partials/wcblu-general-settings.php:1226
 msgid "Google reCAPTCHA Settings"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:387
-#: admin/partials/wcblu-general-settings.php:1059
+#: admin/partials/wcblu-general-settings.php:462
+#: admin/partials/wcblu-general-settings.php:1233
 msgid "Enable reCAPTCHA"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:389
-#: admin/partials/wcblu-general-settings.php:1061
+#: admin/partials/wcblu-general-settings.php:464
+#: admin/partials/wcblu-general-settings.php:1235
 msgid "Enable reCAPTCHA on checkout page"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:401
-#: admin/partials/wcblu-general-settings.php:1091
+#: admin/partials/wcblu-general-settings.php:494
+#: admin/partials/wcblu-general-settings.php:1265
 msgid "Select Captcha Version"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:403
-#: admin/partials/wcblu-general-settings.php:1093
+#: admin/partials/wcblu-general-settings.php:496
+#: admin/partials/wcblu-general-settings.php:1267
 msgid "v2 reCAPTCHA"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:406
-#: admin/partials/wcblu-general-settings.php:1096
+#: admin/partials/wcblu-general-settings.php:499
+#: admin/partials/wcblu-general-settings.php:1270
 msgid "v3 reCAPTCHA"
 msgstr ""
 
-#: admin/partials/wcblu-general-settings.php:417
-#: admin/partials/wcblu-general-settings.php:1107
+#: admin/partials/wcblu-general-settings.php:510
+#: admin/partials/wcblu-general-settings.php:1281
 msgid " This feature will only works with classic checkout."
 msgstr ""
 
@@ -1595,26 +1636,32 @@ msgstr ""
 #: admin/partials/wcblu-rule-settings.php:1301
 #: admin/partials/wcblu-rule-settings.php:1368
 #: admin/partials/wcblu-rule-settings.php:1459
-#: includes/woocommerce-blocker-admin-functions.php:134
-#: includes/woocommerce-blocker-admin-functions.php:316
-#: includes/woocommerce-blocker-admin-functions.php:506
-#: includes/woocommerce-blocker-admin-functions.php:559
-#: includes/woocommerce-blocker-admin-functions.php:632
-#: includes/woocommerce-blocker-admin-functions.php:662
-#: includes/woocommerce-blocker-admin-functions.php:698
-#: includes/woocommerce-blocker-admin-functions.php:788
-#: includes/woocommerce-blocker-admin-functions.php:842
-#: includes/woocommerce-blocker-admin-functions.php:855
-#: includes/woocommerce-blocker-admin-functions.php:867
-#: includes/woocommerce-blocker-admin-functions.php:879
-#: includes/woocommerce-blocker-admin-functions.php:892
+#: includes/woocommerce-blocker-admin-functions.php:145
+#: includes/woocommerce-blocker-admin-functions.php:360
+#: includes/woocommerce-blocker-admin-functions.php:582
+#: includes/woocommerce-blocker-admin-functions.php:640
+#: includes/woocommerce-blocker-admin-functions.php:721
+#: includes/woocommerce-blocker-admin-functions.php:756
+#: includes/woocommerce-blocker-admin-functions.php:797
+#: includes/woocommerce-blocker-admin-functions.php:906
+#: includes/woocommerce-blocker-admin-functions.php:985
+#: includes/woocommerce-blocker-admin-functions.php:1003
+#: includes/woocommerce-blocker-admin-functions.php:1020
+#: includes/woocommerce-blocker-admin-functions.php:1037
 #: includes/woocommerce-blocker-admin-functions.php:1055
-#: includes/woocommerce-blocker-admin-functions.php:1230
-#: includes/woocommerce-blocker-admin-functions.php:1242
-#: includes/woocommerce-blocker-admin-functions.php:1276
-#: includes/woocommerce-blocker-admin-functions.php:1354
-#: includes/woocommerce-blocker-admin-functions.php:1366
-#: includes/woocommerce-blocker-admin-functions.php:1378
+#: includes/woocommerce-blocker-admin-functions.php:1241
+#: includes/woocommerce-blocker-admin-functions.php:1361
+#: includes/woocommerce-blocker-admin-functions.php:1501
+#: includes/woocommerce-blocker-admin-functions.php:1559
+#: includes/woocommerce-blocker-admin-functions.php:1598
+#: includes/woocommerce-blocker-admin-functions.php:1634
+#: includes/woocommerce-blocker-admin-functions.php:1675
+#: includes/woocommerce-blocker-admin-functions.php:1732
+#: includes/woocommerce-blocker-admin-functions.php:1783
+#: includes/woocommerce-blocker-admin-functions.php:1801
+#: includes/woocommerce-blocker-admin-functions.php:1818
+#: includes/woocommerce-blocker-admin-functions.php:1835
+#: includes/woocommerce-blocker-admin-functions.php:1852
 msgid " This feature will only works with woocommerce orders."
 msgstr ""
 
@@ -1695,8 +1742,8 @@ msgstr ""
 
 #: admin/partials/wcblu-rule-settings.php:490
 #: admin/partials/wcblu-rule-settings.php:1526
-#: includes/woocommerce-blocker-admin-functions.php:160
-#: includes/woocommerce-blocker-admin-functions.php:1076
+#: includes/woocommerce-blocker-admin-functions.php:177
+#: includes/woocommerce-blocker-admin-functions.php:1268
 msgid "Add emails separated by comma"
 msgstr ""
 
@@ -1772,11 +1819,12 @@ msgstr ""
 msgid "Current Time: "
 msgstr ""
 
-#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:346
+#: includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php:354
 msgid "Docs"
 msgstr ""
 
 #: includes/woocommerce-blocker-admin-functions.php:40
+#: includes/woocommerce-blocker-admin-functions.php:1141
 msgid "This zone has been blocked due to some reason, Kindly contact admin."
 msgstr ""
 
@@ -1785,655 +1833,737 @@ msgid "This user role has been blocked due to some reason, Kindly contact admin.
 msgstr ""
 
 #: includes/woocommerce-blocker-admin-functions.php:52
-#: includes/woocommerce-blocker-admin-functions.php:971
+#: includes/woocommerce-blocker-admin-functions.php:1146
 msgid "Basic configuration settings"
 msgstr ""
 
 #: includes/woocommerce-blocker-admin-functions.php:60
-#: includes/woocommerce-blocker-admin-functions.php:979
-msgid "Type"
+#: includes/woocommerce-blocker-admin-functions.php:1154
+msgid "Blocking Trigger Stage"
 msgstr ""
 
 #: includes/woocommerce-blocker-admin-functions.php:63
-#: includes/woocommerce-blocker-admin-functions.php:982
+#: includes/woocommerce-blocker-admin-functions.php:1157
+msgid ""
+"For Registration : Registration Time defines you want to block user while "
+"user going to register on your website."
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:64
+#: includes/woocommerce-blocker-admin-functions.php:1158
+msgid ""
+"For Place order : Place Order defines you want to block user while user "
+"placing order"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:70
+#: includes/woocommerce-blocker-admin-functions.php:1164
 msgid "Type defines on which stage you want to block user."
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:69
-#: includes/woocommerce-blocker-admin-functions.php:82
-#: includes/woocommerce-blocker-admin-functions.php:988
-#: includes/woocommerce-blocker-admin-functions.php:1001
+#: includes/woocommerce-blocker-admin-functions.php:76
+#: includes/woocommerce-blocker-admin-functions.php:89
+#: includes/woocommerce-blocker-admin-functions.php:1170
+#: includes/woocommerce-blocker-admin-functions.php:1183
 msgid "Registration"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:90
-#: includes/woocommerce-blocker-admin-functions.php:104
-#: includes/woocommerce-blocker-admin-functions.php:1009
-#: includes/woocommerce-blocker-admin-functions.php:1023
+#: includes/woocommerce-blocker-admin-functions.php:97
+#: includes/woocommerce-blocker-admin-functions.php:111
+#: includes/woocommerce-blocker-admin-functions.php:1191
+#: includes/woocommerce-blocker-admin-functions.php:1205
 msgid "Place order"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:115
-#: includes/woocommerce-blocker-admin-functions.php:1034
-msgid "Address Type"
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:119
-#: includes/woocommerce-blocker-admin-functions.php:1039
-msgid "Address type defines on which type of address you want to block user."
+#: includes/woocommerce-blocker-admin-functions.php:120
+#: includes/woocommerce-blocker-admin-functions.php:1214
+msgid "Address Type to Monitor"
 msgstr ""
 
 #: includes/woocommerce-blocker-admin-functions.php:123
-#: includes/woocommerce-blocker-admin-functions.php:1043
+#: includes/woocommerce-blocker-admin-functions.php:1217
+msgid "Choose which address to block: Billing, Shipping, or Both."
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:130
+#: includes/woocommerce-blocker-admin-functions.php:1225
+msgid "Address type defines on which type of address you want to block user."
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:134
+#: includes/woocommerce-blocker-admin-functions.php:1229
 msgid "Both address type"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:127
-#: includes/woocommerce-blocker-admin-functions.php:1047
+#: includes/woocommerce-blocker-admin-functions.php:138
+#: includes/woocommerce-blocker-admin-functions.php:1233
 msgid "Billing address"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:131
-#: includes/woocommerce-blocker-admin-functions.php:1051
+#: includes/woocommerce-blocker-admin-functions.php:142
+#: includes/woocommerce-blocker-admin-functions.php:1237
 msgid "Shipping address"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:153
-#: includes/woocommerce-blocker-admin-functions.php:1067
+#: includes/woocommerce-blocker-admin-functions.php:152
+#: includes/woocommerce-blocker-admin-functions.php:1248
+msgid "Blocked Email Addresses"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:155
+#: includes/woocommerce-blocker-admin-functions.php:1251
+msgid ""
+"Add multiple email to block user <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/518-how-to-automatic-blacklist-"
+"emails-based-on-fraud-score\">Learn More.</a>"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:170
+#: includes/woocommerce-blocker-admin-functions.php:1259
 msgid "Automatic Blacklisting"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:154
-#: includes/woocommerce-blocker-admin-functions.php:1068
+#: includes/woocommerce-blocker-admin-functions.php:171
+#: includes/woocommerce-blocker-admin-functions.php:1260
 msgid "- [New]"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:156
-#: includes/woocommerce-blocker-admin-functions.php:1071
+#: includes/woocommerce-blocker-admin-functions.php:173
+#: includes/woocommerce-blocker-admin-functions.php:1263
 msgid ""
 "Add email addresses of orders reported with a high risk of fraud to "
 "blacklist automatically"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:205
-#: includes/woocommerce-blocker-admin-functions.php:490
-#: includes/woocommerce-blocker-admin-functions.php:554
-#: includes/woocommerce-blocker-admin-functions.php:615
+#: includes/woocommerce-blocker-admin-functions.php:222
+#: includes/woocommerce-blocker-admin-functions.php:564
+#: includes/woocommerce-blocker-admin-functions.php:636
+#: includes/woocommerce-blocker-admin-functions.php:702
+#: includes/woocommerce-blocker-admin-functions.php:1555
 msgid "Select All"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:209
-#: includes/woocommerce-blocker-admin-functions.php:494
-#: includes/woocommerce-blocker-admin-functions.php:620
+#: includes/woocommerce-blocker-admin-functions.php:228
+#: includes/woocommerce-blocker-admin-functions.php:570
+#: includes/woocommerce-blocker-admin-functions.php:709
 msgid "Upload only JSON file here"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:214
-#: includes/woocommerce-blocker-admin-functions.php:500
-#: includes/woocommerce-blocker-admin-functions.php:626
+#: includes/woocommerce-blocker-admin-functions.php:233
+#: includes/woocommerce-blocker-admin-functions.php:576
+#: includes/woocommerce-blocker-admin-functions.php:715
 msgid "Click here to download demo file"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:218
-msgid "Add multiple email to block user "
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:218
-#: includes/woocommerce-blocker-admin-functions.php:244
-#: includes/woocommerce-blocker-admin-functions.php:277
-#: includes/woocommerce-blocker-admin-functions.php:314
-#: includes/woocommerce-blocker-admin-functions.php:346
-#: includes/woocommerce-blocker-admin-functions.php:371
-#: includes/woocommerce-blocker-admin-functions.php:396
-#: includes/woocommerce-blocker-admin-functions.php:433
-#: includes/woocommerce-blocker-admin-functions.php:504
-#: includes/woocommerce-blocker-admin-functions.php:557
-#: includes/woocommerce-blocker-admin-functions.php:630
-#: includes/woocommerce-blocker-admin-functions.php:660
-#: includes/woocommerce-blocker-admin-functions.php:696
-#: includes/woocommerce-blocker-admin-functions.php:739
-#: includes/woocommerce-blocker-admin-functions.php:1097
-#: includes/woocommerce-blocker-admin-functions.php:1149
-#: includes/woocommerce-blocker-admin-functions.php:1174
-#: includes/woocommerce-blocker-admin-functions.php:1228
-#: includes/woocommerce-blocker-admin-functions.php:1274
-msgid "Learn More."
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:223
-#: includes/woocommerce-blocker-admin-functions.php:1102
-msgid "First name"
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:227
-msgid "Add first name to block users separated by comma"
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:244
-msgid "Add multiple first name to block users "
+#: includes/woocommerce-blocker-admin-functions.php:242
+#: includes/woocommerce-blocker-admin-functions.php:1293
+msgid "Blocked First Names"
 msgstr ""
 
 #: includes/woocommerce-blocker-admin-functions.php:245
-#: includes/woocommerce-blocker-admin-functions.php:278
+#: includes/woocommerce-blocker-admin-functions.php:1296
+msgid ""
+"Add multiple first name to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/188-how-to-block-user-by-first-"
+"and-last-name\">Learn More.</a>"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:252
+msgid "Add first name to block users separated by comma"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:270
+#: includes/woocommerce-blocker-admin-functions.php:313
 msgid "Relation"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:247
-#: includes/woocommerce-blocker-admin-functions.php:280
+#: includes/woocommerce-blocker-admin-functions.php:272
+#: includes/woocommerce-blocker-admin-functions.php:315
 msgid "OR"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:248
-#: includes/woocommerce-blocker-admin-functions.php:281
+#: includes/woocommerce-blocker-admin-functions.php:273
+#: includes/woocommerce-blocker-admin-functions.php:316
 msgid "AND"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:256
-#: includes/woocommerce-blocker-admin-functions.php:1111
-msgid "Last name"
+#: includes/woocommerce-blocker-admin-functions.php:282
+#: includes/woocommerce-blocker-admin-functions.php:1308
+msgid "Blocked Last Names"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:260
+#: includes/woocommerce-blocker-admin-functions.php:286
+#: includes/woocommerce-blocker-admin-functions.php:1312
+msgid ""
+"Add multiple last name to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/188-how-to-block-user-by-first-"
+"and-last-name\">Learn More.</a>"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:295
 msgid "Add last name to block users separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:277
-msgid "Add multiple last name to block users "
+#: includes/woocommerce-blocker-admin-functions.php:329
+#: includes/woocommerce-blocker-admin-functions.php:1330
+msgid "Blocked Street Address"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:293
-#: includes/woocommerce-blocker-admin-functions.php:1120
-msgid "Address"
+#: includes/woocommerce-blocker-admin-functions.php:333
+#: includes/woocommerce-blocker-admin-functions.php:1334
+msgid ""
+"Add multiple address to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/894-how-to-block-user-by-"
+"address\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:297
+#: includes/woocommerce-blocker-admin-functions.php:342
+#: includes/woocommerce-blocker-admin-functions.php:1343
 msgid "Add Address to block users."
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:314
-msgid "Add multiple address to block users "
+#: includes/woocommerce-blocker-admin-functions.php:369
+#: includes/woocommerce-blocker-admin-functions.php:1370
+msgid "Blocked IP Addresses"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:325
-#: includes/woocommerce-blocker-admin-functions.php:1129
-msgid "IP address"
+#: includes/woocommerce-blocker-admin-functions.php:373
+#: includes/woocommerce-blocker-admin-functions.php:1374
+msgid ""
+"Add multiple IP address to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/152-block-fraud-customers-by-ip-"
+"geo-location\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:329
-#: includes/woocommerce-blocker-admin-functions.php:1133
+#: includes/woocommerce-blocker-admin-functions.php:382
+#: includes/woocommerce-blocker-admin-functions.php:1383
 msgid "Add IP address separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:346
-#: includes/woocommerce-blocker-admin-functions.php:1149
-msgid "Add multiple IP address to block users "
+#: includes/woocommerce-blocker-admin-functions.php:403
+#: includes/woocommerce-blocker-admin-functions.php:1403
+msgid "Blocked Domains"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:351
-#: includes/woocommerce-blocker-admin-functions.php:1154
-msgid "Domain"
+#: includes/woocommerce-blocker-admin-functions.php:406
+#: includes/woocommerce-blocker-admin-functions.php:1406
+msgid ""
+"Add multiple domain to block users e.g gmail.com <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/153-block-fraud-customers-by-"
+"domain\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:355
-#: includes/woocommerce-blocker-admin-functions.php:1158
+#: includes/woocommerce-blocker-admin-functions.php:413
+#: includes/woocommerce-blocker-admin-functions.php:1413
 msgid "Add domain to block users separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:371
-#: includes/woocommerce-blocker-admin-functions.php:1174
-msgid "Add multiple domain to block users e.g gmail.com "
+#: includes/woocommerce-blocker-admin-functions.php:433
+#: includes/woocommerce-blocker-admin-functions.php:1433
+msgid "Blocked Domain Extensions"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:376
-#: includes/woocommerce-blocker-admin-functions.php:1179
-msgid "Domain Extension"
+#: includes/woocommerce-blocker-admin-functions.php:436
+#: includes/woocommerce-blocker-admin-functions.php:1436
+msgid ""
+"Add multiple domain extension to block users e.g .com <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/1073-block-fraud-customers-by-"
+"domain-extension\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:380
+#: includes/woocommerce-blocker-admin-functions.php:443
 msgid "Add domain extension to block users separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:396
-msgid "Add multiple domain extension to block users e.g .com "
+#: includes/woocommerce-blocker-admin-functions.php:463
+#: includes/woocommerce-blocker-admin-functions.php:1448
+msgid "Blocked Web Browsers"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:401
-#: includes/woocommerce-blocker-admin-functions.php:1188
-msgid "User Browser"
+#: includes/woocommerce-blocker-admin-functions.php:466
+#: includes/woocommerce-blocker-admin-functions.php:1452
+msgid ""
+"Add multiple browsers to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/232-how-to-block-user-by-the-"
+"browser\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:408
+#: includes/woocommerce-blocker-admin-functions.php:476
 msgid "Select browser to block users"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:433
-msgid "Add multiple browsers to block users "
+#: includes/woocommerce-blocker-admin-functions.php:508
+#: includes/woocommerce-blocker-admin-functions.php:1466
+msgid "Blocked States"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:441
-#: includes/woocommerce-blocker-admin-functions.php:1200
-msgid "State"
+#: includes/woocommerce-blocker-admin-functions.php:511
+#: includes/woocommerce-blocker-admin-functions.php:1469
+msgid ""
+"Add multiple states to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/154-block-fraud-customers-by-"
+"state\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:445
-#: includes/woocommerce-blocker-admin-functions.php:1204
+#: includes/woocommerce-blocker-admin-functions.php:518
+#: includes/woocommerce-blocker-admin-functions.php:1476
 msgid "Add states to block user separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:504
-#: includes/woocommerce-blocker-admin-functions.php:1228
-msgid "Add multiple state to block users "
+#: includes/woocommerce-blocker-admin-functions.php:588
+#: includes/woocommerce-blocker-admin-functions.php:1507
+msgid "Blocked Countries"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:512
-#: includes/woocommerce-blocker-admin-functions.php:1236
-msgid "Country"
+#: includes/woocommerce-blocker-admin-functions.php:591
+#: includes/woocommerce-blocker-admin-functions.php:1510
+msgid ""
+"Add multiple countries to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/673-block-fraud-customers-by-"
+"country\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:524
+#: includes/woocommerce-blocker-admin-functions.php:606
+#: includes/woocommerce-blocker-admin-functions.php:1525
 msgid "Add countries to block user separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:557
-msgid "Add multiple country to block users "
+#: includes/woocommerce-blocker-admin-functions.php:646
+#: includes/woocommerce-blocker-admin-functions.php:1565
+msgid "Blocked Zip/Postal Codes"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:565
-#: includes/woocommerce-blocker-admin-functions.php:1248
-msgid "Zip code"
+#: includes/woocommerce-blocker-admin-functions.php:649
+#: includes/woocommerce-blocker-admin-functions.php:1568
+msgid ""
+"Add multiple zip code to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/155-block-fraud-customers-by-"
+"zipcode\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:569
-#: includes/woocommerce-blocker-admin-functions.php:1252
+#: includes/woocommerce-blocker-admin-functions.php:656
+#: includes/woocommerce-blocker-admin-functions.php:1575
 msgid "Add Zip code separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:630
-#: includes/woocommerce-blocker-admin-functions.php:1274
-msgid "Add multiple zipcode to block users "
+#: includes/woocommerce-blocker-admin-functions.php:727
+#: includes/woocommerce-blocker-admin-functions.php:1605
+msgid "Blocked Phone Numbers"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:638
-#: includes/woocommerce-blocker-admin-functions.php:1283
-msgid "Phone number"
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:642
-msgid "Add phone numbers separated by comma"
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:659
+#: includes/woocommerce-blocker-admin-functions.php:730
+#: includes/woocommerce-blocker-admin-functions.php:1608
 msgid "Add multiple phone number to block users"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:660
-msgid "For wildcard number blocking add (*) after digits. "
+#: includes/woocommerce-blocker-admin-functions.php:731
+#: includes/woocommerce-blocker-admin-functions.php:1609
+msgid ""
+"For wildcard number blocking add (*) after digits. <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/740-block-fraud-customer-by-"
+"phone-number\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:669
-#: includes/woocommerce-blocker-admin-functions.php:1292
-msgid "Shipping Zone"
+#: includes/woocommerce-blocker-admin-functions.php:738
+#: includes/woocommerce-blocker-admin-functions.php:1616
+msgid "Add phone numbers separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:673
+#: includes/woocommerce-blocker-admin-functions.php:763
+#: includes/woocommerce-blocker-admin-functions.php:1641
+msgid "Blocked Shipping Zones"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:766
+#: includes/woocommerce-blocker-admin-functions.php:1644
+msgid ""
+"Add multiple shipping zones to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/156-block-fraud-customers-by-"
+"shipping-zone\">Learn More.</a>"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:773
+#: includes/woocommerce-blocker-admin-functions.php:1651
 msgid "Add Shipping Zone"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:696
-msgid "Add multiple zones to block users "
+#: includes/woocommerce-blocker-admin-functions.php:806
+#: includes/woocommerce-blocker-admin-functions.php:1681
+msgid "Blocked User Roles"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:707
-#: includes/woocommerce-blocker-admin-functions.php:1301
-msgid "User Role"
+#: includes/woocommerce-blocker-admin-functions.php:809
+#: includes/woocommerce-blocker-admin-functions.php:1684
+msgid ""
+"Add multiple user roles to block users <a target=\"_blank\" "
+"href=\"https://docs.thedotstore.com/article/157-block-fraud-customers-by-"
+"user-role\">Learn More.</a>"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:714
+#: includes/woocommerce-blocker-admin-functions.php:819
 msgid "Add user role separated by comma"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:739
-msgid "Add multiple user role to block users "
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:746
-#: includes/woocommerce-blocker-admin-functions.php:1312
+#: includes/woocommerce-blocker-admin-functions.php:850
+#: includes/woocommerce-blocker-admin-functions.php:1698
 msgid ""
 "In this section you can add your custom messages OR our message will be "
 "printed as by default."
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:752
-#: includes/woocommerce-blocker-admin-functions.php:1318
+#: includes/woocommerce-blocker-admin-functions.php:856
+#: includes/woocommerce-blocker-admin-functions.php:1704
 msgid "Email error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:756
-#: includes/woocommerce-blocker-admin-functions.php:1322
+#: includes/woocommerce-blocker-admin-functions.php:859
+#: includes/woocommerce-blocker-admin-functions.php:1707
 msgid "Enter the error message you want to show user when blacklist email found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:761
-#: includes/woocommerce-blocker-admin-functions.php:765
+#: includes/woocommerce-blocker-admin-functions.php:868
 msgid "First name error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:770
-#: includes/woocommerce-blocker-admin-functions.php:774
+#: includes/woocommerce-blocker-admin-functions.php:871
+msgid ""
+"Enter the error message you want to show user when blacklist first name "
+"found"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:880
 msgid "Last name error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:782
-#: includes/woocommerce-blocker-admin-functions.php:786
+#: includes/woocommerce-blocker-admin-functions.php:883
+msgid "Enter the error message you want to show user when blacklist last name found"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:895
+#: includes/woocommerce-blocker-admin-functions.php:1721
 msgid "Address error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:797
-#: includes/woocommerce-blocker-admin-functions.php:1327
+#: includes/woocommerce-blocker-admin-functions.php:898
+#: includes/woocommerce-blocker-admin-functions.php:1724
+msgid "Enter the error message you want to show user when blacklist address found"
+msgstr ""
+
+#: includes/woocommerce-blocker-admin-functions.php:915
+#: includes/woocommerce-blocker-admin-functions.php:1741
 msgid "IP error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:801
-#: includes/woocommerce-blocker-admin-functions.php:1331
+#: includes/woocommerce-blocker-admin-functions.php:918
+#: includes/woocommerce-blocker-admin-functions.php:1744
 msgid "Enter the error message you want to show user when blacklist IP found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:806
-#: includes/woocommerce-blocker-admin-functions.php:1336
+#: includes/woocommerce-blocker-admin-functions.php:929
+#: includes/woocommerce-blocker-admin-functions.php:1755
 msgid "Domain error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:810
-#: includes/woocommerce-blocker-admin-functions.php:819
-#: includes/woocommerce-blocker-admin-functions.php:1340
+#: includes/woocommerce-blocker-admin-functions.php:932
+#: includes/woocommerce-blocker-admin-functions.php:946
+#: includes/woocommerce-blocker-admin-functions.php:1758
 msgid "Enter the error message you want to show user when blacklist domain found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:815
+#: includes/woocommerce-blocker-admin-functions.php:943
 msgid "Domain extension error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:824
+#: includes/woocommerce-blocker-admin-functions.php:957
 msgid "User Browser error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:828
+#: includes/woocommerce-blocker-admin-functions.php:960
 msgid "Enter the error message you want to show user when blacklist browser found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:836
-#: includes/woocommerce-blocker-admin-functions.php:1348
+#: includes/woocommerce-blocker-admin-functions.php:974
+#: includes/woocommerce-blocker-admin-functions.php:1772
 msgid "State error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:840
-#: includes/woocommerce-blocker-admin-functions.php:1352
+#: includes/woocommerce-blocker-admin-functions.php:977
+#: includes/woocommerce-blocker-admin-functions.php:1775
 msgid "Enter the error message you want to show user when blacklist state found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:848
-#: includes/woocommerce-blocker-admin-functions.php:1360
+#: includes/woocommerce-blocker-admin-functions.php:991
+#: includes/woocommerce-blocker-admin-functions.php:1789
 msgid "Country error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:852
+#: includes/woocommerce-blocker-admin-functions.php:994
+#: includes/woocommerce-blocker-admin-functions.php:1792
 msgid "Enter the error message you want to show user when blacklist country found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:853
+#: includes/woocommerce-blocker-admin-functions.php:995
+#: includes/woocommerce-blocker-admin-functions.php:1793
 msgid ""
 "You can use \"{country}\" tag in notice which will replace with selected "
 "block country name on error"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:861
-#: includes/woocommerce-blocker-admin-functions.php:1372
+#: includes/woocommerce-blocker-admin-functions.php:1009
+#: includes/woocommerce-blocker-admin-functions.php:1807
 msgid "Zip code error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:865
-#: includes/woocommerce-blocker-admin-functions.php:1376
+#: includes/woocommerce-blocker-admin-functions.php:1012
+#: includes/woocommerce-blocker-admin-functions.php:1810
 msgid "Enter the error message you want to show user when blacklist zipcode found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:873
+#: includes/woocommerce-blocker-admin-functions.php:1026
+#: includes/woocommerce-blocker-admin-functions.php:1824
 msgid "Phone number error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:877
+#: includes/woocommerce-blocker-admin-functions.php:1029
+#: includes/woocommerce-blocker-admin-functions.php:1827
 msgid ""
 "Enter the error message you want to show user when blacklist phone number "
 "found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:886
+#: includes/woocommerce-blocker-admin-functions.php:1044
+#: includes/woocommerce-blocker-admin-functions.php:1841
 msgid "Zone error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:890
+#: includes/woocommerce-blocker-admin-functions.php:1047
+#: includes/woocommerce-blocker-admin-functions.php:1844
 msgid "Enter the error message you want to show user when blacklist zone found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:901
+#: includes/woocommerce-blocker-admin-functions.php:1064
 msgid "User Role error message"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:905
+#: includes/woocommerce-blocker-admin-functions.php:1067
 msgid "Enter the error message you want to show user when blacklist user role found"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:911
+#: includes/woocommerce-blocker-admin-functions.php:1079
 msgid "Enble external black list"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:917
+#: includes/woocommerce-blocker-admin-functions.php:1085
 msgid "Enable external blacklist"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:924
+#: includes/woocommerce-blocker-admin-functions.php:1092
 msgid ""
 "There is a list of disposable/temporary email domains in %1$s Github. %2$s "
 "To know more"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:925
+#: includes/woocommerce-blocker-admin-functions.php:1093
 msgid "Clik here."
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:935
-#: includes/woocommerce-blocker-admin-functions.php:1389
+#: includes/woocommerce-blocker-admin-functions.php:1103
+#: includes/woocommerce-blocker-admin-functions.php:1863
 msgid "Reset all settings"
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:1053
-#: includes/woocommerce-blocker-admin-functions.php:1106
-#: includes/woocommerce-blocker-admin-functions.php:1115
-#: includes/woocommerce-blocker-admin-functions.php:1124
-#: includes/woocommerce-blocker-admin-functions.php:1183
-#: includes/woocommerce-blocker-admin-functions.php:1192
-#: includes/woocommerce-blocker-admin-functions.php:1240
-#: includes/woocommerce-blocker-admin-functions.php:1287
-#: includes/woocommerce-blocker-admin-functions.php:1296
-#: includes/woocommerce-blocker-admin-functions.php:1305
-#: includes/woocommerce-blocker-admin-functions.php:1364
+#: includes/woocommerce-blocker-admin-functions.php:1239
+#: includes/woocommerce-blocker-admin-functions.php:1303
+#: includes/woocommerce-blocker-admin-functions.php:1321
+#: includes/woocommerce-blocker-admin-functions.php:1443
+#: includes/woocommerce-blocker-admin-functions.php:1458
+#: includes/woocommerce-blocker-admin-functions.php:1691
 msgid "%1$s Note : %2$s You can access this feature in our premium plugin."
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:1073
+#: includes/woocommerce-blocker-admin-functions.php:1265
 msgid ""
 "%1$s Note : %2$s You can access Automatic Blacklisting feature in our "
 "premium plugin."
 msgstr ""
 
-#: includes/woocommerce-blocker-admin-functions.php:1097
-msgid "Add multiple email to block users "
-msgstr ""
-
-#: includes/woocommerce-blocker-admin-functions.php:1408
+#: includes/woocommerce-blocker-admin-functions.php:1882
 msgid "User Deleted Permanantly"
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:186
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:181
 msgid "Please add email address to place order"
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:193
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:188
 msgid "Please add valid email address to place order"
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:974
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1619
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1734
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:978
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1623
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1738
 msgid "This email has been blacklisted. Please try another email address."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1050
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1066
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1625
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1807
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1822
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1054
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1070
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1629
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1811
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1826
 msgid "This email domain has been blacklisted. Please try another email address"
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1136
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1151
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1140
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1155
 msgid ""
 "This email domain extension has been blacklisted. Please try another email "
 "address"
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1189
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1193
 msgid "Your Phone number has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1224
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1228
 msgid "Your first name has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1258
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1262
 msgid "Your last name has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1351
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1361
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1355
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1365
 msgid "Your Zone has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1392
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1396
 msgid "Your Address has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1447
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1460
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1468
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1599
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1705
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1451
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1464
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1472
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1603
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1709
 msgid "Your IP address has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1502
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1506
 msgid "Your State has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1528
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1532
 msgid "Your Country has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1557
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1561
 msgid "Your Zip has been blacklisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1606
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1610
 msgid "Please enter email address."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1613
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1617
 msgid "Please enter valid email address"
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1923
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2160
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2367
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2502
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1927
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2164
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2371
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2546
 msgid "User Email is Whitelisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1934
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1995
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2020
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1938
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1999
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2024
 msgid "Fraud check done."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1972
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2200
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2202
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:1976
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2204
 #: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2206
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2210
 msgid " User IP is Whitelisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2223
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2227
 msgid " Fraud check done."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2226
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2230
 msgid " Payment method whitelisted"
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2379
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2391
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2516
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2528
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2383
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2395
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2460
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2560
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2572
 msgid ""
 "Website Administrator does not allow you to place this order. Please "
 "contact our support team. Sorry for any inconvenience."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2382
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2519
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2386
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2462
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2563
 msgid "Payment Method is Whitelisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2406
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2543
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2410
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2587
 msgid "User IP is Whitelisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2556
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2481
+msgid "COD has been disabled for security reasons. Try another payment method."
+msgstr ""
+
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:2600
 msgid "User Role is Whitelisted."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3886
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3930
 msgid "Captcha"
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3900
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3976
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3944
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4020
 msgid "Recaptcha is a required field."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3961
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4056
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4005
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4100
 msgid "Invalid recaptcha."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3972
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4016
 msgid "Could not get response from recaptcha server."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:3979
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4023
 msgid "Could not verify request."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4061
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4105
 msgid "You are not a human, please refresh page."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4070
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4114
 msgid "Could not get response from recaptcha server, please refresh page."
 msgstr ""
 
-#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4073
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4117
 msgid "Recaptcha not responding, please refresh page."
+msgstr ""
+
+#: public/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers-public.php:4165
+msgid ""
+"Checkout is temporarily disabled due to multiple failed orders. Please try "
+"again later."
 msgstr ""
 
 #: woocommerce-blocker.php:117

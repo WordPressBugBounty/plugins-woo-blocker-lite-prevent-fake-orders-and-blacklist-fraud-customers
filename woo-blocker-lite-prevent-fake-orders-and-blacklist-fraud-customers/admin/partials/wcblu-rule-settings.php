@@ -30,7 +30,7 @@ function wbclu_free_rules_settings_content() {
                 <div class="heading_section">
                     <h2><?php 
     echo esc_html__( 'First Time Purchase Rules', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?><a href="https://docs.thedotstore.com/article/1067-first-time-purchase-rules" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
+    ?><a href="https://docs.thedotstore.com/article/1067-first-time-purchase-rules" class="main-title-tooltip" target="_blank"></a></h2>
                 </div>
                 <button type="submit" name="wcblu_gr_submit" class="button button-primary wcblu_submit" value="Save Changes"><?php 
     echo esc_html__( 'Save Changes', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
@@ -142,7 +142,7 @@ function wbclu_free_rules_settings_content() {
                 <div class="heading_section">
                     <h2><?php 
     echo esc_html__( 'IP, Billing and Shipping Address-based Rules', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?><a href="https://docs.thedotstore.com/article/1068-how-to-configure-ip-billing-and-shipping-address-based-rules" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
+    ?><a href="https://docs.thedotstore.com/article/1068-how-to-configure-ip-billing-and-shipping-address-based-rules" class="main-title-tooltip" target="_blank"></a></h2>
                 </div>
             </div>
             <table class="form-table table-outer general-rules res-cl">
@@ -403,7 +403,7 @@ function wbclu_free_rules_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
         echo esc_html__( 'Multiple Orders Attempts using Different Addresses from Same IP ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?><a href="https://docs.thedotstore.com/article/1069-detecting-multiple-order-attempts-using-different-addresses-from-the-same-ip" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
+        ?><a href="https://docs.thedotstore.com/article/1069-detecting-multiple-order-attempts-using-different-addresses-from-the-same-ip" class="main-title-tooltip" target="_blank"></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-rules res-cl">
@@ -484,7 +484,7 @@ function wbclu_free_rules_settings_content() {
                     <div class="heading_section">
                         <h2><?php 
         echo esc_html__( 'Origin Countries', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?><a href="https://docs.thedotstore.com/article/1070-how-to-configure-origin-countries-rules" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
+        ?><a href="https://docs.thedotstore.com/article/1070-how-to-configure-origin-countries-rules" class="main-title-tooltip" target="_blank"></a></h2>
                     </div>
                 </div>
                 <table class="form-table table-outer general-rules res-cl">
@@ -626,7 +626,7 @@ function wbclu_free_rules_settings_content() {
                 <div class="heading_section">
                     <h2><?php 
     echo esc_html__( 'High-Risk Email Domains', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?><a href="https://docs.thedotstore.com/article/1071-how-to-configure-the-high-risk-email-domain-rule" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
+    ?><a href="https://docs.thedotstore.com/article/1071-how-to-configure-the-high-risk-email-domain-rule" class="main-title-tooltip" target="_blank"></a></h2>
                 </div>
             </div>
             <table class="form-table table-outer general-rules res-cl">
@@ -700,7 +700,7 @@ function wbclu_free_rules_settings_content() {
                 <div class="heading_section">
                     <h2><?php 
     echo esc_html__( 'Order Amounts and Attempts ', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?><a href="https://docs.thedotstore.com/article/1072-how-to-configure-order-amounts-and-attempts-rules" class="main-title-tooltip" target="_blank"><span class="dashicons dashicons-info"></span></a></h2>
+    ?><a href="https://docs.thedotstore.com/article/1072-how-to-configure-order-amounts-and-attempts-rules" class="main-title-tooltip" target="_blank"></a></h2>
                 </div>
             </div>
             <table class="form-table table-outer general-rules res-cl">

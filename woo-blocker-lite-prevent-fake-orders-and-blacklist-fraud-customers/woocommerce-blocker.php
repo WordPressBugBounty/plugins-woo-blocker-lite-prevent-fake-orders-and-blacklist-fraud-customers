@@ -16,7 +16,7 @@
  * Plugin Name: Fraud Prevention For WooCommerce and EDD
  * Plugin URI:        https://www.thedotstore.com/
  * Description:       Prevent fake orders and Blacklist fraud customers allows your WooCommerce store to refuse orders from specific user, based on blacklist rules.
- * Version:           2.2.3
+ * Version:           2.2.4
  * Author:            theDotstore
  * Author URI:        https://www.thedotstore.com/
  * License:           GPL-2.0+
@@ -25,8 +25,8 @@
  * Domain Path:       /languages
  * 
  * 
- * WP tested up to:      6.7.2
- * WC tested up to:      9.7.0
+ * WP tested up to:      6.8.1
+ * WC tested up to:      9.9.4
  * WC requires at least: 3.0
  * Requires PHP:         5.6
  * Requires at least:    5.0
@@ -85,7 +85,7 @@ if ( !defined( 'WB_PLUGIN_PATH' ) ) {
     define( 'WB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 }
 if ( !defined( 'WB_PLUGIN_VERSION' ) ) {
-    define( 'WB_PLUGIN_VERSION', '2.2.3' );
+    define( 'WB_PLUGIN_VERSION', '2.2.4' );
 }
 if ( !defined( 'WB_STORE_URL' ) ) {
     define( 'WB_STORE_URL', 'https://www.thedotstore.com/' );

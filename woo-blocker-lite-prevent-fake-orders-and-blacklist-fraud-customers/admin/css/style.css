@@ -322,6 +322,7 @@ img.sidebar_plugin_icone{width:45px}
 
 /* sidebar css end */
 #dotsstoremain th.titledesc{font-size:13px!important;color:#333;padding:20px;border:1px solid #ddd;line-height:20px;background:#fff;width:26%}
+#dotsstoremain form#wcblu_plugin_form_id th.titledesc{width:23%}
 .wcblu-main-table a{text-decoration:none}
 a#fee-delete-field{font-size:25px;vertical-align:middle}
 .wcblu-main-table h2{font-size:16px;text-align:left;font-weight:bold;color:#333;border-bottom:0;margin:15px 0;}
@@ -636,6 +637,8 @@ span.wcbfc-description-tooltip-icon {
 }
 .wcblu_captcha_settings.hide_it{ display: none; }
 .wcblu_captcha_settings.show_it{ display: block; }
+.wcblu_checkout_payment_settings.hide_it{ display: none; }
+.wcblu_checkout_payment_settings.show_it{ display: block; }
 .wcblu_versions_key input {width: 50%}
 #wcblu_plugin_general_settings tr.hide_it{ display: none; }
 #wcblu_plugin_general_settings tr.show_it{ display: table-row; }

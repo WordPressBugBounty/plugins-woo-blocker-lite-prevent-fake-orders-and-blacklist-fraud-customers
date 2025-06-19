@@ -254,6 +254,22 @@
 				$('.wcblu_versions_key'). hide();
 			}
 		});
+		$('body').on('click', '#wcbfc_cod_block_status', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+				$(this).parent().next('.wcblu_captcha_settings').show();
+			} else {
+				$(this).attr('value', '0');
+				$(this).parent().next('.wcblu_captcha_settings').hide();
+			}
+		});
+		$('body').on('click', '#wcbfc_cbf_status', function () {
+			const $this = $(this);
+			const isChecked = $this.is(':checked');
+
+			$this.val(isChecked ? '1' : '0');
+			$this.parent().next('.wcblu_checkout_payment_settings').toggle(isChecked);
+		});
 		$('body').on('click', '#wcbfc_recaptcha_status', function () {
 			if ($(this).is(':checked')) {
 				$(this).attr('value', '1');
@@ -338,6 +354,11 @@
 		$( '.woocommerce_blocker_tab_description' ).click( function( event ) {
 			event.preventDefault();
 			$( this ).next( 'p.description' ).toggle();
+		} );
+
+		$( '.woocommerce_blocker_tab_description.file-fields' ).click( function( event ) {
+			event.preventDefault();
+			$( this ).next( 'div.description' ).toggle();
 		} );
 
 		/** Upgrade to pro modal */

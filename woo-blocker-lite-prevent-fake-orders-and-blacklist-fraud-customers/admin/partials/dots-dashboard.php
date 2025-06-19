@@ -8,6 +8,41 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 require_once plugin_dir_path( __FILE__ ) . 'header/plugin-header.php';
+use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+if ( !function_exists( 'wbclu_hpos_get_post_meta' ) ) {
+    /**
+     * Function for wbclu_hpos_get_post_meta().
+     *
+     * @return mixed
+     */
+    function wbclu_hpos_get_post_meta(  $post_id, $meta_key  ) {
+        $meta_value = '';
+        if ( class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+            // HPOS usage is enabled.
+            $order = wc_get_order( $post_id );
+            if ( $order instanceof WC_Order ) {
+                // Use proper getter for internal meta keys
+                switch ( $meta_key ) {
+                    case '_billing_email':
+                        $meta_value = $order->get_billing_email();
+                        break;
+                    case '_order_total':
+                        $meta_value = $order->get_total();
+                        break;
+                    default:
+                        $meta_value = $order->get_meta( $meta_key, true );
+                }
+            } else {
+                $meta_value = get_post_meta( $post_id, $meta_key, true );
+            }
+        } else {
+            $meta_value = get_post_meta( $post_id, $meta_key, true );
+        }
+        return $meta_value;
+    }
+
+}
 // Function for free plugin content
 function wbclu_free_fraud_data_dashboard_content() {
     ?>
@@ -156,7 +191,7 @@ function wbclu_free_fraud_data_dashboard_content() {
     ?></div>
                         </div>
                         <div class="item item-5">
-                            <div class="icon"><span class="dashicons dashicons-email"></span></span></div>
+                            <div class="icon"><span class="dashicons dashicons-email"></span></div>
                             <div class="label"><?php 
     esc_html_e( 'Emails Blocked', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
     ?></div>
