@@ -45,7 +45,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Check if it is the customer\'s first Order.' );
+    echo esc_html( 'Check if it is the customer\'s first Order.' );
     ?></span>
                                 </div>
                             </label>
@@ -94,7 +94,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Perform first order check again once order is in Processing state' );
+    echo esc_html( 'Perform first order check again once order is in Processing state' );
     ?></span>
                                 </div>
                             </label>
@@ -153,11 +153,11 @@ function wbclu_free_rules_settings_content() {
                     <tr>
                         <th scope="row" class="titledesc">
                             <label><?php 
-        echo esc_html__( 'Are Billing and Shipping Addresses Same?', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        echo esc_html__( 'Billing and Shipping Addresses are Not the same', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
         ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-        echo esc_attr( 'Check billing and shipping addresses are not the same.' );
+        echo esc_html( 'Check billing and shipping addresses are not the same.' );
         ?></span>
                                 </div>
                             </label>
@@ -215,7 +215,7 @@ function wbclu_free_rules_settings_content() {
         ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-        echo esc_attr( 'If you enable this rule, then it is highly recommended that you use a correct international phone number format on the checkout page. Else, this rule will treat an invalid phone number as a risk. For example: (+1) 111 1111' );
+        echo esc_html( 'If you enable this rule, then it is highly recommended that you use a correct international phone number format on the checkout page. Else, this rule will treat an invalid phone number as a risk. For example: (+1) 111 1111' );
         ?></span>
                                 </div>
                             </label>
@@ -273,7 +273,7 @@ function wbclu_free_rules_settings_content() {
         ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-        echo esc_attr( 'If you enable this rule, It will check if the customer\'s shipping or billing state matches the Geo Location state.' );
+        echo esc_html( 'If you enable this rule, It will check if the customer\'s shipping or billing state matches the Geo Location state.' );
         ?></span>
                                 </div>
                             </label>
@@ -352,7 +352,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Check if the customer is behind either a proxy or a VPN' );
+    echo esc_html( 'Check if the customer is behind either a proxy or a VPN' );
     ?></span>
                                 </div>
                             </label>
@@ -415,7 +415,7 @@ function wbclu_free_rules_settings_content() {
         ?>
                                     <div class="wcbfc-tooltip-rules">
                                         <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-        echo esc_attr( 'Check if multiple orders with different billing or shipping addresses have originated from the same IP address' );
+        echo esc_html( 'Check if multiple orders with different billing or shipping addresses have originated from the same IP address' );
         ?></span>
                                     </div>
                                 </label>
@@ -496,7 +496,7 @@ function wbclu_free_rules_settings_content() {
         ?>
                                     <div class="wcbfc-tooltip-rules">
                                         <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-        echo esc_attr( 'Check if the order originates from outside of your store\'s home country.' );
+        echo esc_html( 'Check if the order originates from outside of your store\'s home country.' );
         ?></span>
                                     </div>
                                 </label>
@@ -554,7 +554,7 @@ function wbclu_free_rules_settings_content() {
         ?>
                                     <div class="wcbfc-tooltip-rules">
                                         <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-        echo esc_attr( 'Check if order originates from any country in the high-risk countries list below:' );
+        echo esc_html( 'Check if order originates from any country in the high-risk countries list below:' );
         ?></span>
                                     </div>
                                 </label>
@@ -638,7 +638,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Check if customer\'s email address originates from any high-risk domain listed below' );
+    echo esc_html( 'Check if customer\'s email address originates from any high-risk domain listed below' );
     ?></span>
                                 </div>
                             </label>
@@ -712,7 +712,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Check if order significantly exceeds the average order amount for your site' );
+    echo esc_html( 'Check if order significantly exceeds the average order amount for your site' );
     ?></span>
                                 </div>
                             </label>
@@ -767,7 +767,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Confirm the total amount of the order does not exceed the maxmimum configured below' );
+    echo esc_html( 'Confirm the total amount of the order does not exceed the maxmimum configured below' );
     ?></span>
                                 </div>
                             </label>
@@ -810,10 +810,13 @@ function wbclu_free_rules_settings_content() {
                             <div class="wcblu_rule_field">
                                 <input name="wcbfc_max_order_attempt_span" id="wcbfc_max_order_attempt_span" type="number" style="width: 5em;" value="500" class="" placeholder="" min="0" >
                                 <?php 
+    $currency = '';
     if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
         $currency = get_woocommerce_currency_symbol();
     } else {
-        $currency = edd_currency_symbol();
+        if ( class_exists( 'Easy_Digital_Downloads' ) && function_exists( 'edd_currency_symbol' ) ) {
+            $currency = edd_currency_symbol();
+        }
     }
     ?>
                                 <label><?php 
@@ -829,7 +832,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Check if customer attempts to make a purchase too many times within the time period configured below' );
+    echo esc_html( 'Check if customer attempts to make a purchase too many times within the time period configured below' );
     ?></span>
                                 </div>
                             </label>
@@ -890,7 +893,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Block users from placing orders after multiple failed credit card attempts during a single session. The system tracks failed attempts through order notes and automatically restricts further checkout attempts if the limit is exceeded.' );
+    echo esc_html( 'Block users from placing orders after multiple failed credit card attempts during a single session. The system tracks failed attempts through order notes and automatically restricts further checkout attempts if the limit is exceeded.' );
     ?></span>
                                 </div>
                             </label>
@@ -949,7 +952,7 @@ function wbclu_free_rules_settings_content() {
     ?>
                                 <div class="wcbfc-tooltip-rules">
                                     <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
-    echo esc_attr( 'Turning on this rule restricts the number of orders that can be placed within a specific time frame each day.' );
+    echo esc_html( 'Turning on this rule restricts the number of orders that can be placed within a specific time frame each day.' );
     ?></span>
                                 </div>
                             </label>

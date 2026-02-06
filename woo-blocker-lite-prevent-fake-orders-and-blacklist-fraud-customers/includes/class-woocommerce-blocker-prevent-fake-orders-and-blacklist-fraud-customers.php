@@ -71,7 +71,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
      */
     public function __construct() {
         $this->plugin_name = 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers';
-        $this->version = '2.2.4';
+        $this->version = WB_PLUGIN_VERSION;
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
@@ -81,7 +81,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
             "{$prefix}plugin_action_links_" . plugin_dir_path( plugin_basename( dirname( __FILE__ ) ) ) . 'woocommerce-blocker.php',
             array($this, 'plugin_action_links'),
             10,
-            4
+            1
         );
         add_filter(
             'plugin_row_meta',
@@ -189,7 +189,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
         $this->loader->add_action( 'admin_head', $plugin_admin, 'remove_premium_blocker_custom_menu' );
         $this->loader->add_action( 'wp_ajax_wcblu_block_order_details_update_blacklist', $plugin_admin, 'wcblu_block_order_details_update_blacklist' );
         $custom_page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-        if ( !empty( $custom_page ) && isset( $custom_page ) && ('woocommerce_blacklist_users' === $custom_page || 'wcblu-import-export-setting' === $custom_page || 'wblp-get-started' === $custom_page || 'wcblu-upgrade-dashboard' === $custom_page || 'wcblu-auto-rules' === $custom_page || 'wcblu-dashboard' === $custom_page || 'edd-wcblu-dashboard' === $custom_page || 'wcblu-general-settings' === $custom_page) ) {
+        if ( !empty( $custom_page ) && isset( $custom_page ) && ('woocommerce_blacklist_users' === $custom_page || 'wcblu-import-export-setting' === $custom_page || 'wblp-get-started' === $custom_page || 'wcblu-upgrade-dashboard' === $custom_page || 'wcblu-auto-rules' === $custom_page || 'wcblu-dashboard' === $custom_page || 'edd-wcblu-dashboard' === $custom_page || 'wcblu-general-settings' === $custom_page || 'wcblu-ai-detection-setting' === $custom_page) ) {
             $this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'wcblu_admin_footer_review' );
         }
         $this->loader->add_action( 'admin_footer', $plugin_admin, 'wcblu_admin__notify_modal' );
@@ -241,6 +241,51 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
             10,
             4
         );
+        $this->loader->add_filter(
+            'registration_errors',
+            $plugin_public,
+            'wcbfc_admin_user_validation',
+            10,
+            3
+        );
+        // Google reCaptcha Settings
+        $getplugingeneralopt = get_option( 'wcblu_general_option' );
+        if ( isset( $getplugingeneralopt ) && !empty( $getplugingeneralopt ) ) {
+            $getplugingeneraloptarray = json_decode( $getplugingeneralopt, true );
+            $wcbfc_recaptcha_status = ( !empty( $getplugingeneraloptarray['wcbfc_recaptcha_status'] ) ? $getplugingeneraloptarray['wcbfc_recaptcha_status'] : '0' );
+            $wcbfc_recaptcha_version = ( !empty( $getplugingeneraloptarray['wcbfc_recaptcha_version'] ) ? $getplugingeneraloptarray['wcbfc_recaptcha_version'] : '' );
+            $wcblu_v2_keys_value = ( !empty( $getplugingeneraloptarray['wcblu_v2_keys_value'] ) ? $getplugingeneraloptarray['wcblu_v2_keys_value'] : '' );
+            $wcblu_v3_keys_value = ( !empty( $getplugingeneraloptarray['wcblu_v3_keys_value'] ) ? $getplugingeneraloptarray['wcblu_v3_keys_value'] : '' );
+            $wcblu_v2_secret_keys_value = ( !empty( $getplugingeneraloptarray['wcblu_v2_secret_keys_value'] ) ? $getplugingeneraloptarray['wcblu_v2_secret_keys_value'] : '' );
+            $wcblu_v3_secret_keys_value = ( !empty( $getplugingeneraloptarray['wcblu_v3_secret_keys_value'] ) ? $getplugingeneraloptarray['wcblu_v3_secret_keys_value'] : '' );
+            if ( '1' === $wcbfc_recaptcha_status && 'wcblu_v2_keys' === $wcbfc_recaptcha_version && !empty( $wcblu_v2_keys_value ) && !empty( $wcblu_v2_secret_keys_value ) ) {
+                $this->loader->add_action(
+                    'woocommerce_review_order_before_payment',
+                    $plugin_public,
+                    'wcbfc_captcha_checkout_field',
+                    10,
+                    3
+                );
+                $this->loader->add_action(
+                    'woocommerce_after_checkout_validation',
+                    $plugin_public,
+                    'wcbfc_validate_captcha',
+                    10,
+                    3
+                );
+            } else {
+                if ( $wcbfc_recaptcha_status === '1' && $wcbfc_recaptcha_version === 'wcblu_v3_keys' && !empty( $wcblu_v3_keys_value ) && !empty( $wcblu_v3_secret_keys_value ) && !has_block( 'woocommerce/checkout', $checkout_page_content ) ) {
+                    $this->loader->add_action( 'woocommerce_review_order_before_submit', $plugin_public, 'wcbfc_recptcha_v3_request' );
+                    $this->loader->add_action(
+                        'woocommerce_after_checkout_validation',
+                        $plugin_public,
+                        'wcbfc_validate_v3_recaptcha',
+                        10,
+                        3
+                    );
+                }
+            }
+        }
         if ( class_exists( 'Easy_Digital_Downloads' ) ) {
             $this->loader->add_action( 'edd_checkout_error_checks', $plugin_public, 'edd_woo_email_domain_validation' );
         }
@@ -257,29 +302,24 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
      */
     public function plugin_action_links( $actions ) {
         $configure_anchor_tag_start = '<a href="' . esc_url( admin_url( 'admin.php?page=woocommerce_blacklist_users' ) ) . '">';
-        $docs_anchor_tag_start = '<a href="' . esc_url( 'https://docs.thedotstore.com/collection/146-fraud-preventions' ) . '" target="_blank">';
-        $support_anchor_tag_start = '<a href="' . esc_url( 'www.thedotstore.com/support' ) . '" target="_blank">';
+        $docs_anchor_ai_detection = '<a href="' . esc_url( admin_url( 'admin.php?page=wcblu-ai-detection-setting' ) ) . '">';
         $anhor_tag_end = '</a>';
-        $custom_actions = array(
-            'configure' => sprintf(
-                wp_kses_post( '%1$s%2$s%3$s' ),
-                $configure_anchor_tag_start,
-                esc_html__( 'Settings', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
-                $anhor_tag_end
-            ),
-            'docs'      => sprintf(
-                wp_kses_post( '%1$s%2$s%3$s' ),
-                $docs_anchor_tag_start,
-                esc_html__( 'Docs', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
-                $anhor_tag_end
-            ),
-            'support'   => sprintf(
-                wp_kses_post( '%1$s%2$s%3$s' ),
-                $support_anchor_tag_start,
-                esc_html__( 'Support', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
-                $anhor_tag_end
-            ),
+        $custom_actions = array();
+        $custom_actions['configure'] = sprintf(
+            wp_kses_post( '%1$s%2$s%3$s' ),
+            $configure_anchor_tag_start,
+            esc_html__( 'Settings', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            $anhor_tag_end
         );
+        // AI detection link only if WooCommerce is active
+        if ( class_exists( 'WooCommerce' ) ) {
+            $custom_actions['ai_detection'] = sprintf(
+                wp_kses_post( '%1$s%2$s%3$s' ),
+                $docs_anchor_ai_detection,
+                esc_html__( 'AI Detection', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                $anhor_tag_end
+            );
+        }
         // add the links to the front of the actions list
         return array_merge( $custom_actions, $actions );
     }
@@ -295,8 +335,25 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
         }
         $url = '';
         $url = esc_url( 'https://wordpress.org/plugins/woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers/#reviews' );
-        $plugin_meta[] = sprintf( '<a href="%s" target="_blank" style="color:#f5bb00;">%s</a>', $url, esc_html( '★★★★★' ) );
-        return $plugin_meta;
+        $docs_anchor_tag_start = '<a href="' . esc_url( 'https://docs.thedotstore.com/collection/146-fraud-preventions' ) . '" target="_blank">';
+        $support_anchor_tag_start = '<a href="' . esc_url( 'www.thedotstore.com/support' ) . '" target="_blank">';
+        $anhor_tag_end = '</a>';
+        $ds_plugin_meta = array(
+            'docs'    => sprintf(
+                wp_kses_post( '%1$s%2$s%3$s' ),
+                $docs_anchor_tag_start,
+                esc_html__( 'Docs', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                $anhor_tag_end
+            ),
+            'support' => sprintf(
+                wp_kses_post( '%1$s%2$s%3$s' ),
+                $support_anchor_tag_start,
+                esc_html__( 'Support', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                $anhor_tag_end
+            ),
+            'reviews' => sprintf( '<a href="%s" target="_blank" style="color:#f5bb00;">%s</a>', $url, esc_html( '★★★★★' ) ),
+        );
+        return array_merge( $plugin_meta, $ds_plugin_meta );
     }
 
     /**

@@ -197,7 +197,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             if ( !$billing_email ) {
                 wc_add_notice( esc_html__( 'Please add email address to place order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), 'error' );
             }
-            $email = trim( $billing_email );
+            $email = wcblu_safe_trim( $billing_email );
             // return if billing email is unvalid
             if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
                 wc_add_notice( esc_html__( 'Please add valid email address to place order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), 'error' );
@@ -217,6 +217,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 }
             }
             if ( has_block( 'woocommerce/checkout', $checkout_page_content ) && is_a( $order, 'WC_Order' ) ) {
+                // @phpstan-ignore-next-line
                 $ship_to_different_address = ( isset( $request ) && $request instanceof WP_REST_Request ? $request->get_param( 'ship_to_different_address' ) : null );
                 // phpcs:ignore
                 $billing_add_1 = $order->get_billing_address_1();
@@ -227,12 +228,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 $zip = $order->get_billing_postcode();
             } else {
                 $ship_to_different_address = filter_input( INPUT_POST, 'ship_to_different_address', FILTER_SANITIZE_NUMBER_INT );
-                $billing_add_1 = trim( filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                $billing_add_2 = trim( filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                $phone = trim( filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                $country = trim( filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                $state = trim( filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                $zip = trim( filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $billing_add_1 = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $billing_add_2 = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $phone = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $country = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $state = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                $zip = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
             }
             if ( "1" !== $ship_to_different_address || "shipping_address_type" !== $getaddresstype ) {
                 $errorAddress = '';
@@ -282,8 +283,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     $country = $order->get_billing_country();
                     $state = $order->get_billing_state();
                 } else {
-                    $country = trim( filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                    $state = trim( filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                    $country = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                    $state = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
                 }
                 // validate billing state
                 $errorState = '';
@@ -307,7 +308,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 if ( has_block( 'woocommerce/checkout', $checkout_page_content ) && is_a( $order, 'WC_Order' ) ) {
                     $zip = $order->get_billing_postcode();
                 } else {
-                    $zip = trim( filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                    $zip = wcblu_safe_trim( filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
                 }
                 $errorzip = '';
                 if ( isset( $zip ) && !empty( $zip ) ) {
@@ -336,7 +337,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 if ( !$billing_email ) {
                     return;
                 }
-                $email = trim( $billing_email );
+                $email = wcblu_safe_trim( $billing_email );
                 // return if billing email is unvalid
                 if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
                     return;
@@ -417,7 +418,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             } else {
                 $billing_email = filter_input( INPUT_POST, 'billing_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             }
-            $email = trim( $billing_email );
+            $email = wcblu_safe_trim( $billing_email );
             $query = wp_cache_get( 'blocked_user_data_key' );
             if ( false === $query ) {
                 $args = array(
@@ -490,7 +491,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 update_post_meta( $post_id, 'WhereUserBanned', 'Place Order' );
             }
             //compatible with WooCommerce PayPal Payments Plugin Start
-            if ( is_plugin_active( 'woocommerce-paypal-payments/woocommerce-paypal-payments.php' ) ) {
+            if ( is_plugin_active( 'woocommerce-paypal-payments/woocommerce-paypal-payments.php' ) && class_exists( 'WooCommerce\\PayPalCommerce\\Session\\SessionHandler' ) ) {
                 $reset_paypal_obj = new WooCommerce\PayPalCommerce\Session\SessionHandler();
                 if ( !isset( $reset_paypal_obj ) || empty( $reset_paypal_obj->order() ) ) {
                     WC()->session->set( 'reload_checkout', 'true' );
@@ -517,17 +518,17 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         if ( isset( $getplaceordertype ) && !empty( $getplaceordertype ) && '1' === $getplaceordertype ) {
             // return if billing email is empty
             $billing_email = ( isset( $edd_email ) && !empty( $edd_email ) && !wp_verify_nonce( sanitize_email( $edd_email ), 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) ? sanitize_email( $edd_email ) : '' );
-            $email = trim( $billing_email );
+            $email = wcblu_safe_trim( $billing_email );
             // validate billing email
             $errorEmail = $this->verify_email( $email );
-            if ( $errorEmail ) {
+            if ( $errorEmail && function_exists( 'edd_set_error' ) ) {
                 edd_set_error( 'Blocked_email', $errorEmail );
                 $flagForEnterUserToBannedList = 1;
             }
             // validate email domain
             if ( !empty( $email ) ) {
                 $errorDomain = $this->verify_domain( $email );
-                if ( $errorDomain ) {
+                if ( $errorDomain && function_exists( 'edd_set_error' ) ) {
                     edd_set_error( 'Blocked_email_domain', $errorDomain );
                     $flagForEnterUserToBannedList = 1;
                 }
@@ -548,7 +549,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 $ip = $remote_addr;
             }
             $errorIp = $this->verify_ip( $ip );
-            if ( $errorIp ) {
+            if ( $errorIp && function_exists( 'edd_set_error' ) ) {
                 edd_set_error( 'Blocked_user_browser', $errorIp );
                 $flagForEnterUserToBannedList = 1;
             }
@@ -562,20 +563,20 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 if ( !$billing_email ) {
                     return;
                 }
-                $email = trim( $billing_email );
+                $email = wcblu_safe_trim( $billing_email );
                 // return if billing email is unvalid
                 if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
                     return;
                 }
                 $errorEmail = $this->verify_email( $email );
-                if ( $errorEmail ) {
+                if ( $errorEmail && function_exists( 'edd_set_error' ) ) {
                     edd_set_error( 'Blocked_email', $errorEmail );
                     $flagForEnterUserToBannedList = 1;
                 }
                 // validate email domain
                 if ( !empty( $email ) ) {
                     $errorDomain = $this->verify_domain( $email );
-                    if ( $errorDomain ) {
+                    if ( $errorDomain && function_exists( 'edd_set_error' ) ) {
                         edd_set_error( 'Blocked_email_domain', $errorDomain );
                         $flagForEnterUserToBannedList = 1;
                     }
@@ -596,7 +597,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     $ip = $remote_addr;
                 }
                 $errorIp = $this->verify_ip( $ip );
-                if ( $errorIp ) {
+                if ( $errorIp && function_exists( 'edd_set_error' ) ) {
                     edd_set_error( 'Blocked_IP', $errorIp );
                     $flagForEnterUserToBannedList = 1;
                 }
@@ -605,7 +606,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         }
         if ( 1 === $flagForEnterUserToBannedList ) {
             $billing_email = filter_input( INPUT_POST, 'edd_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $email = trim( $billing_email );
+            $email = wcblu_safe_trim( $billing_email );
             $query = wp_cache_get( 'edd_blocked_user_data_key' );
             if ( false === $query ) {
                 $args = array(
@@ -816,6 +817,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                                     $type = $delivery_zone_location_result->type;
                                     if ( !empty( $type ) && 'continent' === $type ) {
                                         $continents = WC_Countries::get_continents();
+                                        // @phpstan-ignore-line
                                         $continents_and_ccs = wp_list_pluck( $continents, 'countries' );
                                         if ( is_array( $continents_and_ccs ) ) {
                                             foreach ( $continents_and_ccs as $continent_code => $countries ) {
@@ -857,6 +859,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         if ( isset( $fetchSelecetedAddress ) && !empty( $fetchSelecetedAddress ) ) {
             if ( is_array( $fetchSelecetedAddress ) ) {
                 foreach ( $fetchSelecetedAddress as $value ) {
+                    $value = wc_strtolower( $value );
                     if ( strpos( $Address1, $value ) !== false || strpos( $Address2, $value ) !== false ) {
                         $status = convert_smilies( ( empty( $getpluginoptionarray['wcblu_address_msg'] ) ? __( 'Your Address has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_address_msg'] ) );
                         break;
@@ -952,11 +955,13 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         //get blacklisted domains from database
         $fetchSelecetedState = ( !empty( $getpluginoptionarray['wcblu_block_state'] ) ? array_filter( $getpluginoptionarray['wcblu_block_state'] ) : '' );
         if ( isset( $fetchSelecetedState ) && !empty( $fetchSelecetedState ) ) {
-            $stateFullName = strtolower( WC()->countries->states[$country][$state] );
-            if ( is_array( $fetchSelecetedState ) ) {
+            $stateFullName = '';
+            if ( isset( WC()->countries->states[$country][$state] ) ) {
+                $stateFullName = strtolower( WC()->countries->states[$country][$state] );
+            }
+            if ( is_array( $fetchSelecetedState ) && !empty( $stateFullName ) ) {
                 foreach ( $fetchSelecetedState as $singleList ) {
                     $singleList = strtolower( $singleList );
-                    $stateFullName = strtolower( $stateFullName );
                     if ( $stateFullName === $singleList ) {
                         $status = convert_smilies( ( empty( $getpluginoptionarray['wcblu_state_msg'] ) ? __( 'Your State has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_state_msg'] ) );
                         break;
@@ -1024,11 +1029,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
     }
 
     /**
+     * function to return valudate extra field for registration (For WooCommerce registration)
+     * 
      * @param $validation_error
      * @param $username
      * @param $password
      * @param $email
-     * function to return valudate extra field for registration
      */
     public function wooc_validate_extra_register_fields(
         $validation_error,
@@ -1069,7 +1075,114 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 $validation_error->add( 'error', $validation_error_msg );
                 return $validation_error;
             }
-            $email = trim( $email );
+            $email = wcblu_safe_trim( $email );
+            // return if billing email is unvalid
+            if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+                $validation_error_msg = __( 'Please enter valid email address', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+                $validation_error->add( 'error', $validation_error_msg );
+                return $validation_error;
+            }
+            $errorEmail = $this->verify_email_register( $email );
+            if ( $errorEmail ) {
+                $validation_error_msg = ( empty( $getpluginoptionarray['wcblu_email_msg'] ) ? __( 'This email has been blacklisted. Please try another email address.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_email_msg'] );
+                $validation_error->add( 'error', $validation_error_msg );
+                $flagForEnterUserToBannedList = 1;
+            }
+            $errorDomain = $this->verify_domain_register( $email );
+            if ( $errorDomain ) {
+                $validation_error_msg = ( empty( $getpluginoptionarray['wcblu_domain_msg'] ) ? __( 'This email domain has been blacklisted. Please try another email address', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_domain_msg'] );
+                $validation_error->add( 'error', $validation_error_msg );
+                $flagForEnterUserToBannedList = 1;
+            }
+            if ( 1 === $flagForEnterUserToBannedList ) {
+                $query = wp_cache_get( 'blocked_another_user_data_key' );
+                if ( false === $query ) {
+                    $args = array(
+                        'post_status' => 'publish',
+                        'post_type'   => 'blocked_user',
+                        's'           => $email,
+                    );
+                    $args_query = new WP_Query($args);
+                    if ( !empty( $args_query->posts ) ) {
+                        $get_posts = $args_query->posts;
+                        $query = $get_posts[0]->ID;
+                    }
+                    wp_cache_set( 'blocked_another_user_data_key', $query );
+                }
+                $query = wp_cache_get( 'blocked_another_user_data_key' );
+                if ( false !== $query ) {
+                    $post_id = wp_cache_get( 'blocked_another_user_data_key_for_post_id' );
+                    if ( false === $post_id ) {
+                        $args_for_post_id = array(
+                            'post_status' => 'publish',
+                            'post_type'   => 'blocked_user',
+                            's'           => $email,
+                        );
+                        $args_for_post_id_query = new WP_Query($args_for_post_id);
+                        if ( !empty( $args_for_post_id_query->posts ) ) {
+                            $get_posts = $args_for_post_id_query->posts;
+                            $post_id = $get_posts[0]->ID;
+                        }
+                        wp_cache_set( 'blocked_another_user_data_key_for_post_id', $post_id );
+                    }
+                    $meta = get_post_meta( $post_id, 'Attempt', true );
+                    $meta++;
+                    update_post_meta( $post_id, 'Attempt', $meta );
+                    update_post_meta( $post_id, 'WhereUserBanned', 'Register' );
+                } else {
+                    $user = array(
+                        'post_title'  => $email,
+                        'post_status' => 'publish',
+                        'post_type'   => 'blocked_user',
+                    );
+                    $post_id = wp_insert_post( $user );
+                    update_post_meta( $post_id, 'Attempt', '1' );
+                    update_post_meta( $post_id, 'WhereUserBanned', 'Register' );
+                }
+            }
+        }
+        return $validation_error;
+    }
+
+    /**
+     * Function to return validate admin user validation (For WordPress admin user registration)
+     * 
+     * @param $validation_error
+     * @param $username
+     * @param $email
+     * 
+     * @return $validation_error
+     * 
+     * @since 2.3.0
+     */
+    public function wcbfc_admin_user_validation( $validation_error, $username, $email ) {
+        $getpluginoption = get_option( 'wcblu_option' );
+        $getpluginoptionarray = json_decode( $getpluginoption, true );
+        $getregistertype = ( !empty( $getpluginoptionarray['wcblu_register_type'] ) ? $getpluginoptionarray['wcblu_register_type'] : '' );
+        if ( isset( $getregistertype ) && !empty( $getregistertype ) && '1' === $getregistertype ) {
+            $flagForEnterUserToBannedList = 0;
+            //Test if it is a shared client
+            $http_client_ip = filter_input( INPUT_SERVER, 'HTTP_CLIENT_IP', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $http_x_forwarded_for = filter_input( INPUT_SERVER, 'HTTP_X_FORWARDED_FOR', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $remote_addr = filter_input( INPUT_SERVER, 'REMOTE_ADDR', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $http_client_ip = filter_var( $http_client_ip, FILTER_VALIDATE_IP );
+            $http_x_forwarded_for = filter_var( $http_x_forwarded_for, FILTER_VALIDATE_IP );
+            $remote_addr = filter_var( $remote_addr, FILTER_VALIDATE_IP );
+            if ( !empty( $http_client_ip ) ) {
+                $ip = $http_client_ip;
+                //Is it a proxy address
+            } elseif ( !empty( $http_x_forwarded_for ) ) {
+                $ip = $http_x_forwarded_for;
+            } else {
+                $ip = $remote_addr;
+            }
+            $errorIp = $this->verify_ip_register( $ip );
+            if ( $errorIp ) {
+                $validation_error_msg = ( empty( $getpluginoptionarray['wcblu_ip_msg'] ) ? __( 'Your IP address has been blacklisted.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) : $getpluginoptionarray['wcblu_ip_msg'] );
+                $validation_error->add( 'error', $validation_error_msg );
+                $flagForEnterUserToBannedList = 1;
+            }
+            $email = wcblu_safe_trim( $email );
             // return if billing email is unvalid
             if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
                 $validation_error_msg = __( 'Please enter valid email address', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
@@ -1428,7 +1541,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     $response = sanitize_text_field( $_POST['g-recaptcha-response'] );
                     // Verify the reCAPTCHA response
                     $verifyResponse = wp_remote_get( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $wcblu_v2_secret_keys_value . '&response=' . $response );
-                    if ( is_array( $verifyResponse ) && !is_wp_error( $verifyResponse ) && isset( $verifyResponse['body'] ) ) {
+                    if ( !is_wp_error( $verifyResponse ) && isset( $verifyResponse['body'] ) ) {
                         // Decode json data
                         $responseData = json_decode( $verifyResponse['body'] );
                         // If reCAPTCHA response is valid
@@ -1502,12 +1615,21 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         }
         if ( isset( $_POST['googlerecaptchav3'] ) && !empty( $_POST['googlerecaptchav3'] ) ) {
             $captcha = sanitize_text_field( $_POST['googlerecaptchav3'] );
-            if ( isset( $_SERVER['REMOTE_ADDR'] ) && !empty( $_POST['googlerecaptchav3'] ) ) {
-                $REMOTE_ADDR = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+            $get_REMOTE_ADDR = filter_input(
+                INPUT_SERVER,
+                'REMOTE_ADDR',
+                FILTER_VALIDATE_IP,
+                FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+            );
+            if ( isset( $get_REMOTE_ADDR ) && !empty( $_POST['googlerecaptchav3'] ) ) {
+                $REMOTE_ADDR = sanitize_text_field( $get_REMOTE_ADDR );
             }
-            $response = file_get_contents( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $wcblu_v3_secret_keys_value . '&response=' . $captcha . '&remoteip=' . $REMOTE_ADDR );
+            $response = file_get_contents( 
+                // phpcs:ignore
+                'https://www.google.com/recaptcha/api/siteverify?secret=' . $wcblu_v3_secret_keys_value . '&response=' . $captcha . '&remoteip=' . $REMOTE_ADDR
+             );
             $response_data = json_decode( $response, true );
-            if ( is_array( $response_data ) && !is_wp_error( $response_data ) && isset( $response_data['success'] ) ) {
+            if ( !is_wp_error( $response_data ) && isset( $response_data['success'] ) ) {
                 if ( false === $response_data['success'] ) {
                     $validation_errors->add( 'g-recaptcha_error', __( 'Invalid recaptcha.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) );
                 } else {
@@ -1557,7 +1679,6 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
      * Disable credit card payments if a lock is active.
      *
      * @param array $gateways Available payment gateways.
-     * @return array
      */
     public function wcblu_block_checkout_on_transition( $order ) {
         $plugin_options_raw = get_option( 'wcblu_general_option' );
@@ -1580,9 +1701,40 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     'messages' => "<ul class='woocommerce-error' role='alert'><li>" . esc_html( $error_msg ) . "</li></ul>",
                 ] );
             } else {
-                throw new Exception($error_msg);
+                throw new Exception(esc_html( $error_msg ));
             }
         }
+    }
+
+    /**
+     * Function to get country by ip (Using wp_remote_post)
+     * 
+     * @param string $ip
+     * 
+     * @return array
+     * 
+     * @since 2.3.0
+     */
+    public function get_country_by_ip_wp( $ip ) {
+        // Validate IP
+        if ( !filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+            return [];
+        }
+        $url = 'https://ipapi.co/' . rawurlencode( $ip ) . '/json/';
+        // wp_remote_post
+        $response = wp_remote_post( $url, [
+            'timeout'   => 5,
+            'sslverify' => true,
+        ] );
+        if ( is_wp_error( $response ) ) {
+            return [];
+        }
+        $body = wp_remote_retrieve_body( $response );
+        if ( empty( $body ) ) {
+            return [];
+        }
+        $data = json_decode( $body, true );
+        return ( is_array( $data ) ? $data : [] );
     }
 
 }

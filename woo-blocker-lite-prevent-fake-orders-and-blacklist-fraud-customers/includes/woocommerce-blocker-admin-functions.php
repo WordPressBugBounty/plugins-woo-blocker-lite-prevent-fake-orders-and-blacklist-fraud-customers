@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * Safe trim function that handles null values for PHP 8.1+ compatibility
+ *
+ * @param mixed $value The value to trim.
+ * @return string Trimmed string or empty string if null.
+ */
+function wcblu_safe_trim(  $value  ) {
+    return trim( (string) ($value ?? '') );
+}
+
+/**
  * @param $getpluginoptionarray
  *
  * @return false|string

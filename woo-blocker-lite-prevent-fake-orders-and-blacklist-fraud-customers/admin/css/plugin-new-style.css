@@ -37,7 +37,7 @@ header.dots-header{background-color:#fff;border-radius:5px;box-shadow:0 4px 10px
 .dots-getting-started a{display:inline-block;padding:8.5px 12px;font-size:14px;line-height:10px;border-bottom:2px solid transparent;transition: all .2s ease-in;}
 .dots-getting-started a:hover,.dots-getting-started a.active{border-bottom-color:var(--dotstore-primary);}
 .dots-menu-main{background-color:transparent;width:calc(100% - 48px);}
-.dots-menu-main ul li a{font-size:14px;line-height:19px;font-weight:400;padding:11px 0;border-bottom:2px solid transparent;margin:0 14px;}
+.dots-menu-main ul li a{font-size:14px;line-height:25px;font-weight:400;padding:11px 0;border-bottom:2px solid transparent;margin:0 14px;}
 #dotsstoremain a:focus{outline:none;box-shadow:none;}
 .dots-menu-main ul li:hover > a,.dots-menu-main ul li a.active{color:#000;background:transparent;border-bottom-color:var(--dotstore-primary);}
 .dots-menu-main ul li ul.sub-menu{box-shadow:0 4px 10px 4px rgb(0 0 0 / 8%);}
@@ -96,7 +96,6 @@ header.dots-header{background-color:#fff;border-radius:5px;box-shadow:0 4px 10px
 .wcblu-main-table h2{font-size:18px;line-height:24px;font-weight:500;padding:15px 20px;border:none;margin:0;color:#1d2327;border-bottom:1px solid #dadada;border-radius:5px 5px 0 0;}
 #fs_account h3{font-size:18px;line-height:24px;font-weight:500;padding:15px 30px;border:none;margin:0;background-color:#DEDEDE;color:#1d2327;border-bottom:1px solid #dadada;border-radius:5px 5px 0 0;}
 .wcblu-main-table .form-table{margin-top:0;}
-#wcblu_plugin_general_settings input:checked + .slider{background-color:var(--dotstore-primary);}
 .dots-settings-left-side table.table-outer tr:last-child{border:none;}
 .dots-settings-left-side table.table-outer tr td.fr-1,.dots-settings-left-side table.table-outer tr th.fr-1{font-weight:400;width:28%;border:none;}
 .dots-settings-left-side table.min-max-manage-msg-table tr td.fr-1{width:37%;}
@@ -269,18 +268,44 @@ h2.no-border.ds-rewanp {
     padding: 0 0;
 }
 .dots-settings-inner-main .heading_div{
-    margin-top: 30px;
+    margin-top: 20px;
 }
 /* autoscore button */
-#wcblu_plugin_general_rules .slider.round {border-radius: 34px;}
-#wcblu_plugin_general_rules .slider.round:before {border-radius: 50%;}
-#wcblu_plugin_general_rules input:checked + .slider {background-color: var(--dotstore-primary);}
-#wcblu_plugin_general_rules input:checked + .slider:before {-webkit-transform: translateX(12px);-ms-transform: translateX(12px);transform: translateX(12px);}
-#wcblu_plugin_general_rules .switch {position: relative;display: inline-block;width: 32px;height: 19px;margin-right: 5px;}
-#wcblu_plugin_general_rules .switch input {display: none;}
-#wcblu_plugin_general_rules .slider.round:before {border-radius: 50%;}
-#wcblu_plugin_general_rules .slider:before {position: absolute;content: "";height: 13px;width: 13px;left: 4px;bottom: 3px;background-color: white;-webkit-transition: .4s;transition: .4s;}
-#wcblu_plugin_general_rules .slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;-webkit-transition: .4s;transition: .4s;}
+#wcblu_plugin_general_rules .slider.round, 
+#wcblu_plugin_general_settings .slider.round,
+#wcblu_plugin_ai_detection_setting .slider.round {border-radius: 20px;}
+
+#wcblu_plugin_general_rules .slider.round:before, 
+#wcblu_plugin_general_settings .slider.round:before
+#wcblu_plugin_ai_detection_setting .slider.round:before {border-radius: 50%;}
+
+#wcblu_plugin_general_rules input:checked + .slider, 
+#wcblu_plugin_general_settings input:checked + .slider,
+#wcblu_plugin_ai_detection_setting input:checked + .slider {background-color: var(--dotstore-primary);}
+
+#wcblu_plugin_general_rules input:checked + .slider:before, 
+#wcblu_plugin_general_settings input:checked + .slider:before,
+#wcblu_plugin_ai_detection_setting input:checked + .slider:before {-webkit-transform: translateX(18px);-ms-transform: translateX(18px);transform: translateX(18px);}
+
+#wcblu_plugin_general_rules .switch, 
+#wcblu_plugin_general_settings .switch,
+#wcblu_plugin_ai_detection_setting .switch {position: relative;display: inline-block;width: 36px;height: 18px;margin-right: 5px;}
+
+#wcblu_plugin_general_rules .switch input, 
+#wcblu_plugin_general_settings .switch input,
+#wcblu_plugin_ai_detection_setting .switch input {display: none;}
+
+#wcblu_plugin_general_rules .slider.round:before, 
+#wcblu_plugin_general_settings .slider.round:before,
+#wcblu_plugin_ai_detection_setting .slider.round:before {border-radius: 50%;}
+
+#wcblu_plugin_general_rules .slider:before, 
+#wcblu_plugin_general_settings .slider:before,
+#wcblu_plugin_ai_detection_setting .slider:before {position: absolute;content: "";height: 14px;width: 14px;left: 2px;bottom: 2px;background-color: white;-webkit-transition: .4s;transition: .4s;}
+
+#wcblu_plugin_general_rules .slider, 
+#wcblu_plugin_general_settings .slider,
+#wcblu_plugin_ai_detection_setting .slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;-webkit-transition: .4s;transition: .4s;}
 
 
 table.form-table.table-outer.general-settings.res-cl progress, #wcblu_plugin_general_rules progress{display: none;}
@@ -464,13 +489,7 @@ table.form-table.table-outer.general-settings.res-cl .text, #wcblu_plugin_genera
     display: block;
 }
 /* rules tooltip over   */
-
-#wcblu_plugin_general_settings .switch {position: relative;display: inline-block;width: 32px;height: 19px;margin-right: 5px;}
-#wcblu_plugin_general_settings .switch input {display: none;}
-#wcblu_plugin_general_settings .slider.round:before {border-radius: 50%;}
-#wcblu_plugin_general_settings .slider:before {position: absolute;content: "";height: 13px;width: 13px;left: 4px;bottom: 3px;background-color: white;-webkit-transition: .4s;transition: .4s;}
-#wcblu_plugin_general_settings .slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;-webkit-transition: .4s;transition: .4s;}
-.dots-settings-left-side table.table-outer tr td .wcblu_field.wcblu_align_text label {vertical-align: baseline !important;}
+.dots-settings-left-side table.table-outer tr td .wcblu_field.wcblu_align_text label {vertical-align: baseline !important;} */
 
 .dots-settings-inner-main table.form-table.table-outer.general-rules.res-cl input#wcbfc_start_time_timepicker,
 .dots-settings-inner-main table.form-table.table-outer.general-rules.res-cl input#wcbfc_end_time_timepicker{
@@ -559,6 +578,10 @@ form#wcblu_plugin_form_id .wcbfc-tooltip-rules {right: 12px;}
 .state_file_excel,.zipcode_file_excel,.file_excel{display: inline-block;width: 190px;}
 .woocommerce_blocker_tab_description.file-fields{ display: inline-block;margin-left: 0px; }
 .wbtd-tooltip {display: none;}
+
+/* New Feature Bagde */
+.dots-badge {background: transparent;border: 1px solid rgba(29,30,28,.3);border-radius: 32px;color: #1d1e1cb3;display: inline-block;font-size: 10px;font-weight: 400;line-height: 1;padding: 4px 8px;vertical-align: middle;white-space: nowrap;margin-left: 5px;}
+.dots-badge-orange {background: #fa5d00;border-color: transparent;color: #fff;}
 
 /* Media css */
 @media screen and (max-width: 1200px) {

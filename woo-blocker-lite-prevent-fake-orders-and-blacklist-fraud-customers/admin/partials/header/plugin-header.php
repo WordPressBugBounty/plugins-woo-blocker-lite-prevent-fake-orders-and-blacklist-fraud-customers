@@ -105,6 +105,7 @@ if ( class_exists( 'Easy_Digital_Downloads' ) ) {
 $fee_list = ( isset( $wcblu_page ) && 'woocommerce_blacklist_users' === $wcblu_page ? 'active' : '' );
 $gs_list = ( isset( $wcblu_page ) && 'wcblu-general-settings' === $wcblu_page ? 'active' : '' );
 $rules = ( isset( $wcblu_page ) && 'wcblu-auto-rules' === $wcblu_page ? 'active' : '' );
+$ai_detection = ( isset( $wcblu_page ) && 'wcblu-ai-detection-setting' === $wcblu_page ? 'active' : '' );
 $wcblu_import_export_setting = ( isset( $current_tab ) && 'wcblu-import-export-setting' === $current_tab ? 'active' : '' );
 $wcblu_settings_menu = ( isset( $wcblu_page ) && ('wcblu-import-export-setting' === $wcblu_page || 'wcblu-import-export-setting' === $current_tab) ? 'active' : '' );
 $wcblu_free_dashboard = ( isset( $wcblu_page ) && 'wcblu-upgrade-dashboard' === $wcblu_page ? 'active' : '' );
@@ -188,7 +189,6 @@ echo esc_url( site_url( 'wp-admin/edit.php?post_type=blocked_user' ) );
 esc_html_e( 'Blocked User List', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
 ?></a>
                                 </li>
-                                
                                 
                                 <?php 
 $wcblu_settings_page_url = '';

@@ -4,14 +4,13 @@ Plugin URI: https://www.thedotstore.com/
 Author: theDotstore
 Author URI: https://www.thedotstore.com/
 Contributors: dots
-Stable tag: 2.2.4
+Stable tag: 2.3.2
 Tags: Fraud Prevention, WooCommerce Anti-Fraud, Blacklist customers, Blacklist fraud customers, Prevent fake orders
 Requires at least: 5.1 
-Tested up to: 6.8.1
+Tested up to: 6.9
 Requires PHP: 5.6
-WC tested up to: 9.9.4
-Donate link: 
-Copyright: (c) 2015-2019 Thedotstore all rights reserved (support@thedotstore.com)
+WC tested up to: 10.4.3
+Copyright: (c) 2015-2025 Thedotstore all rights reserved (support@thedotstore.com)
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -213,6 +212,26 @@ For users planning to migrate their WooCommerce store, the plugin facilitates im
 Automatic updates should work great for you.  As always, though, we recommend backing up your site prior to making any updates just to be sure nothing goes wrong.
 
 == Changelog ==
+= 2.3.2 =
+* [Enhancement] Security patch and updated freemius SDK
+* [Enhancement] Compatible with WooCommerce 10.4.x  
+* [Enhancement] Compatible with WordPress 6.9
+
+= 2.3.1 =
+* [Bug Fix] Fixed strict comparison issue with configured values.
+
+= 2.3.0 =
+* [Bug Fix] Undefined variable warning fix
+* [Enhancement] Compatible with PHP 8.3
+* [Enhancement] Compatible with WooCommerce 10.3.x  
+* [Enhancement] Compatible with WordPress 6.8.x
+
+= 2.2.4 =
+* [Bug Fix] Undefined variable warning fix
+* [Enhancement] Compatible with PHP 8.3
+* [Enhancement] Compatible with WooCommerce 10.3.x  
+* [Enhancement] Compatible with WordPress 6.8.x
+
 = 2.2.4 =
 * [Bug Fix] Minor CSS-related fixes
 * [New] Added reCAPTCHA on Checkout Page.

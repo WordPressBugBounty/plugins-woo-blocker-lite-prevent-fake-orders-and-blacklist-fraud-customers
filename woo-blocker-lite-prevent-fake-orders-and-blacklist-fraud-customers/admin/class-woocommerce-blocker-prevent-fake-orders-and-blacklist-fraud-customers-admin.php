@@ -137,7 +137,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             'dotstore-plugins_page_wcblu-upgrade-dashboard',
             'dotstore-plugins_page_wcblu-dashboard',
             'toplevel_page_woocommerce_blacklist_users',
-            'dotstore-plugins_page_edd-wcblu-dashboard'
+            'dotstore-plugins_page_edd-wcblu-dashboard',
+            'dotstore-plugins_page_wcblu-ai-detection-setting'
         );
         if ( in_array( $hook, $valid_hooks, true ) || 'blocked_user' === $typenow ) {
             wp_enqueue_style(
@@ -340,6 +341,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
         remove_submenu_page( 'dots_store', 'wcblu-upgrade-dashboard' );
         remove_submenu_page( 'dots_store', 'wcblu-dashboard' );
         remove_submenu_page( 'dots_store', 'edd-wcblu-dashboard' );
+        remove_submenu_page( 'dots_store', 'wcblu-ai-detection-setting' );
     }
 
     /**
@@ -871,16 +873,16 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
         $getGeneralSettingsArray = json_decode( $getGeneralSettings, true );
         $wcbfc_fraud_check_status = ( empty( $getGeneralSettingsArray['wcbfc_fraud_check_status'] ) ? 'off' : $getGeneralSettingsArray['wcbfc_fraud_check_status'] );
         $reordered_columns = array();
-        if ( isset( $wcbfc_fraud_check_status ) && 'on' === $wcbfc_fraud_check_status ) {
-            foreach ( $columns as $key => $column ) {
-                $reordered_columns[$key] = $column;
-                if ( 'order_status' === $key ) {
-                    // Inserting after "Status" column.
+        foreach ( $columns as $key => $column ) {
+            $reordered_columns[$key] = $column;
+            if ( 'order_status' === $key ) {
+                // Inserting after "Status" column.
+                if ( !empty( $wcbfc_fraud_check_status ) && 'on' === $wcbfc_fraud_check_status ) {
                     $reordered_columns['wcblu_anti_fraud'] = 'Risk Status';
                 }
             }
-            $columns = $reordered_columns;
         }
+        $columns = $reordered_columns;
         return $columns;
     }
 
@@ -910,21 +912,34 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
      * Render column.
      */
     public function wcblu_render_column( $column, $order ) {
+        $order_id = $order->get_id();
+        $fscore = 0;
         if ( 'wcblu_anti_fraud' === $column ) {
-            $order_id = $order->get_id();
             if ( class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
-                $fscore = $order->get_meta( 'wcbfc_order_score', true );
+                $fscore = floatval( $order->get_meta( 'wcbfc_order_score', true ) );
                 $wcbfc_whitelisted_email = $order->get_meta( 'wcbfc_whitelisted_email', true );
             } else {
-                $fscore = get_post_meta( $order_id, 'wcbfc_order_score', true );
+                $fscore = floatval( get_post_meta( $order_id, 'wcbfc_order_score', true ) );
                 $wcbfc_whitelisted_email = get_post_meta( $order_id, 'wcbfc_whitelisted_email', true );
             }
-            $fscore = ( empty( $fscore ) ? '' : $fscore );
+            $fscore = ( empty( $fscore ) ? 0 : $fscore );
             $getGeneralSettings = get_option( 'wcblu_general_option' );
             $getGeneralSettings = ( empty( $getGeneralSettings ) ? '' : $getGeneralSettings );
             $getGeneralSettingsArray = json_decode( $getGeneralSettings, true );
             $mediumRisk = ( empty( $getGeneralSettingsArray['wcbfc_settings_low_risk_threshold'] ) ? '' : $getGeneralSettingsArray['wcbfc_settings_low_risk_threshold'] );
-            $heighRisk = ( empty( $getGeneralSettingsArray['wcbfc_settings_high_risk_threshold'] ) ? '' : $getGeneralSettingsArray['wcbfc_settings_high_risk_threshold'] );
+            $highRisk = ( empty( $getGeneralSettingsArray['wcbfc_settings_high_risk_threshold'] ) ? '' : $getGeneralSettingsArray['wcbfc_settings_high_risk_threshold'] );
+        }
+        if ( 'wcblu_ai_anti_fraud' === $column ) {
+            if ( class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+                $fscore = floatval( $order->get_meta( '_wcblu_ai_score', true ) );
+                $highRisk = floatval( $order->get_meta( '_wcblu_ai_threshold', true ) );
+            } else {
+                $fscore = floatval( get_post_meta( $order_id, '_wcblu_ai_score', true ) );
+                $highRisk = floatval( get_post_meta( $order_id, '_wcblu_ai_threshold', true ) );
+            }
+            $mediumRisk = ceil( $highRisk * 33 / 100 );
+        }
+        if ( $fscore >= 0 && in_array( $column, array('wcblu_anti_fraud', 'wcblu_ai_anti_fraud'), true ) ) {
             $allow_html_args = array(
                 'span' => array(
                     'class' => array(),
@@ -933,17 +948,17 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             if ( $fscore > 0 && $fscore <= $mediumRisk ) {
                 $label = '<span class="dashicons dashicons-shield-alt low"></span>';
             } else {
-                if ( $fscore >= $mediumRisk && $fscore <= $heighRisk ) {
+                if ( $fscore > $mediumRisk && $fscore <= $highRisk ) {
                     $label = '<span class="dashicons dashicons-shield-alt medium"></span>';
                 } else {
-                    if ( $fscore >= $heighRisk ) {
+                    if ( $fscore > $highRisk ) {
                         $label = '<span class="dashicons dashicons-shield-alt high"></span>';
                     } else {
                         $label = '<span class="dashicons dashicons-shield-alt empty"></span>';
                     }
                 }
             }
-            if ( isset( $wcbfc_whitelisted_email ) && !empty( $wcbfc_whitelisted_email ) ) {
+            if ( isset( $wcbfc_whitelisted_email ) && !empty( $wcbfc_whitelisted_email ) && 'wcblu_anti_fraud' === $column ) {
                 $label = '<span class="dashicons dashicons-shield-alt wh-empty"></span>';
             }
             echo wp_kses( $label, $allow_html_args );
@@ -955,15 +970,23 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
      */
     public function wcblu_render_column_post_table( $column ) {
         global $post;
+        $fscore = 0;
         if ( 'wcblu_anti_fraud' === $column ) {
-            $fscore = get_post_meta( $post->ID, 'wcbfc_order_score', true );
-            $fscore = ( empty( $fscore ) ? '' : $fscore );
+            $fscore = floatval( get_post_meta( $post->ID, 'wcbfc_order_score', true ) );
+            $fscore = ( empty( $fscore ) ? 0 : $fscore );
             $getGeneralSettings = get_option( 'wcblu_general_option' );
             $getGeneralSettings = ( empty( $getGeneralSettings ) ? '' : $getGeneralSettings );
             $getGeneralSettingsArray = json_decode( $getGeneralSettings, true );
             $wcbfc_whitelisted_email = get_post_meta( $post->ID, 'wcbfc_whitelisted_email', true );
             $mediumRisk = ( empty( $getGeneralSettingsArray['wcbfc_settings_low_risk_threshold'] ) ? '' : $getGeneralSettingsArray['wcbfc_settings_low_risk_threshold'] );
-            $heighRisk = ( empty( $getGeneralSettingsArray['wcbfc_settings_high_risk_threshold'] ) ? '' : $getGeneralSettingsArray['wcbfc_settings_high_risk_threshold'] );
+            $highRisk = ( empty( $getGeneralSettingsArray['wcbfc_settings_high_risk_threshold'] ) ? '' : $getGeneralSettingsArray['wcbfc_settings_high_risk_threshold'] );
+        }
+        if ( 'wcblu_ai_anti_fraud' === $column ) {
+            $fscore = floatval( get_post_meta( $post->ID, '_wcblu_ai_score', true ) );
+            $highRisk = floatval( get_post_meta( $post->ID, '_wcblu_ai_threshold', true ) );
+            $mediumRisk = ceil( $highRisk * 33 / 100 );
+        }
+        if ( $fscore >= 0 && in_array( $column, array('wcblu_anti_fraud', 'wcblu_ai_anti_fraud'), true ) ) {
             $allow_html_args = array(
                 'span' => array(
                     'class' => array(),
@@ -972,10 +995,10 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             if ( $fscore > 0 && $fscore <= $mediumRisk ) {
                 $label = '<span class="dashicons dashicons-shield-alt low"></span>';
             } else {
-                if ( $fscore >= $mediumRisk && $fscore <= $heighRisk ) {
+                if ( $fscore > $mediumRisk && $fscore <= $highRisk ) {
                     $label = '<span class="dashicons dashicons-shield-alt medium"></span>';
                 } else {
-                    if ( $fscore >= $heighRisk ) {
+                    if ( $fscore > $highRisk ) {
                         $label = '<span class="dashicons dashicons-shield-alt high"></span>';
                     } else {
                         $label = '<span class="dashicons dashicons-shield-alt empty"></span>';
@@ -994,8 +1017,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
      */
     public function edd_wcblu_render_column_post_table( $value, $payment_ID, $column_name ) {
         if ( 'edd_wcblu_anti_frauds' === $column_name ) {
-            $fscore = get_post_meta( $payment_ID, 'edd_wcbfc_order_score', true );
-            $fscore = ( empty( $fscore ) ? '' : $fscore );
+            $fscore = floatval( get_post_meta( $payment_ID, 'edd_wcbfc_order_score', true ) );
+            $fscore = ( empty( $fscore ) ? 0 : $fscore );
             $getGeneralSettings = get_option( 'wcblu_general_option' );
             $getGeneralSettings = ( empty( $getGeneralSettings ) ? '' : $getGeneralSettings );
             $getGeneralSettingsArray = json_decode( $getGeneralSettings, true );
@@ -1010,10 +1033,10 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             if ( $fscore > 0 && $fscore <= $mediumRisk ) {
                 $label = '<span class="dashicons dashicons-shield-alt low"></span>';
             } else {
-                if ( $fscore >= $mediumRisk && $fscore <= $heighRisk ) {
+                if ( $fscore > $mediumRisk && $fscore <= $heighRisk ) {
                     $label = '<span class="dashicons dashicons-shield-alt medium"></span>';
                 } else {
-                    if ( $fscore >= $heighRisk ) {
+                    if ( $fscore > $heighRisk ) {
                         $label = '<span class="dashicons dashicons-shield-alt high"></span>';
                     } else {
                         $label = '<span class="dashicons dashicons-shield-alt empty"></span>';
@@ -1039,13 +1062,12 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $getGeneralSettingsArray = json_decode( $getGeneralSettings, true );
             $wcbfc_fraud_check_status = ( empty( $getGeneralSettingsArray['wcbfc_fraud_check_status'] ) ? 'off' : $getGeneralSettingsArray['wcbfc_fraud_check_status'] );
             $order_score = get_post_meta( $order->get_id(), 'wcbfc_order_score', true );
-            $order_score = ( empty( $order_score ) ? '0' : $order_score );
             if ( class_exists( "Automattic\\WooCommerce\\Internal\\DataStores\\Orders\\CustomOrdersTableController" ) ) {
                 $screen = ( wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled() ? wc_get_page_screen_id( 'shop-order' ) : 'shop_order' );
             } else {
                 $screen = 'shop_order';
             }
-            if ( isset( $wcbfc_fraud_check_status ) && 'on' === $wcbfc_fraud_check_status ) {
+            if ( isset( $wcbfc_fraud_check_status ) && 'on' === $wcbfc_fraud_check_status && "" !== $order_score ) {
                 add_meta_box(
                     'wcblu-meta-box-id',
                     esc_html__( 'Fraud Risk', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
@@ -1408,39 +1430,31 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
      */
     public function wcblu_export_settings() {
         check_ajax_referer( 'wcblu-ajax-nonce', 'nonce' );
+        if ( !current_user_can( 'manage_woocommerce' ) ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'You are not allowed to export settings.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ) );
+        }
         $main_arr = array();
         $current_setting = ( get_option( 'wcblu_option' ) ? get_option( 'wcblu_option' ) : '' );
         $general_setting = ( get_option( 'wcblu_general_option' ) ? get_option( 'wcblu_general_option' ) : '' );
         $rules_setting = ( get_option( 'wcblu_rules_option' ) ? get_option( 'wcblu_rules_option' ) : '' );
-        $main_arr['wcblu_option'] = json_decode( $current_setting );
-        $main_arr['wcblu_general_option'] = json_decode( $general_setting );
-        $main_arr['wcblu_rules_option'] = json_decode( $rules_setting );
+        $main_arr['wcblu_option'] = json_decode( $current_setting, true );
+        $main_arr['wcblu_general_option'] = json_decode( $general_setting, true );
+        $main_arr['wcblu_rules_option'] = json_decode( $rules_setting, true );
         $merge_all_arr = wp_json_encode( $main_arr );
         if ( empty( $merge_all_arr ) ) {
-            $return = array(
+            wp_send_json_error( array(
                 'message' => esc_html__( 'No data to export! please setup setting then export.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
-            );
+            ) );
         } else {
             $filename = 'export_settings_' . time() . '.json';
-            $file_path = wp_upload_dir()['basedir'] . '/wcblu-export/';
-            if ( !file_exists( $file_path ) ) {
-                wp_mkdir_p( $file_path );
-            }
-            $file_path = wp_upload_dir()['basedir'] . '/wcblu-export/' . $filename;
-            $download_path = wp_upload_dir()['baseurl'] . '/wcblu-export/' . $filename;
-            $fp = fopen( $file_path, 'w' );
-            //phpcs:ignore
-            fwrite( $fp, $merge_all_arr );
-            //phpcs:ignore
-            fclose( $fp );
-            //phpcs:ignore
-            $return = array(
+            wp_send_json_success( array(
                 'message'  => esc_html__( 'Export Done!', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
-                'file'     => $download_path,
+                'data'     => $merge_all_arr,
                 'filename' => $filename,
-            );
+            ) );
         }
-        wp_send_json( $return );
     }
 
     /**
@@ -1448,6 +1462,11 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
      */
     public function wcblu_import_settings() {
         check_ajax_referer( 'wcblu-ajax-nonce', 'nonce' );
+        if ( !current_user_can( 'manage_woocommerce' ) ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'You are not allowed to import settings.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ) );
+        }
         // Allow certain file formats
         $allowTypes = array('json');
         $import_file_args = array(
@@ -1594,7 +1613,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                 'Fraud Prevention',
                 'manage_options',
                 'woocommerce_blacklist_users',
-                'wcblu_custom_admin_setting_options'
+                array($this, 'wcblu_custom_admin_setting_options')
             );
         } else {
             add_submenu_page(
@@ -1603,7 +1622,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                 'Fraud Prevention',
                 'manage_options',
                 'woocommerce_blacklist_users',
-                'wcblu_custom_admin_setting_options'
+                array($this, 'wcblu_custom_admin_setting_options')
             );
         }
         if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) {
@@ -1658,7 +1677,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             __( 'Block Users Lite', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
             'manage_options',
             'blocked_user',
-            'custom_banned_user_listing'
+            array($this, 'custom_banned_user_listing')
         );
         add_submenu_page(
             'dots_store',
@@ -1676,166 +1695,166 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             'wcblu-import-export-setting',
             array($this, 'wbclu_import_export_page')
         );
-        /**
-         * function for admin side settings option
-         */
-        function wcblu_custom_admin_setting_options() {
-            $file_dir = '/partials/header/plugin-header.php';
-            if ( file_exists( dirname( __FILE__ ) . $file_dir ) ) {
-                include dirname( __FILE__ ) . $file_dir;
-            }
-            $success_note = filter_input( INPUT_GET, 'success', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            ?>
+    }
 
-			<div class="wcblu-col-container wcblu-main-table">
-				<?php 
-            if ( !empty( $success_note ) ) {
-                ?>
-					<div id="message" class="updated notice is-dismissible"><p><?php 
-                esc_html_e( 'Data has been updated.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-                ?></p></div>
-				<?php 
-            }
-            ?>
-				<form id="wcblu_plugin_form_id" method="post"
-				      action="<?php 
-            esc_url( get_admin_url() );
-            ?>admin-post.php"
-				      enctype="multipart/form-data" novalidate="novalidate">
-					<input type='hidden' name='action' value='submit_form_wcblu'/>
-					<input type='hidden' name='action-which' value='add'/>
-					<?php 
-            wp_nonce_field( 'wcblu_blacklist_settings', 'wcblu_blacklist_settings_nonce' );
-            ?>
-					<?php 
-            $getpluginoption = get_option( 'wcblu_option' );
-            $getpluginoptionarray = json_decode( $getpluginoption, true );
-            $allow_html_args = array(
-                'input'      => array(
-                    'type'     => array(
-                        'checkbox' => true,
-                        'text'     => true,
-                        'submit'   => true,
-                        'button'   => true,
-                        'file'     => true,
-                    ),
-                    'class'    => true,
-                    'name'     => true,
-                    'value'    => true,
-                    'id'       => true,
-                    'style'    => true,
-                    'selected' => true,
-                    'checked'  => true,
-                    'disabled' => array(),
-                ),
-                'select'     => array(
-                    'id'               => true,
-                    'data-placeholder' => true,
-                    'name'             => true,
-                    'multiple'         => true,
-                    'class'            => true,
-                    'style'            => true,
-                    'selected'         => array(),
-                    'disabled'         => true,
-                ),
-                'a'          => array(
-                    'href'   => array(),
-                    'title'  => array(),
-                    'target' => array(),
-                ),
-                'b'          => array(
-                    'class' => true,
-                ),
-                'i'          => array(
-                    'class' => true,
-                ),
-                'p'          => array(
-                    'class' => true,
-                ),
-                'blockquote' => array(
-                    'class' => true,
-                ),
-                'h2'         => array(
-                    'class' => true,
-                ),
-                'h3'         => array(
-                    'class' => true,
-                ),
-                'ul'         => array(
-                    'class' => true,
-                ),
-                'ol'         => array(
-                    'class' => true,
-                ),
-                'li'         => array(
-                    'class' => true,
-                ),
-                'option'     => array(
-                    'value'    => true,
-                    'selected' => true,
-                ),
-                'table'      => array(
-                    'class' => true,
-                ),
-                'td'         => array(
-                    'class' => true,
-                ),
-                'th'         => array(
-                    'class' => true,
-                    'scope' => true,
-                ),
-                'tr'         => array(
-                    'class' => true,
-                ),
-                'tbody'      => array(
-                    'class' => true,
-                ),
-                'label'      => array(
-                    'for' => true,
-                ),
-                'div'        => array(
-                    'id'    => true,
-                    'class' => true,
-                    'title' => true,
-                    'style' => true,
-                ),
-                'textarea'   => array(
-                    'id'    => true,
-                    'class' => true,
-                    'name'  => true,
-                    'style' => true,
-                ),
-                'button'     => array(
-                    'type'  => true,
-                    'id'    => true,
-                    'class' => true,
-                    'name'  => true,
-                    'value' => true,
-                ),
-            );
-            echo wp_kses( wcblu_get_setting_html_for_free_user( $getpluginoptionarray ), $allow_html_args );
-            ?>
-				</form>
-
-			</div>
-			
-			</div>
-			</div>
-			<?php 
+    /**
+     * function for admin side settings option
+     */
+    public function wcblu_custom_admin_setting_options() {
+        $file_dir = '/partials/header/plugin-header.php';
+        if ( file_exists( dirname( __FILE__ ) . $file_dir ) ) {
+            include dirname( __FILE__ ) . $file_dir;
         }
+        $success_note = filter_input( INPUT_GET, 'success', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        ?>
 
-        /**
-         * function to return link for menu
-         */
-        function custom_banned_user_listing() {
-            $url = admin_url() . 'edit.php?post_type=blocked_user';
+        <div class="wcblu-col-container wcblu-main-table">
+            <?php 
+        if ( !empty( $success_note ) ) {
             ?>
-			<script>location.href = '<?php 
-            esc_attr_e( esc_url( $url ), 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-            ?>';</script>
-			<?php 
+                <div id="message" class="updated notice is-dismissible"><p><?php 
+            esc_html_e( 'Data has been updated.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></p></div>
+            <?php 
         }
+        ?>
+            <form id="wcblu_plugin_form_id" method="post"
+                    action="<?php 
+        esc_url( get_admin_url() );
+        ?>admin-post.php"
+                    enctype="multipart/form-data" novalidate="novalidate">
+                <input type='hidden' name='action' value='submit_form_wcblu'/>
+                <input type='hidden' name='action-which' value='add'/>
+                <?php 
+        wp_nonce_field( 'wcblu_blacklist_settings', 'wcblu_blacklist_settings_nonce' );
+        ?>
+                <?php 
+        $getpluginoption = get_option( 'wcblu_option' );
+        $getpluginoptionarray = json_decode( $getpluginoption, true );
+        $allow_html_args = array(
+            'input'      => array(
+                'type'     => array(
+                    'checkbox' => true,
+                    'text'     => true,
+                    'submit'   => true,
+                    'button'   => true,
+                    'file'     => true,
+                ),
+                'class'    => true,
+                'name'     => true,
+                'value'    => true,
+                'id'       => true,
+                'style'    => true,
+                'selected' => true,
+                'checked'  => true,
+                'disabled' => array(),
+            ),
+            'select'     => array(
+                'id'               => true,
+                'data-placeholder' => true,
+                'name'             => true,
+                'multiple'         => true,
+                'class'            => true,
+                'style'            => true,
+                'selected'         => array(),
+                'disabled'         => true,
+            ),
+            'a'          => array(
+                'href'   => array(),
+                'title'  => array(),
+                'target' => array(),
+            ),
+            'b'          => array(
+                'class' => true,
+            ),
+            'i'          => array(
+                'class' => true,
+            ),
+            'p'          => array(
+                'class' => true,
+            ),
+            'blockquote' => array(
+                'class' => true,
+            ),
+            'h2'         => array(
+                'class' => true,
+            ),
+            'h3'         => array(
+                'class' => true,
+            ),
+            'ul'         => array(
+                'class' => true,
+            ),
+            'ol'         => array(
+                'class' => true,
+            ),
+            'li'         => array(
+                'class' => true,
+            ),
+            'option'     => array(
+                'value'    => true,
+                'selected' => true,
+            ),
+            'table'      => array(
+                'class' => true,
+            ),
+            'td'         => array(
+                'class' => true,
+            ),
+            'th'         => array(
+                'class' => true,
+                'scope' => true,
+            ),
+            'tr'         => array(
+                'class' => true,
+            ),
+            'tbody'      => array(
+                'class' => true,
+            ),
+            'label'      => array(
+                'for' => true,
+            ),
+            'div'        => array(
+                'id'    => true,
+                'class' => true,
+                'title' => true,
+                'style' => true,
+            ),
+            'textarea'   => array(
+                'id'    => true,
+                'class' => true,
+                'name'  => true,
+                'style' => true,
+            ),
+            'button'     => array(
+                'type'  => true,
+                'id'    => true,
+                'class' => true,
+                'name'  => true,
+                'value' => true,
+            ),
+        );
+        echo wp_kses( wcblu_get_setting_html_for_free_user( $getpluginoptionarray ), $allow_html_args );
+        ?>
+            </form>
 
+        </div>
+        
+        </div>
+        </div>
+        <?php 
+    }
+
+    /**
+     * function to return link for menu
+     */
+    public function custom_banned_user_listing() {
+        $url = admin_url() . 'edit.php?post_type=blocked_user';
+        ?>
+        <script>location.href = '<?php 
+        esc_attr_e( esc_url( $url ), 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>';</script>
+        <?php 
     }
 
     /**
@@ -1971,60 +1990,65 @@ When a user will try to place an order or register using one of the blacklisted 
      *
      */
     function my_custom_dashboard_widgets() {
-        wp_add_dashboard_widget( 'custom_help_widget', __( 'Blacklist Users Report', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), 'custom_dashboard_help' );
-        function custom_dashboard_help() {
-            // phpcs:disable
-            $attempt_value = 3;
-            $html = '';
-            $argsUserData = array(
-                'post_type'      => 'blocked_user',
-                'posts_per_page' => 5,
-                'post_status'    => 'publish',
-                'orderby'        => 'meta_value_num',
-                'order'          => 'DESC',
-                'post_parent'    => 0,
-                'meta_query'     => array(array(
-                    'key'     => 'Attempt',
-                    'value'   => (int) $attempt_value,
-                    'type'    => 'numeric',
-                    'compare' => '>=',
-                )),
-            );
-            $UserData = get_posts( $argsUserData );
-            $html .= '<div class="main_custom_dashboard_visit_page blk_dashboard">';
-            $html .= '<table border="0" cellpadding="5" cellspacing="10">';
-            $html .= '<tr>';
-            $html .= '<th class="email_1">' . __( 'Email id', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</th>';
-            $html .= '<th class="attempts_2">' . __( 'Attempts', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</th>';
-            $html .= '<th class="review_3">' . __( 'Review details', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</th>';
-            $html .= '</tr>';
-            if ( '' !== $UserData && !empty( $UserData ) ) {
-                if ( is_array( $UserData ) ) {
-                    foreach ( $UserData as $values ) {
-                        $attempt = get_post_meta( $values->ID, 'Attempt', true );
-                        if ( $attempt >= 3 ) {
-                            $html .= '<tr>';
-                            $html .= '<td class="email_1">' . $values->post_title . '</td>';
-                            $html .= '<td class="attempts_2">' . $attempt . '</td>';
-                            $html .= '<td class="review_3"><a href="' . get_edit_post_link( $values->ID ) . '" target="_blank">View details</a></td>';
-                            $html .= '</tr>';
-                        }
+        wp_add_dashboard_widget( 'custom_help_widget', __( 'Blacklist Users Report', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), array($this, 'custom_dashboard_help') );
+    }
+
+    /**
+     * function create dashboad widget.
+     * view   in dashboard.
+     *
+     */
+    public function custom_dashboard_help() {
+        // phpcs:disable
+        $attempt_value = 3;
+        $html = '';
+        $argsUserData = array(
+            'post_type'      => 'blocked_user',
+            'posts_per_page' => 5,
+            'post_status'    => 'publish',
+            'orderby'        => 'meta_value_num',
+            'order'          => 'DESC',
+            'post_parent'    => 0,
+            'meta_query'     => array(array(
+                'key'     => 'Attempt',
+                'value'   => (int) $attempt_value,
+                'type'    => 'numeric',
+                'compare' => '>=',
+            )),
+        );
+        $UserData = get_posts( $argsUserData );
+        $html .= '<div class="main_custom_dashboard_visit_page blk_dashboard">';
+        $html .= '<table border="0" cellpadding="5" cellspacing="10">';
+        $html .= '<tr>';
+        $html .= '<th class="email_1">' . __( 'Email id', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</th>';
+        $html .= '<th class="attempts_2">' . __( 'Attempts', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</th>';
+        $html .= '<th class="review_3">' . __( 'Review details', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</th>';
+        $html .= '</tr>';
+        if ( '' !== $UserData && !empty( $UserData ) ) {
+            if ( is_array( $UserData ) ) {
+                foreach ( $UserData as $values ) {
+                    $attempt = get_post_meta( $values->ID, 'Attempt', true );
+                    if ( $attempt >= 3 ) {
+                        $html .= '<tr>';
+                        $html .= '<td class="email_1">' . $values->post_title . '</td>';
+                        $html .= '<td class="attempts_2">' . $attempt . '</td>';
+                        $html .= '<td class="review_3"><a href="' . get_edit_post_link( $values->ID ) . '" target="_blank">View details</a></td>';
+                        $html .= '</tr>';
                     }
                 }
-                $bloked_user_list = site_url( 'wp-admin/edit.php?post_type=blocked_user' );
-                $html .= '<tr>';
-                $html .= '<td><a href="' . $bloked_user_list . '" target="_blank">View all records</a></td>';
-                $html .= '<tr>';
-            } else {
-                $html .= '<tr>';
-                $html .= '<td>' . __( 'No Record Found', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</td>';
-                $html .= '</tr>';
             }
-            $html .= '</table>';
-            $html .= '</div>';
-            echo wp_kses_post( $html );
+            $bloked_user_list = site_url( 'wp-admin/edit.php?post_type=blocked_user' );
+            $html .= '<tr>';
+            $html .= '<td><a href="' . $bloked_user_list . '" target="_blank">View all records</a></td>';
+            $html .= '<tr>';
+        } else {
+            $html .= '<tr>';
+            $html .= '<td>' . __( 'No Record Found', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</td>';
+            $html .= '</tr>';
         }
-
+        $html .= '</table>';
+        $html .= '</div>';
+        echo wp_kses_post( $html );
     }
 
     public function wcblu_admin_footer_review() {

@@ -73,10 +73,10 @@ p.woocommerce_extra_cost_overview{max-width:100%!important;margin-left:auto;marg
 .mb-score-label-list ul {display: none;}
 .mb-score-label-list:before {content: 'Show Risk Details';margin-top: 16px;display: block;background: #eee;padding: 7px 7px;cursor: pointer;color: #818181;}
 .mb-score-label-list ul li {list-style: circle;margin-left: 15px;font-weight: 500;}
-.wcblu_anti_fraud span.dashicons.dashicons-shield-alt.low {color: #7AD03A;}
-.wcblu_anti_fraud span.dashicons.dashicons-shield-alt.medium {color: #feae00;}
-.wcblu_anti_fraud span.dashicons.dashicons-shield-alt.high {color: #D54E21;}
-.wcblu_anti_fraud span.dashicons.dashicons-shield-alt.empty {color: #e5e5e5;}
+.wcblu_anti_fraud span.dashicons.dashicons-shield-alt.low, .wcblu_ai_anti_fraud span.dashicons.dashicons-shield-alt.low {color: #7AD03A;}
+.wcblu_anti_fraud span.dashicons.dashicons-shield-alt.medium, .wcblu_ai_anti_fraud span.dashicons.dashicons-shield-alt.medium {color: #feae00;}
+.wcblu_anti_fraud span.dashicons.dashicons-shield-alt.high, .wcblu_ai_anti_fraud span.dashicons.dashicons-shield-alt.high {color: #D54E21;}
+.wcblu_anti_fraud span.dashicons.dashicons-shield-alt.empty, .wcblu_ai_anti_fraud span.dashicons.dashicons-shield-alt.empty {color: #e5e5e5;}
 .wcblu_anti_fraud span.dashicons.dashicons-shield-alt.wh-empty {color: #adadad;}
 /* For EDD fraud column */
 #edd-payments-filter span.dashicons.dashicons-shield-alt.low {color: #7AD03A;}
@@ -108,3 +108,4 @@ p.wcbfc-pl-compatiblity-notice {margin-top: 12px !important;display: inline-bloc
     outline: none;
     box-shadow: unset;
 }
+

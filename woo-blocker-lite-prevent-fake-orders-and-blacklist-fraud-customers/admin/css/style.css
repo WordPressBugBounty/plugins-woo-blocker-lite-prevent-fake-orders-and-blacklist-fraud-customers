@@ -397,7 +397,7 @@ label{cursor:pointer}
 a#add-new-zip-class{float:right;margin-left:6px;margin-right:14px;margin-top:5px;border:none!important}
 .under-table table.table-outer tr{background:#fff}
 table.table-outer tr td p input{margin-right:5px;margin-bottom:5px}
-table.table-outer tr td p label{display:inline-block;width:150px}
+table.table-outer tr td p label{display:inline-block;width:250px}
 p.block{font-size:13px;color:#999;line-height:1.5;margin:1em 0}
 input.order_delivery_excepted_date_before_order{margin-right:14%}
 td.ui-state-highlight a.ui-state-default{background:green}

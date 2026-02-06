@@ -32,12 +32,24 @@
 				success: function (responce) {
 
 					jQuery('.responce_message').remove();
-					var message = $('<span/>', { class: 'responce_message success', text: responce.message }).insertAfter('.wcblu_export_settings');
+					if (!responce || responce.success === false) {
+						var errorText = responce && responce.data && responce.data.message ? responce.data.message : 'Export failed.';
+						$('<span/>', { class: 'responce_message error', text: errorText }).insertAfter('.wcblu_export_settings');
+						ajaxindicatorstop();
+						return;
+					}
 
-					var dynamic_download = $('<a />', { href: responce.file, download: responce.filename });
+					var message = $('<span/>', { class: 'responce_message success', text: responce.data.message }).insertAfter('.wcblu_export_settings');
+
+					var exportData = responce.data.data || '';
+					var fileName = responce.data.filename || 'export_settings.json';
+					var exportBlob = new Blob([exportData], { type: 'application/json' });
+					var exportUrl = window.URL.createObjectURL(exportBlob);
+					var dynamic_download = $('<a />', { href: exportUrl, download: fileName });
 					$('body').append(dynamic_download);
 					dynamic_download[0].click();
-					$('body').remove(dynamic_download);
+					window.URL.revokeObjectURL(exportUrl);
+					dynamic_download.remove();
 
 					setTimeout(function(){
 						message.remove();
@@ -81,10 +93,11 @@
 					jQuery('.responce_message').remove();
 					json_file.val('');
 					var message = '';
+					var messageText = responce && responce.message ? responce.message : ( responce && responce.data && responce.data.message ? responce.data.message : '' );
 					if(responce.success){
-						message = $('<span/>', { class: 'responce_message success', text: responce.message }).insertAfter('.wcblu_import_setting');
+						message = $('<span/>', { class: 'responce_message success', text: messageText }).insertAfter('.wcblu_import_setting');
 					} else {
-						message = $('<span/>', { class: 'responce_message error', text: responce.message }).insertAfter('.wcblu_import_setting');
+						message = $('<span/>', { class: 'responce_message error', text: messageText }).insertAfter('.wcblu_import_setting');
 					}
 
 					setTimeout(function(){
@@ -506,8 +519,7 @@
 		});
 		$('#shipping_zone').select2();
 		$('#userrole').select2();
-
-
+        
 		$('#file').change(function () {
 			var ext = $('#file').val().split('.').pop().toLowerCase();
 			if (-1 === $.inArray(ext, ['json'])) {
