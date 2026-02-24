@@ -201,7 +201,21 @@
 				$(this).attr('value', '0');
 			}
 		});
+        $('body').on('click', '#wcbfc_unknown_origin', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+			} else {
+				$(this).attr('value', '0');
+			}
+		});
 		$('body').on('click', '#wcbfc_suspecius_email', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+			} else {
+				$(this).attr('value', '0');
+			}
+		});
+		$('body').on('click', '#wcbfc_blocked_user_email_check', function () {
 			if ($(this).is(':checked')) {
 				$(this).attr('value', '1');
 			} else {
@@ -274,6 +288,22 @@
 			} else {
 				$(this).attr('value', '0');
 				$(this).parent().next('.wcblu_captcha_settings').hide();
+			}
+		});
+		$('body').on('click', '#wcbfc_acp_status', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+				$(this).parent().next('.wcblu_checkout_payment_settings').show();
+			} else {
+				$(this).attr('value', '0');
+				$(this).parent().next('.wcblu_checkout_payment_settings').hide();
+			}
+		});
+        $('body').on('click', '#wcbfc_acp_disable_rest_api', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+			} else {
+				$(this).attr('value', '0');
 			}
 		});
 		$('body').on('click', '#wcbfc_cbf_status', function () {

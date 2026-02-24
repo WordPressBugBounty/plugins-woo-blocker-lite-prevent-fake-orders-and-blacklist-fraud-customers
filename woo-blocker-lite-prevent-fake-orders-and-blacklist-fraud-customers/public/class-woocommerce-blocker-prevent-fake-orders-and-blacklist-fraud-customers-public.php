@@ -452,16 +452,16 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 $meta = get_post_meta( $post_id, 'Attempt', true );
                 $meta++;
                 update_post_meta( $post_id, 'Attempt', $meta );
-                update_post_meta( $post_id, 'First Name', filter_input( INPUT_POST, 'billing_first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Last Name', filter_input( INPUT_POST, 'billing_last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'City', filter_input( INPUT_POST, 'billing_city', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Country', filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Phone', filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Company', filter_input( INPUT_POST, 'billing_company', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Postcode', filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Address 1', filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Address 2', filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'State', filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                update_post_meta( $post_id, 'First Name', filter_input( INPUT_POST, 'billing_first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Last Name', filter_input( INPUT_POST, 'billing_last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'City', filter_input( INPUT_POST, 'billing_city', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Country', filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Phone', filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Company', filter_input( INPUT_POST, 'billing_company', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Postcode', filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Address 1', filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Address 2', filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'State', filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
                 update_post_meta( $post_id, 'WhereUserBanned', 'Place Order' );
                 $post_status = get_post_status( $post_id );
                 if ( 'trash' === $post_status ) {
@@ -477,16 +477,16 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     'post_type'   => 'blocked_user',
                 );
                 $post_id = wp_insert_post( $user );
-                update_post_meta( $post_id, 'First Name', filter_input( INPUT_POST, 'billing_first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Last Name', filter_input( INPUT_POST, 'billing_last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'City', filter_input( INPUT_POST, 'billing_city', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Country', filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Phone', filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Company', filter_input( INPUT_POST, 'billing_company', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Postcode', filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Address 1', filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'Address 2', filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-                update_post_meta( $post_id, 'State', filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+                update_post_meta( $post_id, 'First Name', filter_input( INPUT_POST, 'billing_first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Last Name', filter_input( INPUT_POST, 'billing_last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'City', filter_input( INPUT_POST, 'billing_city', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Country', filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Phone', filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Company', filter_input( INPUT_POST, 'billing_company', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Postcode', filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Address 1', filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'Address 2', filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                update_post_meta( $post_id, 'State', filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
                 update_post_meta( $post_id, 'Attempt', '1' );
                 update_post_meta( $post_id, 'WhereUserBanned', 'Place Order' );
             }
@@ -696,6 +696,29 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
     }
 
     /**
+     * Check whether the email exists in blocked users list.
+     *
+     * @param string $email User email.
+     *
+     * @return bool
+     */
+    private function wcbfc_is_blocked_user_email( $email ) {
+        $email = wcblu_safe_trim( sanitize_email( $email ) );
+        if ( empty( $email ) ) {
+            return false;
+        }
+        $cache_key = 'wcbfc_blocked_user_email_' . md5( strtolower( $email ) );
+        $cached = wp_cache_get( $cache_key );
+        if ( false !== $cached ) {
+            return (bool) $cached;
+        }
+        $blocked_user = get_page_by_title( $email, OBJECT, 'blocked_user' );
+        $is_blocked = $blocked_user instanceof WP_Post && 'publish' === $blocked_user->post_status;
+        wp_cache_set( $cache_key, $is_blocked );
+        return $is_blocked;
+    }
+
+    /**
      * @param $email
      *
      * @return string
@@ -816,8 +839,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                                     $code = $delivery_zone_location_result->code;
                                     $type = $delivery_zone_location_result->type;
                                     if ( !empty( $type ) && 'continent' === $type ) {
-                                        $continents = WC_Countries::get_continents();
-                                        // @phpstan-ignore-line
+                                        $continents = ( function_exists( 'WC' ) && WC() && WC()->countries ? WC()->countries->get_continents() : array() );
                                         $continents_and_ccs = wp_list_pluck( $continents, 'countries' );
                                         if ( is_array( $continents_and_ccs ) ) {
                                             foreach ( $continents_and_ccs as $continent_code => $countries ) {
@@ -1704,6 +1726,63 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 throw new Exception(esc_html( $error_msg ));
             }
         }
+    }
+
+    /**
+     * Log WooCommerce REST requests and optionally block routes.
+     *
+     * @param mixed           $response Response from a REST request.
+     * @param array           $handler  Route handler.
+     * @param WP_REST_Request $request  REST request object.
+     *
+     * @return mixed
+     */
+    public function wcbfc_block_rest_request( $response, $handler, $request ) {
+        $general_options_raw = get_option( 'wcblu_general_option' );
+        $general_options = ( empty( $general_options_raw ) ? array() : json_decode( $general_options_raw, true ) );
+        $acp_enabled = ( !empty( $general_options['wcbfc_acp_status'] ) ? $general_options['wcbfc_acp_status'] : '0' );
+        $disable_rest_api = ( !empty( $general_options['wcbfc_acp_disable_rest_api'] ) ? $general_options['wcbfc_acp_disable_rest_api'] : '0' );
+        if ( '1' !== $acp_enabled ) {
+            return $response;
+        }
+        $route = $request->get_route();
+        if ( 0 !== strpos( $route, '/wc/' ) ) {
+            return $response;
+        }
+        if ( function_exists( 'wc_get_logger' ) ) {
+            $logger = wc_get_logger();
+            $logger->info( 'REST request: Method = ' . $request->get_method() . ', Route = ' . $route, array(
+                'source' => 'wcblu-rest-blocked-request-log',
+            ) );
+        }
+        $default_blocked_routes = array(( '1' === $disable_rest_api ? '/wc/v3/orders/' : '' ), ( '1' === $disable_rest_api ? '/wc/v3/orders' : '' ));
+        $blocked_routes = apply_filters( 'wcblu_rest_blocked_routes', $default_blocked_routes );
+        foreach ( $blocked_routes as $blocked ) {
+            if ( 0 === strpos( $route, $blocked ) ) {
+                return new WP_Error('rest_forbidden_route', sprintf( __( 'The REST API route "%s" is disabled on this site.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), esc_html( $route ) ), array(
+                    'status' => 403,
+                ));
+            }
+        }
+        return $response;
+    }
+
+    /**
+     * Get WooCommerce order attribution origin.
+     *
+     * @param WC_Order $order Order object.
+     *
+     * @return string
+     */
+    private function wcbfc_get_order_origin( $order ) {
+        if ( !is_a( $order, 'WC_Order' ) ) {
+            return '';
+        }
+        $origin = $order->get_meta( '_wc_order_attribution_source_type', true );
+        if ( empty( $origin ) ) {
+            $origin = $order->get_created_via();
+        }
+        return ( is_string( $origin ) ? $origin : '' );
     }
 
     /**

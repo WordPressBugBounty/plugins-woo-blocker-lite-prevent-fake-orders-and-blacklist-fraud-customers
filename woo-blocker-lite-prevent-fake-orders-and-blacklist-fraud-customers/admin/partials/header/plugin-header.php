@@ -106,7 +106,7 @@ $fee_list = ( isset( $wcblu_page ) && 'woocommerce_blacklist_users' === $wcblu_p
 $gs_list = ( isset( $wcblu_page ) && 'wcblu-general-settings' === $wcblu_page ? 'active' : '' );
 $rules = ( isset( $wcblu_page ) && 'wcblu-auto-rules' === $wcblu_page ? 'active' : '' );
 $ai_detection = ( isset( $wcblu_page ) && 'wcblu-ai-detection-setting' === $wcblu_page ? 'active' : '' );
-$wcblu_import_export_setting = ( isset( $current_tab ) && 'wcblu-import-export-setting' === $current_tab ? 'active' : '' );
+$wcblu_import_export_setting = ( isset( $wcblu_page ) && 'wcblu-import-export-setting' === $wcblu_page ? 'active' : '' );
 $wcblu_settings_menu = ( isset( $wcblu_page ) && ('wcblu-import-export-setting' === $wcblu_page || 'wcblu-import-export-setting' === $current_tab) ? 'active' : '' );
 $wcblu_free_dashboard = ( isset( $wcblu_page ) && 'wcblu-upgrade-dashboard' === $wcblu_page ? 'active' : '' );
 $wcblu_dashboard = ( isset( $wcblu_page ) && 'wcblu-dashboard' === $wcblu_page ? 'active' : '' );
@@ -191,21 +191,22 @@ esc_html_e( 'Blocked User List', 'woo-blocker-lite-prevent-fake-orders-and-black
                                 </li>
                                 
                                 <?php 
-$wcblu_settings_page_url = '';
 $wcblu_settings_page_url = add_query_arg( array(
-    'page' => 'wblp-get-started&tab=wblp-get-started',
+    'page' => 'wcblu-import-export-setting',
 ), admin_url( 'admin.php' ) );
+?>
+                                <li>
+                                    <a class="dotstore_plugin <?php 
+echo esc_attr( $wcblu_settings_menu );
+?>" href="<?php 
+echo esc_url( $wcblu_settings_page_url );
+?>"><?php 
+esc_html_e( 'Settings', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+?></a>
+                                </li>
+                                <?php 
 if ( wbpfoabfc_fs()->is__premium_only() && wbpfoabfc_fs()->can_use_premium_code() ) {
     ?>
-                                    <li>
-                                        <a class="dotstore_plugin <?php 
-    echo esc_attr( $wcblu_settings_menu );
-    ?>" href="<?php 
-    echo esc_url( $wcblu_settings_page_url );
-    ?>"><?php 
-    esc_html_e( 'Settings', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-    ?></a>
-                                    </li>
                                     <li>
                                         <a class="dotstore_plugin <?php 
     echo esc_attr( $wcblu_account_page );
@@ -260,8 +261,15 @@ if ( !(wbpfoabfc_fs()->is__premium_only() && wbpfoabfc_fs()->can_use_premium_cod
 echo esc_attr( $wcblu_display_submenu );
 ?>">
                     <ul>
-                    <?php 
-?>
+                        <li><a class="<?php 
+echo esc_attr( $wcblu_import_export_setting );
+?>" href="<?php 
+echo esc_url( add_query_arg( array(
+    'page' => 'wcblu-import-export-setting',
+), admin_url( 'admin.php' ) ) );
+?>"><?php 
+esc_html_e( 'Import / Export', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+?></a></li>
                         <li><a href="<?php 
 echo esc_url( 'https://www.thedotstore.com/plugins/' );
 ?>" target="_blank"><?php 

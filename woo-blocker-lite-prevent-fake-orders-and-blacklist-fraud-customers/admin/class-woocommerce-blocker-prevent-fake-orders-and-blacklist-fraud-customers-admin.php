@@ -118,7 +118,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                 $this->version,
                 false
             );
-            wp_localize_script( 'jquery-wblp-order-widget-js', 'adminajax', array(
+            wp_localize_script( 'jquery-wblp-order-widget-js', 'wblp_order_ajax', array(
                 'ajaxurl' => admin_url( 'admin-ajax.php' ),
                 'nonce'   => wp_create_nonce( 'wcblu-ajax-nonce' ),
             ) );
@@ -607,6 +607,11 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
      */
     public function wcblu_reset_settings() {
         check_ajax_referer( 'wcblu-ajax-nonce', 'nonce' );
+        if ( !current_user_can( 'manage_woocommerce' ) ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'You are not allowed to reset settings.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ), 403 );
+        }
         update_option( 'wcblu_option', '' );
         die;
     }
@@ -722,6 +727,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbfc_proxy_order_weight = filter_input( INPUT_POST, 'wcbfc_proxy_order_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_international_order = filter_input( INPUT_POST, 'wcbfc_international_order', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_international_order_weight = filter_input( INPUT_POST, 'wcbfc_international_order_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_unknown_origin = filter_input( INPUT_POST, 'wcbfc_unknown_origin', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_unknown_origin_weight = filter_input( INPUT_POST, 'wcbfc_unknown_origin_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_suspecius_email = filter_input( INPUT_POST, 'wcbfc_suspecius_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_suspecius_email_list = filter_input(
                 INPUT_POST,
@@ -730,6 +737,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                 FILTER_REQUIRE_ARRAY
             );
             $wcbfc_suspecious_email_weight = filter_input( INPUT_POST, 'wcbfc_suspecious_email_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_blocked_user_email_check = filter_input( INPUT_POST, 'wcbfc_blocked_user_email_check', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_blocked_user_email_weight = filter_input( INPUT_POST, 'wcbfc_blocked_user_email_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_unsafe_countries = filter_input( INPUT_POST, 'wcbfc_unsafe_countries', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcblu_define_unsafe_countries_list = filter_input(
                 INPUT_POST,
@@ -776,9 +785,13 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbfc_proxy_order_weight = ( empty( $wcbfc_proxy_order_weight ) ? '0' : $wcbfc_proxy_order_weight );
             $wcbfc_international_order = ( empty( $wcbfc_international_order ) ? '0' : $wcbfc_international_order );
             $wcbfc_international_order_weight = ( empty( $wcbfc_international_order_weight ) ? '0' : $wcbfc_international_order_weight );
+            $wcbfc_unknown_origin = ( empty( $wcbfc_unknown_origin ) ? '0' : $wcbfc_unknown_origin );
+            $wcbfc_unknown_origin_weight = ( empty( $wcbfc_unknown_origin_weight ) ? '0' : $wcbfc_unknown_origin_weight );
             $wcbfc_suspecius_email = ( empty( $wcbfc_suspecius_email ) ? '0' : $wcbfc_suspecius_email );
             $wcbfc_suspecius_email_list = ( empty( $wcbfc_suspecius_email_list ) ? array() : $wcbfc_suspecius_email_list );
             $wcbfc_suspecious_email_weight = ( empty( $wcbfc_suspecious_email_weight ) ? '0' : $wcbfc_suspecious_email_weight );
+            $wcbfc_blocked_user_email_check = ( empty( $wcbfc_blocked_user_email_check ) ? '0' : $wcbfc_blocked_user_email_check );
+            $wcbfc_blocked_user_email_weight = ( empty( $wcbfc_blocked_user_email_weight ) ? '0' : $wcbfc_blocked_user_email_weight );
             $wcbfc_unsafe_countries = ( empty( $wcbfc_unsafe_countries ) ? '0' : $wcbfc_unsafe_countries );
             $wcbfc_unsafe_countries_ip = ( empty( $wcbfc_unsafe_countries_ip ) ? '0' : $wcbfc_unsafe_countries_ip );
             $wcblu_define_unsafe_countries_list = ( empty( $wcblu_define_unsafe_countries_list ) ? array() : $wcblu_define_unsafe_countries_list );
@@ -820,9 +833,13 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbluruleoption_array['wcbfc_proxy_order_weight'] = $wcbfc_proxy_order_weight;
             $wcbluruleoption_array['wcbfc_international_order'] = $wcbfc_international_order;
             $wcbluruleoption_array['wcbfc_international_order_weight'] = $wcbfc_international_order_weight;
+            $wcbluruleoption_array['wcbfc_unknown_origin'] = $wcbfc_unknown_origin;
+            $wcbluruleoption_array['wcbfc_unknown_origin_weight'] = $wcbfc_unknown_origin_weight;
             $wcbluruleoption_array['wcbfc_suspecius_email'] = $wcbfc_suspecius_email;
             $wcbluruleoption_array['wcbfc_suspecius_email_list'] = $wcbfc_suspecius_email_list;
             $wcbluruleoption_array['wcbfc_suspecious_email_weight'] = $wcbfc_suspecious_email_weight;
+            $wcbluruleoption_array['wcbfc_blocked_user_email_check'] = $wcbfc_blocked_user_email_check;
+            $wcbluruleoption_array['wcbfc_blocked_user_email_weight'] = $wcbfc_blocked_user_email_weight;
             $wcbluruleoption_array['wcbfc_unsafe_countries'] = $wcbfc_unsafe_countries;
             $wcbluruleoption_array['wcbfc_unsafe_countries_ip'] = $wcbfc_unsafe_countries_ip;
             $wcbluruleoption_array['wcblu_define_unsafe_countries_list'] = $wcblu_define_unsafe_countries_list;
@@ -1170,13 +1187,25 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
         echo esc_html( $label );
         ?></span>
 		<div class="mb-score-label-list">
-			<ul style="color:<?php 
+			<button type="button" class="button wcblu-fc-details-toggle" data-show-text="<?php 
+        esc_attr_e( 'Show more', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>" data-hide-text="<?php 
+        esc_attr_e( 'Hide details', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>">
+				<span class="wcblu-toggle-text"><?php 
+        esc_html_e( 'Show more', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+				<span class="dashicons dashicons-arrow-down-alt2 wcblu-toggle-icon" aria-hidden="true"></span>
+			</button>
+			<div class="wcblu-fc-details-content" style="display: none;">
+				<ul style="color:<?php 
         echo esc_attr( $risk_label_color );
         ?>">
-				<?php 
+					<?php 
         echo wp_kses( $score_lables, $allow_html_args );
         ?>
-			</ul>
+				</ul>
+			</div>
 		</div>
 	
 		<script type="text/javascript">
@@ -1189,11 +1218,22 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
 					jQuery('.wcblu_chart').val(Math.ceil(this.value)).trigger('change');
 				}
 			});
-			jQuery('.mb-score-label-list').click( function(){
-				jQuery(this).find('ul').fadeToggle();
-			});
-			jQuery(".mb-score-label-list ul").click(function(e) {
-				e.stopPropagation();
+			jQuery('.wcblu-fc-details-toggle').off('click').on('click', function(e) {
+				e.preventDefault();
+				var $button = jQuery(this);
+				var $content = $button.closest('.mb-score-label-list').find('.wcblu-fc-details-content');
+				var $text = $button.find('.wcblu-toggle-text');
+				var $icon = $button.find('.wcblu-toggle-icon');
+				$content.slideToggle(200);
+				setTimeout(function() {
+					if ($content.is(':visible')) {
+						$text.text($button.data('hide-text') || 'Hide details');
+						$icon.removeClass('dashicons-arrow-down-alt2').addClass('dashicons-arrow-up-alt2');
+					} else {
+						$text.text($button.data('show-text') || 'Show more');
+						$icon.removeClass('dashicons-arrow-up-alt2').addClass('dashicons-arrow-down-alt2');
+					}
+				}, 250);
 			});
 		</script>
 		<?php 

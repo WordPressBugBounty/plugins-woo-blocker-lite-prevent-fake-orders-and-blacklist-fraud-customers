@@ -202,6 +202,52 @@ function wbclu_free_fraud_data_dashboard_content() {
                     </div>
                     </div>
                 </div>
+                <div class="wcblu-top-ten wcblu-main-chart wcblu-recent-orders" style="grid-column: span 6 / auto;">
+                    <div class="content">
+                        <div class="wcblu-table-title">
+                            <span class="wcblu-title"><?php 
+    esc_html_e( 'Recent Orders 🔒', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                        </div>
+                        <div class="wcblu-table">
+                            <div class="wcblu-table-header">
+                                <div><?php 
+    esc_html_e( 'Risk', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></div>
+                                <div><?php 
+    esc_html_e( 'Name', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></div>
+                                <div><?php 
+    esc_html_e( 'Spent', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></div>
+                                <div><?php 
+    esc_html_e( 'Status', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></div>
+                            </div>
+                            <div class="wcblu-table-row">
+                                <div class="wcblu-table-no-item"><?php 
+    esc_html_e( 'Upgrade to unlock recent orders.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wcblu-top-ten wcblu-main-chart wcblu-orders-breakdown" style="grid-column: span 6 / auto;">
+                    <div class="content">
+                        <div class="wcblu-table-title">
+                            <span class="wcblu-title"><?php 
+    esc_html_e( 'Orders Breakdown 🔒', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                        </div>
+                        <div class="wcblu-recent-order-data-chart-main">
+                            <img src="<?php 
+    echo esc_url( WB_PLUGIN_URL . 'admin/images/premium-upgrade-img/premium-fraud-data-graph.png' );
+    ?>" alt="<?php 
+    esc_attr_e( 'Orders Breakdown Graph', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Dashboard HTML start -->

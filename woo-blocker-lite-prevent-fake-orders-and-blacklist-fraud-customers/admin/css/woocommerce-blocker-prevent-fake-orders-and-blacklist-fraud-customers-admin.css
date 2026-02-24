@@ -70,8 +70,10 @@ p.woocommerce_extra_cost_overview{max-width:100%!important;margin-left:auto;marg
 }
 .mb-score-label{display: block;font-size: 1.3em;padding: 10px 0 0px;font-weight: 700;text-align: center;}
 .wcbfc_position {text-align: center;margin-top: 20px;}
-.mb-score-label-list ul {display: none;}
-.mb-score-label-list:before {content: 'Show Risk Details';margin-top: 16px;display: block;background: #eee;padding: 7px 7px;cursor: pointer;color: #818181;}
+.mb-score-label-list {margin-top: 16px;}
+.mb-score-label-list .wcblu-fc-details-toggle {display: flex;justify-content: space-between;align-items: center;width: 100%;text-align: left;background: #eee;color: #818181;border-color: #ddd;}
+.mb-score-label-list .wcblu-fc-details-toggle .wcblu-toggle-icon {margin-left: 10px;}
+.mb-score-label-list .wcblu-fc-details-toggle:hover {background: #e6e6e6;color: #6b6b6b;}
 .mb-score-label-list ul li {list-style: circle;margin-left: 15px;font-weight: 500;}
 .wcblu_anti_fraud span.dashicons.dashicons-shield-alt.low, .wcblu_ai_anti_fraud span.dashicons.dashicons-shield-alt.low {color: #7AD03A;}
 .wcblu_anti_fraud span.dashicons.dashicons-shield-alt.medium, .wcblu_ai_anti_fraud span.dashicons.dashicons-shield-alt.medium {color: #feae00;}

@@ -4,12 +4,12 @@ Plugin URI: https://www.thedotstore.com/
 Author: theDotstore
 Author URI: https://www.thedotstore.com/
 Contributors: dots
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 Tags: Fraud Prevention, WooCommerce Anti-Fraud, Blacklist customers, Blacklist fraud customers, Prevent fake orders
 Requires at least: 5.1 
-Tested up to: 6.9
+Tested up to: 6.9.1
 Requires PHP: 5.6
-WC tested up to: 10.4.3
+WC tested up to: 10.5.2
 Copyright: (c) 2015-2025 Thedotstore all rights reserved (support@thedotstore.com)
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -212,6 +212,11 @@ For users planning to migrate their WooCommerce store, the plugin facilitates im
 Automatic updates should work great for you.  As always, though, we recommend backing up your site prior to making any updates just to be sure nothing goes wrong.
 
 == Changelog ==
+= 2.3.3 =
+* [Bug Fix] Minor bug fixes
+* [Enhancement] Compatible with WooCommerce 10.5.x  
+* [Enhancement] Compatible with WordPress 6.9.x
+
 = 2.3.2 =
 * [Enhancement] Security patch and updated freemius SDK
 * [Enhancement] Compatible with WooCommerce 10.4.x  

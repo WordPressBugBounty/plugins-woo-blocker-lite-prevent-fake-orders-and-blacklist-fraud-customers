@@ -694,6 +694,55 @@ function wbclu_free_rules_settings_content() {
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <th scope="row" class="titledesc">
+                            <label><?php 
+    echo esc_html__( 'Blocked user email match', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                                <div class="wcbfc-tooltip-rules">
+                                    <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+    echo esc_html( 'Check if the checkout email matches a blocked user email.' );
+    ?></span>
+                                </div>
+                            </label>
+                        </th>
+                        <td>
+                            <div class="wcbfc-control-settings">
+                                <label class="switch" for="wcbfc_blocked_user_email_check">
+                                    <div class="slider round"></div>
+                                </label>
+                                <div class="wcblu_rule_field">
+                                    <input name="wcbfc_blocked_user_email_weight" id="wcbfc_blocked_user_email_weight" type="number" style="width: 5em;" value="0" class="wcbfc_rules_weights" placeholder="" min="0" step="1" max="100">
+                                    <label class="wcbfc-rule-weight-label"><?php 
+    echo esc_html__( 'Rule Weight', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></label>
+                                </div>
+                            </div>
+                            <div class="wcbfc-control-points">
+                                <progress max="100" class="wcbfc-progressBar" value=""></progress>
+                                <span class="wcbfc-tooltip progress-tooltip">0</span>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="segment good">
+                                            <span class="text"><?php 
+    echo esc_html__( 'No Importance', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                        <div class="segment average">
+                                            <span class="text"><?php 
+    echo esc_html__( 'Moderate', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                        <div class="segment poor">
+                                            <span class="text"><?php 
+    echo esc_html__( 'High Importance', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="heading_div">

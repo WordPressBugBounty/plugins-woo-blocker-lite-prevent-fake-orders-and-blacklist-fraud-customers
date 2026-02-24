@@ -4,12 +4,12 @@
         if (userConfirmed) {            
             var post_ID = $('#post_ID').val();
             $.ajax({
-                url: adminajax.ajaxurl,
+                url: wblp_order_ajax.ajaxurl,
                 type : 'POST',  
                 data: {
                     'action':'wcblu_block_order_details_update_blacklist',
                     'order_id':post_ID,
-                    'nonce':  adminajax.nonce,
+                    'nonce':  wblp_order_ajax.nonce,
                 },
                 success:function(result) {
                     console.log(result);
