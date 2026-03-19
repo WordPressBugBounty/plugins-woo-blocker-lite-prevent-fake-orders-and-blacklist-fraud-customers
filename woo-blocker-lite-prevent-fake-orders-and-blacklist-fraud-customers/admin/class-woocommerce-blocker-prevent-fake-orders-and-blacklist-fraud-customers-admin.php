@@ -2131,7 +2131,11 @@ When a user will try to place an order or register using one of the blacklisted 
      */
     function wcblu_permanent_delete_action( $actions, $post ) {
         if ( 'blocked_user' === $post->post_type ) {
-            $actions['was-delete-permanent'] = '<a href="?post_type=blocked_user&was_permanent_delete=' . $post->ID . '" class="was-permanent-user">' . esc_html__( 'Delete Permanently', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</a>';
+            $delete_url = wp_nonce_url( add_query_arg( array(
+                'post_type'            => 'blocked_user',
+                'was_permanent_delete' => $post->ID,
+            ), admin_url( 'edit.php' ) ), 'wcblu_permanent_delete_' . $post->ID, '_wcblu_delete_nonce' );
+            $actions['was-delete-permanent'] = '<a href="' . esc_url( $delete_url ) . '" class="was-permanent-user">' . esc_html__( 'Delete Permanently', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</a>';
         }
         return $actions;
     }
@@ -2141,9 +2145,23 @@ When a user will try to place an order or register using one of the blacklisted 
      */
     function wcblu_permanent_delete_process() {
         $unblock_user_id = filter_input( INPUT_GET, 'was_permanent_delete', FILTER_SANITIZE_NUMBER_INT );
-        if ( !empty( $unblock_user_id ) ) {
-            wcblu_permanent_delete_data( $unblock_user_id );
+        if ( empty( $unblock_user_id ) ) {
+            return;
         }
+        // Security: Require admin capability.
+        if ( !current_user_can( 'manage_woocommerce' ) && !current_user_can( 'manage_options' ) ) {
+            return;
+        }
+        // Security: Verify nonce.
+        if ( !isset( $_GET['_wcblu_delete_nonce'] ) || !wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wcblu_delete_nonce'] ) ), 'wcblu_permanent_delete_' . $unblock_user_id ) ) {
+            return;
+        }
+        // Security: Ensure we only delete blocked_user posts, not arbitrary content.
+        $post = get_post( $unblock_user_id );
+        if ( !$post instanceof WP_Post || 'blocked_user' !== $post->post_type ) {
+            return;
+        }
+        wcblu_permanent_delete_data( $unblock_user_id );
     }
 
     /**
