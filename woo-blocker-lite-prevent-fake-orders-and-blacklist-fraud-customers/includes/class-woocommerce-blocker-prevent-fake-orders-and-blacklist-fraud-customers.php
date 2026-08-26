@@ -207,6 +207,15 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
         $this->loader->add_action( 'admin_init', $plugin_admin, 'wcblu_send_wizard_data_after_plugin_activation' );
         $this->loader->add_action( 'admin_post_submit_general_setting_form_wcblu', $plugin_admin, 'wcblu_update_general_settings' );
         $this->loader->add_action( 'admin_post_nopriv_submit_general_setting_form_wcblu', $plugin_admin, 'wcblu_update_general_settings' );
+        if ( !(wbpfoabfc_fs()->is__premium_only() && wbpfoabfc_fs()->can_use_premium_code()) ) {
+            $this->loader->add_action(
+                'admin_init',
+                $plugin_admin,
+                'wcblu_handle_convert_to_pro_dismiss',
+                5
+            );
+        }
+        $this->loader->add_action( 'wp_ajax_wcblu_convert_to_pro_purchase', $plugin_admin, 'wcblu_convert_to_pro_purchase' );
     }
 
     /**
@@ -233,6 +242,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
             } else {
                 $this->loader->add_action( 'woocommerce_checkout_process', $plugin_public, 'woo_email_domain_validation' );
             }
+        } else {
+            $checkout_page_content = '';
         }
         $this->loader->add_filter(
             'woocommerce_process_registration_errors',
@@ -273,8 +284,17 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
                     10,
                     3
                 );
-            } else {
-                if ( $wcbfc_recaptcha_status === '1' && $wcbfc_recaptcha_version === 'wcblu_v3_keys' && !empty( $wcblu_v3_keys_value ) && !empty( $wcblu_v3_secret_keys_value ) && !has_block( 'woocommerce/checkout', $checkout_page_content ) ) {
+            } elseif ( '1' === $wcbfc_recaptcha_status && 'wcblu_v3_keys' === $wcbfc_recaptcha_version && !empty( $wcblu_v3_keys_value ) && !empty( $wcblu_v3_secret_keys_value ) ) {
+                if ( has_block( 'woocommerce/checkout', $checkout_page_content ) ) {
+                    // Blocks/Store API path (official WooCommerce protection integration pattern).
+                    $this->loader->add_filter(
+                        'rest_authentication_errors',
+                        $plugin_public,
+                        'wcbfc_validate_v3_recaptcha_blocks',
+                        20
+                    );
+                } else {
+                    // Classic shortcode checkout path.
                     $this->loader->add_action( 'woocommerce_review_order_before_submit', $plugin_public, 'wcbfc_recptcha_v3_request' );
                     $this->loader->add_action(
                         'woocommerce_after_checkout_validation',

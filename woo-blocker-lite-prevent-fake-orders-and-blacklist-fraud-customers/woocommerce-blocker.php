@@ -16,21 +16,21 @@
  * Plugin Name:       Fraud Prevention For WooCommerce and EDD
  * Plugin URI:        https://www.thedotstore.com/
  * Description:       Prevent fake orders and Blacklist fraud customers allows your WooCommerce store to refuse orders from specific user, based on blacklist rules.
- * Version:           2.3.4
+ * Version:           2.3.5
  * Author:            theDotstore
  * Author URI:        https://www.thedotstore.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers
  * Domain Path:       /languages
- * 
- * 
- * WP tested up to:      6.9.1
- * WC tested up to:      10.5.2
+ *
+ *
+ * WP tested up to:      7.1
+ * WC tested up to:      11.0.1
  * WC requires at least: 3.0
  * Requires PHP:         5.6
- * Requires at least:    5.0
- * 
+ * Requires at least:    5.3.0
+ *
  */
 // If this file is called directly, abort.
 if ( !defined( 'WPINC' ) ) {
@@ -85,7 +85,7 @@ if ( !defined( 'WB_PLUGIN_PATH' ) ) {
     define( 'WB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 }
 if ( !defined( 'WB_PLUGIN_VERSION' ) ) {
-    define( 'WB_PLUGIN_VERSION', '2.3.4' );
+    define( 'WB_PLUGIN_VERSION', '2.3.5' );
 }
 if ( !defined( 'WB_STORE_URL' ) ) {
     define( 'WB_STORE_URL', 'https://www.thedotstore.com/' );
@@ -157,7 +157,6 @@ register_deactivation_hook( __FILE__, 'deactivate_woocommerce_blocker_prevent_fa
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-blocker-prevent-fake-orders-and-blacklist-fraud-customers.php';
-require plugin_dir_path( __FILE__ ) . 'includes/excelwriter.inc.php';
 /**
  * Begins execution of the plugin.
  *

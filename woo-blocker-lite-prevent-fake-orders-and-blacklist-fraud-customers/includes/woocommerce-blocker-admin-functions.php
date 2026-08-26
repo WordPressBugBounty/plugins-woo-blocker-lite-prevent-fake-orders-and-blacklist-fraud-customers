@@ -1,5 +1,9 @@
 <?php
 
+// Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) {
+    exit;
+}
 /**
  * Safe trim function that handles null values for PHP 8.1+ compatibility
  *

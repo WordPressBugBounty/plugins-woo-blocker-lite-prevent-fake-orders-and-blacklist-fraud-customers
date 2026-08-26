@@ -697,9 +697,6 @@ function wbclu_free_general_settings_content() {
                                         <div class="wcblu_rule_field"><input type="text" name="wcblu_v3_secret_keys_value" placeholder="Enter v3 Secret Key" value="<?php 
         echo esc_attr( $wcblu_v3_secret_keys_value );
         ?>"></div>
-                                        <p class="wcbfc-pl-compatiblity-notice" style="margin-top: 12px;"><span class="dashicons dashicons-warning" style="color:#d0a823;"></span><?php 
-        echo esc_html_e( ' This feature will only works with classic checkout.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?></p>
                                     </div>
                                 <div>
                             </td>

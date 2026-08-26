@@ -4,6 +4,10 @@
 		var arrDomainList, localize_json_output;
 		localize_json_output = $.parseJSON($('input[name="localize_json_output"]').val());
 		$('body').on('click', '#wcblu_reset_settings', function () {
+			var confirmMessage = adminajax.resetConfirm;
+			if ( ! window.confirm( confirmMessage ) ) {
+				return;
+			}
 			ajaxindicatorstart('Please wait..!!');
 			jQuery.ajax({
 				url: adminajax.ajaxurl,
@@ -268,17 +272,6 @@
 			} else {
 				$(this).attr('value', '0');
 				$(this).parent().next().next('.wcblu_rule_field').hide();
-			}
-		});
-		$('body').on('change', '#wcbfc_recaptcha_version', function () {
-			var version = $(this).val();
-			$('.wcblu_versions_key').hide();
-			if( 'wcblu_v2_keys' === version ){
-				$('.wcblu_v2_keys').show();
-			}else if( 'wcblu_v3_keys' === version ){
-				$('.wcblu_v3_keys').show();
-			} else {
-				$('.wcblu_versions_key'). hide();
 			}
 		});
 		$('body').on('click', '#wcbfc_cod_block_status', function () {
@@ -773,6 +766,16 @@
         return null;
     }
 
+	/** Mark convert_to_pro after successful Freemius purchase */
+	function wcbluMarkConvertToPro() {
+		$.post( adminajax.ajaxurl, {
+			action: 'wcblu_convert_to_pro_purchase',
+			security: adminajax.convert_to_pro_nonce
+		} ).always( function() {
+		   // window.location.reload();
+		} );
+	}
+
     /** Script for Freemius upgrade popup */
     function upgradeToProFreemius( couponCode ) {
         let handler;
@@ -788,6 +791,7 @@
             subtitle: 'You’re a step closer to our Pro features',
             licenses: jQuery('input[name="licence"]:checked').val(),
             purchaseCompleted: function( response ) {
+				wcbluMarkConvertToPro();
                 console.log (response);
             },
             success: function (response) {

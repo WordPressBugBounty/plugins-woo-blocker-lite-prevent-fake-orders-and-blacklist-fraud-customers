@@ -113,21 +113,20 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                         $wcblu_v3_keys_value = ( !empty( $getplugingeneraloptarray['wcblu_v3_keys_value'] ) ? $getplugingeneraloptarray['wcblu_v3_keys_value'] : '' );
                         $checkout_page_id = wc_get_page_id( 'checkout' );
                         $checkout_page_content = get_post_field( 'post_content', $checkout_page_id );
-                        if ( has_block( 'woocommerce/checkout', $checkout_page_content ) ) {
-                            $wcblu_v3_keys_value = '';
-                        }
-                        $args = [
-                            'render' => ( $wcbfc_recaptcha_version === 'wcblu_v2_keys' ? '' : $wcblu_v3_keys_value ),
-                        ];
+                        $is_blocks_checkout = has_block( 'woocommerce/checkout', $checkout_page_content );
+                        $args = array(
+                            'render' => ( 'wcblu_v3_keys' === $wcbfc_recaptcha_version ? $wcblu_v3_keys_value : '' ),
+                        );
                         if ( '1' === $wcbfc_recaptcha_status ) {
                             wp_register_script(
                                 'wcblu-re-captcha',
                                 add_query_arg( $args, 'https://www.google.com/recaptcha/api.js' ),
                                 array(),
-                                '1.0'
+                                $this->version,
+                                false
                             );
                             wp_enqueue_script( 'wcblu-re-captcha' );
-                            if ( $wcbfc_recaptcha_version === 'wcblu_v2_keys' ) {
+                            if ( 'wcblu_v2_keys' === $wcbfc_recaptcha_version ) {
                                 wp_register_script(
                                     'wcbfc_captcha-block-frontend',
                                     plugins_url( 'public/js/block/build/wcbfc_captcha-block-frontend.js', __DIR__ ),
@@ -137,9 +136,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                                         'wp-element',
                                         'wp-i18n'
                                     ),
-                                    // Dependencies
-                                    false,
-                                    // No version
+                                    $this->version,
                                     true
                                 );
                                 wp_localize_script( 'wcbfc_captcha-block-frontend', 'wcbfc_captcha_ajax', array(
@@ -147,6 +144,20 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                                     'wcbfc_recaptcha_status' => $wcbfc_recaptcha_status,
                                 ) );
                                 wp_enqueue_script( 'wcbfc_captcha-block-frontend' );
+                            } elseif ( 'wcblu_v3_keys' === $wcbfc_recaptcha_version && $is_blocks_checkout && !empty( $wcblu_v3_keys_value ) ) {
+                                wp_enqueue_script(
+                                    'wcblu-recaptcha-v3-blocks',
+                                    plugin_dir_url( __FILE__ ) . 'js/wcblu-recaptcha-v3-blocks.js',
+                                    array('wcblu-re-captcha', 'wp-data', 'wc-blocks-checkout'),
+                                    $this->version,
+                                    true
+                                );
+                                wp_localize_script( 'wcblu-recaptcha-v3-blocks', 'wcbluRecaptchaV3Blocks', array(
+                                    'siteKey'   => $wcblu_v3_keys_value,
+                                    'action'    => 'wcbfc_validate_v3_recaptcha',
+                                    'namespace' => 'wcblu-recaptcha-v3',
+                                    'refreshMs' => 90000,
+                                ) );
                             }
                         }
                     }
@@ -174,8 +185,11 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
     // woocommerce checkout page functionality
     /**
      * Function to return email and domain validation
+     *
+     * @param WC_Order|null         $order   Order object (Blocks/Store API) or null (classic checkout).
+     * @param WP_REST_Request|null  $request Store API request (Blocks only).
      */
-    public function woo_email_domain_validation( $order ) {
+    public function woo_email_domain_validation( $order = null, $request = null ) {
         $getpluginoption = get_option( 'wcblu_option' );
         $getpluginoptionarray = json_decode( $getpluginoption, true );
         $getplaceordertype = ( !empty( $getpluginoptionarray['wcblu_place_order_type'] ) ? $getpluginoptionarray['wcblu_place_order_type'] : '' );
@@ -217,7 +231,6 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 }
             }
             if ( has_block( 'woocommerce/checkout', $checkout_page_content ) && is_a( $order, 'WC_Order' ) ) {
-                // @phpstan-ignore-next-line
                 $ship_to_different_address = ( isset( $request ) && $request instanceof WP_REST_Request ? $request->get_param( 'ship_to_different_address' ) : null );
                 // phpcs:ignore
                 $billing_add_1 = $order->get_billing_address_1();
@@ -419,6 +432,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 $billing_email = filter_input( INPUT_POST, 'billing_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             }
             $email = wcblu_safe_trim( $billing_email );
+            $blocked_fields = $this->wcbfc_get_blocked_user_checkout_fields( $order );
             $query = wp_cache_get( 'blocked_user_data_key' );
             if ( false === $query ) {
                 $args = array(
@@ -452,16 +466,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 $meta = get_post_meta( $post_id, 'Attempt', true );
                 $meta++;
                 update_post_meta( $post_id, 'Attempt', $meta );
-                update_post_meta( $post_id, 'First Name', filter_input( INPUT_POST, 'billing_first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Last Name', filter_input( INPUT_POST, 'billing_last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'City', filter_input( INPUT_POST, 'billing_city', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Country', filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Phone', filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Company', filter_input( INPUT_POST, 'billing_company', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Postcode', filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Address 1', filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Address 2', filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'State', filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                $this->wcbfc_save_blocked_user_checkout_meta( $post_id, $blocked_fields );
                 update_post_meta( $post_id, 'WhereUserBanned', 'Place Order' );
                 $post_status = get_post_status( $post_id );
                 if ( 'trash' === $post_status ) {
@@ -477,16 +482,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                     'post_type'   => 'blocked_user',
                 );
                 $post_id = wp_insert_post( $user );
-                update_post_meta( $post_id, 'First Name', filter_input( INPUT_POST, 'billing_first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Last Name', filter_input( INPUT_POST, 'billing_last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'City', filter_input( INPUT_POST, 'billing_city', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Country', filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Phone', filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Company', filter_input( INPUT_POST, 'billing_company', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Postcode', filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Address 1', filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'Address 2', filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
-                update_post_meta( $post_id, 'State', filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ?? '' );
+                $this->wcbfc_save_blocked_user_checkout_meta( $post_id, $blocked_fields );
                 update_post_meta( $post_id, 'Attempt', '1' );
                 update_post_meta( $post_id, 'WhereUserBanned', 'Place Order' );
             }
@@ -499,6 +495,17 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 WC()->session->set( 'ppcp', $reset_paypal_obj );
             }
             //compatible with WooCommerce PayPal Payments Plugin End
+        }
+        // Block checkout only: abort when OUR plugin set the validation flag (not third-party notices).
+        if ( is_a( $order, 'WC_Order' ) && 1 === $flagForEnterUserToBannedList ) {
+            $notices = wc_get_notices( 'error' );
+            $message = ( !empty( $notices[0]['notice'] ) ? wp_strip_all_tags( $notices[0]['notice'] ) : __( 'Unable to place order.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) );
+            wc_clear_notices();
+            $order->delete( true );
+            if ( WC()->session ) {
+                WC()->session->set( 'store_api_draft_order', 0 );
+            }
+            throw new Exception(esc_html( $message ));
         }
     }
 
@@ -671,6 +678,95 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
      * @return string
      * function to return error notice if blacklisted, otherwise false
      */
+    /**
+     * Resolve checkout billing fields for blocked_user meta.
+     * Blocks/Store API uses the order object; classic checkout uses $_POST.
+     *
+     * @param WC_Order|null $order Order object when available.
+     * @return array<string,string>
+     */
+    private function wcbfc_get_blocked_user_checkout_fields( $order = null ) {
+        if ( is_a( $order, 'WC_Order' ) ) {
+            $first_name = $order->get_billing_first_name();
+            $last_name = $order->get_billing_last_name();
+            $city = $order->get_billing_city();
+            $country = $order->get_billing_country();
+            $phone = $order->get_billing_phone();
+            $company = $order->get_billing_company();
+            $postcode = $order->get_billing_postcode();
+            $address_1 = $order->get_billing_address_1();
+            $address_2 = $order->get_billing_address_2();
+            $state = $order->get_billing_state();
+            // Blocks may keep details on shipping when "use same address for billing" is used.
+            if ( '' === wcblu_safe_trim( (string) $first_name ) && '' === wcblu_safe_trim( (string) $address_1 ) ) {
+                $first_name = $order->get_shipping_first_name();
+                $last_name = $order->get_shipping_last_name();
+                $city = $order->get_shipping_city();
+                $country = $order->get_shipping_country();
+                $company = $order->get_shipping_company();
+                $postcode = $order->get_shipping_postcode();
+                $address_1 = $order->get_shipping_address_1();
+                $address_2 = $order->get_shipping_address_2();
+                $state = $order->get_shipping_state();
+                if ( '' === wcblu_safe_trim( (string) $phone ) && method_exists( $order, 'get_shipping_phone' ) ) {
+                    $phone = $order->get_shipping_phone();
+                }
+            }
+        } else {
+            $first_name = filter_input( INPUT_POST, 'billing_first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $last_name = filter_input( INPUT_POST, 'billing_last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $city = filter_input( INPUT_POST, 'billing_city', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $country = filter_input( INPUT_POST, 'billing_country', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $phone = filter_input( INPUT_POST, 'billing_phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $company = filter_input( INPUT_POST, 'billing_company', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $postcode = filter_input( INPUT_POST, 'billing_postcode', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $address_1 = filter_input( INPUT_POST, 'billing_address_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $address_2 = filter_input( INPUT_POST, 'billing_address_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $state = filter_input( INPUT_POST, 'billing_state', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        }
+        return array(
+            'First Name' => sanitize_text_field( (string) ($first_name ?? '') ),
+            'Last Name'  => sanitize_text_field( (string) ($last_name ?? '') ),
+            'City'       => sanitize_text_field( (string) ($city ?? '') ),
+            'Country'    => sanitize_text_field( (string) ($country ?? '') ),
+            'Phone'      => sanitize_text_field( (string) ($phone ?? '') ),
+            'Company'    => sanitize_text_field( (string) ($company ?? '') ),
+            'Postcode'   => sanitize_text_field( (string) ($postcode ?? '') ),
+            'Address 1'  => sanitize_text_field( (string) ($address_1 ?? '') ),
+            'Address 2'  => sanitize_text_field( (string) ($address_2 ?? '') ),
+            'State'      => sanitize_text_field( (string) ($state ?? '') ),
+        );
+    }
+
+    /**
+     * Persist checkout identity/address meta on a blocked_user post.
+     *
+     * @param int                  $post_id Blocked user post ID.
+     * @param array<string,string> $fields  Field map from wcbfc_get_blocked_user_checkout_fields().
+     */
+    private function wcbfc_save_blocked_user_checkout_meta( $post_id, $fields ) {
+        $post_id = absint( $post_id );
+        if ( $post_id <= 0 || !is_array( $fields ) ) {
+            return;
+        }
+        $meta_keys = array(
+            'First Name',
+            'Last Name',
+            'City',
+            'Country',
+            'Phone',
+            'Company',
+            'Postcode',
+            'Address 1',
+            'Address 2',
+            'State'
+        );
+        foreach ( $meta_keys as $meta_key ) {
+            $value = ( isset( $fields[$meta_key] ) ? $fields[$meta_key] : '' );
+            update_post_meta( $post_id, $meta_key, $value );
+        }
+    }
+
     private function verify_email( $email ) {
         $getpluginoption = get_option( 'wcblu_option' );
         $getpluginoptionarray = json_decode( $getpluginoption, true );
@@ -712,7 +808,19 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         if ( false !== $cached ) {
             return (bool) $cached;
         }
-        $blocked_user = get_page_by_title( $email, OBJECT, 'blocked_user' );
+        $query = new WP_Query(array(
+            'post_type'              => 'blocked_user',
+            'title'                  => $email,
+            'post_status'            => 'any',
+            'posts_per_page'         => 1,
+            'no_found_rows'          => true,
+            'ignore_sticky_posts'    => true,
+            'update_post_term_cache' => false,
+            'update_post_meta_cache' => false,
+            'orderby'                => 'post_date ID',
+            'order'                  => 'ASC',
+        ));
+        $blocked_user = ( !empty( $query->post ) ? $query->post : null );
         $is_blocked = $blocked_user instanceof WP_Post && 'publish' === $blocked_user->post_status;
         wp_cache_set( $cache_key, $is_blocked );
         return $is_blocked;
@@ -1434,6 +1542,39 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
     }
 
     /**
+     * Get customer order counts for the first purchase rules.
+     *
+     * Uses the authoritative WooCommerce order storage so the rules work with
+     * legacy order storage and HPOS, regardless of compatibility mode.
+     *
+     * @param string $billing_email Customer billing email.
+     * @return array
+     */
+    private function wcbfc_get_first_purchase_order_counts( $billing_email ) {
+        global $wpdb;
+        $order_counts = array(
+            'completed' => 0,
+            'relevant'  => 0,
+        );
+        if ( empty( $billing_email ) ) {
+            return $order_counts;
+        }
+        if ( class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+            $orders_table = $wpdb->prefix . 'wc_orders';
+            // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $order_counts['completed'] = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(id) FROM {$orders_table}\n\t\t\t\t\tWHERE billing_email = %s\n\t\t\t\t\tAND type = 'shop_order'\n\t\t\t\t\tAND status = 'wc-completed'", $billing_email ) );
+            $order_counts['relevant'] = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(id) FROM {$orders_table}\n\t\t\t\t\tWHERE billing_email = %s\n\t\t\t\t\tAND type = 'shop_order'\n\t\t\t\t\tAND status IN ( 'wc-completed', 'wc-processing', 'wc-pending', 'wc-on-hold' )", $billing_email ) );
+            // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        } else {
+            // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $order_counts['completed'] = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(P.ID)\n\t\t\t\t\tFROM {$wpdb->postmeta} PM\n\t\t\t\t\tINNER JOIN {$wpdb->posts} P ON P.ID = PM.post_id\n\t\t\t\t\tWHERE PM.meta_key = '_billing_email'\n\t\t\t\t\tAND PM.meta_value = %s\n\t\t\t\t\tAND P.post_type = 'shop_order'\n\t\t\t\t\tAND P.post_status = 'wc-completed'", $billing_email ) );
+            $order_counts['relevant'] = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(P.ID)\n\t\t\t\t\tFROM {$wpdb->postmeta} PM\n\t\t\t\t\tINNER JOIN {$wpdb->posts} P ON P.ID = PM.post_id\n\t\t\t\t\tWHERE PM.meta_key = '_billing_email'\n\t\t\t\t\tAND PM.meta_value = %s\n\t\t\t\t\tAND P.post_type = 'shop_order'\n\t\t\t\t\tAND P.post_status IN ( 'wc-completed', 'wc-processing', 'wc-pending', 'wc-on-hold' )", $billing_email ) );
+            // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        }
+        return $order_counts;
+    }
+
+    /**
      * Ajax function to check the geo location of the user.
      * 
      * @param $lat, $long
@@ -1446,8 +1587,8 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             $getpluginruleopt = get_option( 'wcblu_rules_option', '{}' );
             $getpluginruleoptarray = ( json_decode( $getpluginruleopt, true ) ?: [] );
             $wcbfc_geo_match_key = $getpluginruleoptarray['wcbfc_geo_match_key'] ?? 'bdc_b77be8654f4b4943902160a5d123a21f';
-            $lat = sanitize_text_field( $_POST['latitude'] );
-            $lng = sanitize_text_field( $_POST['longitude'] );
+            $lat = ( isset( $_POST['latitude'] ) ? sanitize_text_field( wp_unslash( $_POST['latitude'] ) ) : '' );
+            $lng = ( isset( $_POST['longitude'] ) ? sanitize_text_field( wp_unslash( $_POST['longitude'] ) ) : '' );
             $response = wp_remote_get( 'https://api-bdc.net/data/reverse-geocode?latitude=' . $lat . '&longitude=' . $lng . '&localityLanguage=en&key=' . $wcbfc_geo_match_key );
             if ( is_wp_error( $response ) ) {
                 echo 'error';
@@ -1547,10 +1688,10 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             $nonce_value = '';
             if ( isset( $_REQUEST['woocommerce-process-checkout-nonce'] ) || isset( $_REQUEST['_wpnonce'] ) ) {
                 if ( isset( $_REQUEST['woocommerce-process-checkout-nonce'] ) && !empty( $_REQUEST['woocommerce-process-checkout-nonce'] ) ) {
-                    $nonce_value = sanitize_text_field( $_REQUEST['woocommerce-process-checkout-nonce'] );
+                    $nonce_value = sanitize_text_field( wp_unslash( $_REQUEST['woocommerce-process-checkout-nonce'] ) );
                 } else {
                     if ( isset( $_REQUEST['_wpnonce'] ) && !empty( $_REQUEST['_wpnonce'] ) ) {
-                        $nonce_value = sanitize_text_field( $_REQUEST['_wpnonce'] );
+                        $nonce_value = sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) );
                     }
                 }
             }
@@ -1560,7 +1701,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 }
                 if ( isset( $_POST['g-recaptcha-response'] ) && !empty( $_POST['g-recaptcha-response'] ) ) {
                     // Google reCAPTCHA API secret key
-                    $response = sanitize_text_field( $_POST['g-recaptcha-response'] );
+                    $response = sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) );
                     // Verify the reCAPTCHA response
                     $verifyResponse = wp_remote_get( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $wcblu_v2_secret_keys_value . '&response=' . $response );
                     if ( !is_wp_error( $verifyResponse ) && isset( $verifyResponse['body'] ) ) {
@@ -1628,15 +1769,15 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         $nonce_value = '';
         if ( isset( $_REQUEST['woocommerce-process-checkout-nonce'] ) || isset( $_REQUEST['_wpnonce'] ) ) {
             if ( isset( $_REQUEST['woocommerce-process-checkout-nonce'] ) && !empty( $_REQUEST['woocommerce-process-checkout-nonce'] ) ) {
-                $nonce_value = sanitize_text_field( $_REQUEST['woocommerce-process-checkout-nonce'] );
+                $nonce_value = sanitize_text_field( wp_unslash( $_REQUEST['woocommerce-process-checkout-nonce'] ) );
             } else {
                 if ( isset( $_REQUEST['_wpnonce'] ) && !empty( $_REQUEST['_wpnonce'] ) ) {
-                    $nonce_value = sanitize_text_field( $_REQUEST['_wpnonce'] );
+                    $nonce_value = sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) );
                 }
             }
         }
         if ( isset( $_POST['googlerecaptchav3'] ) && !empty( $_POST['googlerecaptchav3'] ) ) {
-            $captcha = sanitize_text_field( $_POST['googlerecaptchav3'] );
+            $captcha = sanitize_text_field( wp_unslash( $_POST['googlerecaptchav3'] ) );
             $get_REMOTE_ADDR = filter_input(
                 INPUT_SERVER,
                 'REMOTE_ADDR',
@@ -1669,6 +1810,101 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             $validation_errors->add( 'g-recaptcha_error', __( 'Recaptcha not responding, please refresh page.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) );
         }
         return $validation_errors;
+    }
+
+    /**
+     * Validate reCAPTCHA v3 token for WooCommerce Checkout Blocks / Store API.
+     *
+     * Uses the official WooCommerce Checkout Block protection pattern:
+     * read extension token from the checkout POST body and verify with Google
+     * before order processing continues.
+     *
+     * @param mixed $result Existing authentication result.
+     * @return mixed|WP_Error
+     */
+    public function wcbfc_validate_v3_recaptcha_blocks( $result ) {
+        if ( !empty( $result ) ) {
+            return $result;
+        }
+        if ( empty( $_SERVER['REQUEST_METHOD'] ) || 'POST' !== strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) ) {
+            return $result;
+        }
+        $route = '';
+        if ( isset( $GLOBALS['wp']->query_vars['rest_route'] ) ) {
+            $route = (string) $GLOBALS['wp']->query_vars['rest_route'];
+        } elseif ( isset( $_SERVER['REQUEST_URI'] ) ) {
+            $route = (string) wp_unslash( $_SERVER['REQUEST_URI'] );
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        }
+        if ( !preg_match( '#/wc/store(?:/v\\d+)?/checkout#', $route ) ) {
+            return $result;
+        }
+        $getplugingeneralopt = get_option( 'wcblu_general_option' );
+        $getplugingeneraloptarray = json_decode( $getplugingeneralopt, true );
+        $wcbfc_recaptcha_status = ( !empty( $getplugingeneraloptarray['wcbfc_recaptcha_status'] ) ? $getplugingeneraloptarray['wcbfc_recaptcha_status'] : '0' );
+        $wcbfc_recaptcha_version = ( !empty( $getplugingeneraloptarray['wcbfc_recaptcha_version'] ) ? $getplugingeneraloptarray['wcbfc_recaptcha_version'] : '' );
+        $secret = ( !empty( $getplugingeneraloptarray['wcblu_v3_secret_keys_value'] ) ? $getplugingeneraloptarray['wcblu_v3_secret_keys_value'] : '' );
+        if ( '1' !== $wcbfc_recaptcha_status || 'wcblu_v3_keys' !== $wcbfc_recaptcha_version || '' === $secret ) {
+            return $result;
+        }
+        $request_body = json_decode( WP_REST_Server::get_raw_data(), true );
+        if ( !is_array( $request_body ) ) {
+            return new WP_Error('wcblu_recaptcha_failed', __( 'Invalid recaptcha.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), array(
+                'status' => 403,
+            ));
+        }
+        if ( isset( $request_body['payment_method'] ) ) {
+            $chosen_payment_method = sanitize_text_field( $request_body['payment_method'] );
+            /**
+             * Payment methods that should skip Blocks reCAPTCHA v3 checks (e.g. express/hosted).
+             *
+             * @since 2.3.5
+             *
+             * @param array  $methods Payment method IDs.
+             * @param string $chosen  Chosen payment method.
+             */
+            $skip_methods = apply_filters( 'wcblu_recaptcha_v3_payment_methods_to_skip', array(), $chosen_payment_method );
+            if ( is_array( $skip_methods ) && in_array( $chosen_payment_method, $skip_methods, true ) ) {
+                return $result;
+            }
+        }
+        $token = '';
+        if ( isset( $request_body['extensions']['wcblu-recaptcha-v3']['token'] ) ) {
+            $token = sanitize_text_field( $request_body['extensions']['wcblu-recaptcha-v3']['token'] );
+        }
+        if ( '' === $token ) {
+            return new WP_Error('wcblu_recaptcha_failed', __( 'Recaptcha not responding, please refresh page.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), array(
+                'status' => 403,
+            ));
+        }
+        $remote_ip = filter_input( INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP );
+        $remote_ip = ( false !== $remote_ip ? sanitize_text_field( $remote_ip ) : '' );
+        $verify_response = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', array(
+            'timeout' => 10,
+            'body'    => array(
+                'secret'   => $secret,
+                'response' => $token,
+                'remoteip' => $remote_ip,
+            ),
+        ) );
+        if ( is_wp_error( $verify_response ) ) {
+            return new WP_Error('wcblu_recaptcha_failed', __( 'Could not get response from recaptcha server, please refresh page.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), array(
+                'status' => 403,
+            ));
+        }
+        $response_data = json_decode( wp_remote_retrieve_body( $verify_response ), true );
+        if ( !is_array( $response_data ) || empty( $response_data['success'] ) ) {
+            return new WP_Error('wcblu_recaptcha_failed', __( 'Invalid recaptcha.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), array(
+                'status' => 403,
+            ));
+        }
+        $score = ( isset( $response_data['score'] ) ? (float) $response_data['score'] : 0 );
+        if ( $score <= 0.5 ) {
+            return new WP_Error('wcblu_recaptcha_failed', __( 'You are not a human, please refresh page.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), array(
+                'status' => 403,
+            ));
+        }
+        return $result;
     }
 
     /**

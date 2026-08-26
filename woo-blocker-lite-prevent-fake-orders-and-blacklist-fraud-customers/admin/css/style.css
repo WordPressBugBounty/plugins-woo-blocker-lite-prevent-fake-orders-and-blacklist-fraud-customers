@@ -624,17 +624,11 @@ body.wcblu-modal-visible{overflow:hidden;}
 .upgrade-to-pro-modal-main .pro-feature-list li:last-child{padding-bottom:0}
 .dots-settings-left-side .wcblu-pro-label{position:relative;cursor:pointer;display:inline-block;margin:1px 0 0 2px;}
 .dots-settings-left-side .wcblu-pro-label::before{content:"🔒";display:inline-block;font-size:15px;line-height:normal;}
+.upgrade-to-pro-modal-main .pro-modal-expiry-wrapper{text-align:center;}
+.upgrade-to-pro-modal-main .pro-modal-expiry-label{border: 1px solid #d17c00;background-color: #fef2de;padding: 8px 12px 7px;text-transform: uppercase;color: #d17c00;font-weight: 600;display: inline-block;font-size: 12px;line-height: normal;border-radius: 30px;margin-bottom: 16px;}
+.upgrade-to-pro-modal-main .pro-modal-expiry-text{text-transform: capitalize;font-size: 14px;line-height: normal;margin: 18px 0 0;color: #707070;display: inline-block;}
 
-span.wcbfc-description-tooltip-icon {
-    background-image: url("../../images/help.png");
-    background-size: 16px auto;
-    display: inline-block;
-    height: 17px!important;
-    margin-left: 10px;
-    vertical-align: middle;
-    width: 16px!important;
-    cursor: pointer;
-}
+span.wcbfc-description-tooltip-icon {background-image: url("../../images/help.png");background-size: 16px auto;display: inline-block;height: 17px!important;margin-left: 10px;vertical-align: middle;width: 16px!important;cursor: pointer;}
 .wcblu_captcha_settings.hide_it{ display: none; }
 .wcblu_captcha_settings.show_it{ display: block; }
 .wcblu_checkout_payment_settings.hide_it{ display: none; }

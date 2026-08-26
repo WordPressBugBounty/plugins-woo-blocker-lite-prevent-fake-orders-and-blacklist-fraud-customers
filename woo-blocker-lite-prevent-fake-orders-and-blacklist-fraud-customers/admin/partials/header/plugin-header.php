@@ -15,6 +15,42 @@ $wb_admin_object = new Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fra
 <div id="dotsstoremain">
 	<div class="all-pad dots-settings-inner-main">
     <?php 
+$convert_to_pro = filter_var( get_option( 'wcblu_convert_to_pro', false ), FILTER_VALIDATE_BOOLEAN );
+if ( !wbpfoabfc_fs()->is__premium_only() && true === $convert_to_pro ) {
+    $convert_to_pro_doc_url = 'https://docs.thedotstore.com/article/62-how-to-installing-and-activating-an-thedotstore-plugin';
+    $convert_to_pro_dismiss_url = wp_nonce_url( add_query_arg( 'wcblu-dismiss-convert-to-pro', '1' ), 'wcblu_convert_to_pro_dismiss', '_wcblu_convert_to_pro_nonce' );
+    ?>
+        <div class="notice notice-warning is-dismissible wcblu-convert-to-pro-notice">
+            <a class="notice-dismiss" href="<?php 
+    echo esc_url( $convert_to_pro_dismiss_url );
+    ?>"></a>
+            <p><strong><?php 
+    esc_html_e( 'Thank you for purchasing the plugin!', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></strong></p>
+            <p><?php 
+    esc_html_e( 'You are currently using the free version of WooCommerce Fraud Prevention plugin.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></p>
+            <p>
+                <?php 
+    echo wp_kses( __( 'To use pro features, please <strong>remove this free plugin</strong> and <strong>install and activate the premium version</strong>. Don\'t worry — this will not remove any of your shipping rules or settings. Once you activate the premium version, all your settings will be automatically restored.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), array(
+        'strong' => array(),
+    ) );
+    ?>
+            </p>
+            <p>
+                <a href="<?php 
+    echo esc_url( $convert_to_pro_doc_url );
+    ?>" class="button button-primary" target="_blank" rel="noopener noreferrer">
+                    <?php 
+    esc_html_e( 'View step-by-step guide', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                </a>
+            </p>
+        </div>
+        <?php 
+}
+?>
+    <?php 
 $wb_admin_object->wb_get_promotional_bar( $plugin_slug );
 ?>
 		<header class="dots-header">
