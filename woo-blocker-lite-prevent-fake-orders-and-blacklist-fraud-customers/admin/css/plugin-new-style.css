@@ -17,6 +17,8 @@ input[type=checkbox]:focus,input[type=radio]:focus{border-color:var(--dotstore-p
 .wp-core-ui .dots-settings-inner-main input:not([type=checkbox]):not([type=radio]),.wp-core-ui .dots-settings-inner-main select,.wp-core-ui .dots-settings-inner-main textarea{font-size:14px;min-height:30px;}
 .dots-settings-inner-main .fs-notice[data-id="activation_pending"]{display:none!important;}
 body input[type=checkbox]:checked, body input[type=radio]:checked{background-color: transparent;border-color: #1e1e1e;}
+body #wcblu_plugin_form_id input[type=radio] {margin-bottom: 0 !important;vertical-align: middle;}
+body #wcblu_plugin_general_rules input[type=checkbox] {vertical-align: middle;margin-top: 0 !important;margin-bottom: 0 !important;}
 
 /* Beacon styles */
 .hsds-beacon .dots-beacon-close{display:inline-block;width:22px;height:22px;cursor:pointer;position:absolute;top:-20px;right:-10px;background-color:rgb(0 0 0 / 35%);border-radius:50%;font-size:20px;line-height:23px;text-align:center;color:#fff;}
@@ -282,7 +284,7 @@ h2.no-border.ds-rewanp {
 #wcblu_plugin_ai_detection_setting .slider.round {border-radius: 20px;}
 
 #wcblu_plugin_general_rules .slider.round:before, 
-#wcblu_plugin_general_settings .slider.round:before
+#wcblu_plugin_general_settings .slider.round:before,
 #wcblu_plugin_ai_detection_setting .slider.round:before {border-radius: 50%;}
 
 #wcblu_plugin_general_rules input:checked + .slider, 
@@ -312,6 +314,15 @@ h2.no-border.ds-rewanp {
 #wcblu_plugin_general_rules .slider, 
 #wcblu_plugin_general_settings .slider,
 #wcblu_plugin_ai_detection_setting .slider {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;-webkit-transition: .4s;transition: .4s;}
+
+#wcblu_plugin_form_id .wcblu-switch-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 10px;}
+#wcblu_plugin_form_id .wcblu-switch{position:relative !important;display:inline-block !important;width:36px !important;height:18px !important;margin:0 !important;flex:0 0 36px;vertical-align:middle;}
+#wcblu_plugin_form_id .wcblu-switch input{opacity:0;width:0;height:0;position:absolute;}
+#wcblu_plugin_form_id .wcblu-switch-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;border-radius:20px;transition:.4s;}
+#wcblu_plugin_form_id .wcblu-switch-slider:before{position:absolute;content:"";height:14px;width:14px;left:2px;bottom:2px;background-color:#fff;border-radius:50%;transition:.4s;}
+#wcblu_plugin_form_id .wcblu-switch input:checked + .wcblu-switch-slider{background-color:var(--dotstore-primary,#0085ba);}
+#wcblu_plugin_form_id .wcblu-switch input:checked + .wcblu-switch-slider:before{-webkit-transform:translateX(18px);-ms-transform:translateX(18px);transform:translateX(18px);}
+#wcblu_plugin_form_id .wcblu-switch-row > label:not(.wcblu-switch){display:inline !important;width:auto !important;position:static !important;}
 
 
 table.form-table.table-outer.general-settings.res-cl progress, #wcblu_plugin_general_rules progress{display: none;}
@@ -583,7 +594,9 @@ p.wcbfc-short-info {
 .common_spacing_div{ margin-top: 20px;}
 .common_inline_div {display: inline;margin-left: 24px;}
 form#wcblu_plugin_form_id th.titledesc {vertical-align: middle;}
-.dots-settings-inner-main form#wcblu_plugin_form_id .heading_div {margin-top: 0px;}
+.dots-settings-inner-main form#wcblu_plugin_form_id .heading_div {margin-top: 0px;display:flex;align-items:center;justify-content:space-between;}
+form#wcblu_plugin_form_id .heading_div .heading_section {float:none;width:auto;flex:1;}
+form#wcblu_plugin_form_id .heading_div .wcblu_submit {float:none;margin-top:0!important;}
 form#wcblu_plugin_form_id .wcbfc-tooltip-rules {right: 12px;}
 
 .state_file_excel,.zipcode_file_excel,.file_excel{display: inline-block;width: 190px;}

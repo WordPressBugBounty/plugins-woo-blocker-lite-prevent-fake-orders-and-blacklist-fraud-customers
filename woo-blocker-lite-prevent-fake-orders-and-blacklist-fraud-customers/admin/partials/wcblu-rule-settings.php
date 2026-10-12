@@ -596,6 +596,12 @@ function wbclu_free_rules_settings_content() {
                                 </div>
                                 
                                 <div class="wcblu_rule_field">
+                                    <input type="checkbox" id="wcbfc_unsafe_countries_block_others" name="wcbfc_unsafe_countries_block_others" value="0">
+                                    <label for="wcbfc_unsafe_countries_block_others"><?php 
+        echo esc_html__( 'Block other than selected countries.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></label>
+                                </div>
+                                <div class="wcblu_rule_field">
                                     <select name="wcblu_define_unsafe_countries_list[]" id="wcblu_define_unsafe_countries_list" multiple class="chosen-ducl-select-countries chosen-rtl">
                                         <option value="AF" selected="selected">Afghanistan</option>    
                                     </select>

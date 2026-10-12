@@ -240,7 +240,14 @@
 				$(this).attr('value', '0');
 			}
 		});
-		$('body').on('click', '#wcblu_automatic_blacklist', function () {
+		$('body').on('click', '#wcbfc_unsafe_countries_block_others', function () {
+			if ($(this).is(':checked')) {
+				$(this).attr('value', '1');
+			} else {
+				$(this).attr('value', '0');
+			}
+		});
+		$('body').on('click', '#wcblu_automatic_blacklist, #wcblu_automatic_blacklist_ip, #wcblu_enable_block_email, #wcblu_enable_block_ip', function () {
 			if ($(this).is(':checked')) {
 				$(this).attr('value', '1');
 			} else {
@@ -265,7 +272,7 @@
 				$(this).parent().next().next('.wcblu_rule_field').hide();
 			}
 		});
-		$('body').on('click', '#wcbfc_enable_whitelist_ips', function () {
+		$('body').on('click', '#wcbfc_enable_whitelist_ips, #wcbfc_enable_whitelist_first_name, #wcbfc_enable_whitelist_last_name, #wcbfc_enable_whitelist_phone', function () {
 			if ($(this).is(':checked')) {
 				$(this).attr('value', '1');
 				$(this).parent().next().next('.wcblu_rule_field').show();
@@ -307,13 +314,12 @@
 			$this.parent().next('.wcblu_checkout_payment_settings').toggle(isChecked);
 		});
 		$('body').on('click', '#wcbfc_recaptcha_status', function () {
-			if ($(this).is(':checked')) {
-				$(this).attr('value', '1');
-				$(this).parent().next('.wcblu_captcha_settings').show();
-			} else {
-				$(this).attr('value', '0');
-				$(this).parent().next('.wcblu_captcha_settings').hide();
-			}
+			var isChecked = $(this).is(':checked');
+			$(this).attr('value', isChecked ? '1' : '0');
+			$(this).closest('.wcblu-recaptcha-section')
+				.find('.wcblu_captcha_settings')
+				.toggleClass('show_it', isChecked)
+				.toggleClass('hide_it', !isChecked);
 		});
 		$('body').on('click', '#wcbfc_billing_phone_number_order', function () {
 			if ($(this).is(':checked')) {
@@ -1009,11 +1015,217 @@
 			jQuery(this).css('z-index', event.type === 'mouseenter' ? '9' : '');
 		});
 		
+		$('body').on('change', '#wcbfc_recaptcha_version', function () {
+			var $section = $(this).closest('.wcblu-recaptcha-section');
+			var version = $(this).val();
+			$section.find('.wcblu_versions_key').hide();
+			if (version) {
+				$section.find('.' + version).show();
+			}
+			$section.find('.wcblu-recaptcha-preview-v2').css('display', 'wcblu_v3_keys' === version ? 'none' : 'flex');
+			$section.find('.wcblu-recaptcha-preview-v3').css('display', 'wcblu_v3_keys' === version ? 'block' : 'none');
+			$section.find('.wcblu-recaptcha-verify-result').empty();
+		});
+
+		$('body').on('click', '.wcblu-recaptcha-tab', function () {
+			var $section = $(this).closest('.wcblu-recaptcha-section');
+			var tab = $(this).data('wcblu-tab');
+			$section.find('.wcblu-recaptcha-tab').removeClass('active');
+			$(this).addClass('active');
+			$section.find('.wcblu-recaptcha-tab-panel').hide();
+			$section.find('.wcblu-recaptcha-tab-panel[data-wcblu-panel="' + tab + '"]').show();
+		});
+
+		$('body').on('click', '.wcblu-recaptcha-toggle-key', function () {
+			var $input = $(this).siblings('input');
+			var $icon = $(this).find('.dashicons');
+			var isHidden = 'password' === $input.attr('type');
+			$input.attr('type', isHidden ? 'text' : 'password');
+			$icon.toggleClass('dashicons-hidden', !isHidden).toggleClass('dashicons-visibility', isHidden);
+		});
+
+		$('body').on('click', '#wcblu_verify_recaptcha_keys', function () {
+			var $button = $(this);
+			var $section = $button.closest('.wcblu-recaptcha-section');
+			var $loader = $section.find('.wcblu-recaptcha-verify-loader');
+			var $result = $section.find('.wcblu-recaptcha-verify-result');
+
+			$button.prop('disabled', true);
+			$loader.show();
+			$result.empty();
+
+			jQuery.ajax({
+				url: adminajax.ajaxurl,
+				type: 'post',
+				data: {
+					action: 'wcblu_verify_recaptcha_keys',
+					nonce: adminajax.recaptcha_verify_nonce,
+				},
+				success: function (response) {
+					var isSuccess = !!(response && response.success);
+					var message = (response && response.data && response.data.message) ? response.data.message : '';
+					$result.html($('<div/>', {
+						class: 'notice inline ' + (isSuccess ? 'notice-success' : 'notice-error'),
+					}).append($('<p/>', { text: message })));
+				},
+				error: function () {
+					$result.html($('<div/>', { class: 'notice inline notice-error' })
+						.append($('<p/>', { text: adminajax.recaptchaVerifyError })));
+				},
+				complete: function () {
+					$loader.hide();
+					$button.prop('disabled', false);
+				},
+			});
+		});
+
 		$('body').on('click', '#wcbfc_email_notification,#wcbfc_update_order_status_on_score,#wcbfc_fraud_check_before_pay', function () {
 			var f_name = jQuery('input[name="wcbfc_fraud_check_status"]').is(':checked');
 			if( false === f_name && true === jQuery(this).is(':checked') ){
 				alert('Please Enable Automatic Fraud Check');
 			}
+		});
+		function wcbluToggleProtectionModeUi() {
+			var $form = $('#wcblu_plugin_general_settings');
+			if ( ! $form.length ) {
+				return;
+			}
+			var fraudOn = $form.find('input[name="wcbfc_fraud_check_status"]').is(':checked');
+			var isMonitor = $form.find('input[name="wcbfc_protection_mode"]:checked').val() === 'monitor';
+			$form.find('.wcblu-protection-mode-row').toggle(fraudOn);
+			$form.find('#wcbfc_fraud_check_before_pay, #wcblu_pre_payment_message').prop('disabled', fraudOn && isMonitor);
+			$form.find('.wcblu-pre-purchase-settings').toggleClass('is-monitor-disabled', fraudOn && isMonitor);
+		}
+		$('body').on('change', 'input[name="wcbfc_fraud_check_status"], input[name="wcbfc_protection_mode"]', wcbluToggleProtectionModeUi);
+		wcbluToggleProtectionModeUi();
+		$('body').on('click', '#wcblu_protection_mode_help', function () {
+			$('#wcblu_protection_mode_modal').css('display', 'flex');
+		});
+		$('body').on('click', '.wcblu-protection-mode-modal-close', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			$('#wcblu_protection_mode_modal').hide();
+		});
+		$('body').on('click', '#wcblu_protection_mode_modal', function (e) {
+			if ( e.target === this ) {
+				$('#wcblu_protection_mode_modal').hide();
+			}
+		});
+
+	});
+
+	$(function () {
+		var $ocsPanel = $('#wcblu_ocs_panel');
+		if (!$ocsPanel.length) {
+			return;
+		}
+		var ocsPresets = {};
+		try {
+			ocsPresets = JSON.parse($ocsPanel.attr('data-presets') || '{}');
+		} catch (e) {
+			ocsPresets = {};
+		}
+
+		function wcbluOcsOnOff(flag) {
+			return flag ? (adminajax.ocsOn || 'ON') : (adminajax.ocsOff || 'OFF');
+		}
+
+		function wcbluOcsFillPreview(key) {
+			var preset = ocsPresets[key];
+			if (!preset || !preset.preview) {
+				return;
+			}
+			var preview = preset.preview;
+			var rulesText = (adminajax.ocsRules || '%1$s rules will be enabled').replace('%1$s', preview.enabled);
+			rulesText += '<br>' + (adminajax.ocsWeights || 'Weights: %s').replace('%s', preview.weight_range);
+			$ocsPanel.find('.wcblu-ocs-preview-rules').html(rulesText);
+			$ocsPanel.find('.wcblu-ocs-preview-intro').text((adminajax.ocsPreviewIntro || '%s').replace('%s', preset.title));
+			var thresholds = [];
+			thresholds.push((adminajax.ocsMediumRisk || 'Medium Risk: %s').replace('%s', preview.medium_risk));
+			thresholds.push((adminajax.ocsHighRisk || 'High Risk: %s').replace('%s', preview.high_risk));
+			$ocsPanel.find('.wcblu-ocs-preview-thresholds').html(thresholds.join('<br>'));
+			var extras = [];
+			extras.push((adminajax.ocsAutoBlacklist || 'Automatic Blacklisting: %s').replace('%s', wcbluOcsOnOff(preview.auto_blacklist)));
+			extras.push((adminajax.ocsAutoIp || 'Automatically block high-risk IPs: %s').replace('%s', wcbluOcsOnOff(preview.auto_ip)));
+			extras.push((adminajax.ocsBeforePay || 'Before Payment Checking: %s').replace('%s', wcbluOcsOnOff(preview.before_pay)));
+			extras.push((adminajax.ocsUpdateStatus || 'Enable Update Order Status: %s').replace('%s', wcbluOcsOnOff(preview.update_status)));
+			extras.push((adminajax.ocsPlaceOrder || 'Place order: %s').replace('%s', wcbluOcsOnOff(preview.place_order)));
+			$ocsPanel.find('.wcblu-ocs-preview-extras').html(extras.join('<br>'));
+			$ocsPanel.find('.wcblu-ocs-preview-pct').text(preview.protection + '%');
+			$ocsPanel.find('.wcblu-ocs-preview-level-label').text(preview.protection_label || '');
+			$ocsPanel.find('.wcblu-ocs-preview-dots').css('--ocs-level', (preview.protection || 0) + '%');
+			$('#wcblu_ocs_apply').prop('disabled', false).find('.wcblu-ocs-apply-text').text(preset.apply_label || 'Apply Setup');
+			$('#wcblu_ocs_step3').removeAttr('hidden').prop('hidden', false);
+			$ocsPanel.addClass('has-preview');
+		}
+
+		$('body').on('click', '#wcblu_ocs_open', function (e) {
+			e.preventDefault();
+			$ocsPanel.removeAttr('hidden').prop('hidden', false);
+			$(this).addClass('is-open');
+			if (!$ocsPanel.find('input[name="wcblu_ocs_preset"]:checked').length) {
+				$ocsPanel.find('input[name="wcblu_ocs_preset"][value="balanced"]').prop('checked', true).trigger('change');
+			}
+		});
+
+		$ocsPanel.on('change', 'input[name="wcblu_ocs_preset"]', function () {
+			$ocsPanel.find('.wcblu-ocs-card').removeClass('is-selected');
+			$(this).closest('.wcblu-ocs-card').addClass('is-selected');
+			wcbluOcsFillPreview($(this).val());
+		});
+
+		$('body').on('click', '#wcblu_ocs_reset', function () {
+			$ocsPanel.attr('hidden', 'hidden').prop('hidden', true).removeClass('has-preview');
+			$('#wcblu_ocs_step3').attr('hidden', 'hidden').prop('hidden', true);
+			$('#wcblu_ocs_open').removeClass('is-open');
+			$ocsPanel.find('input[name="wcblu_ocs_preset"]').prop('checked', false);
+			$ocsPanel.find('.wcblu-ocs-card').removeClass('is-selected');
+			$('#wcblu_ocs_apply').prop('disabled', true);
+		});
+
+		$('body').on('click', '#wcblu_ocs_help, .wcblu-ocs-help-close', function (e) {
+			e.preventDefault();
+			var $modal = $('#wcblu_ocs_help_modal');
+			if ($modal.prop('hidden')) {
+				$modal.removeAttr('hidden').prop('hidden', false);
+			} else {
+				$modal.attr('hidden', 'hidden').prop('hidden', true);
+			}
+		});
+		$('body').on('click', '#wcblu_ocs_help_modal', function (e) {
+			if (e.target === this) {
+				$(this).attr('hidden', 'hidden').prop('hidden', true);
+			}
+		});
+
+		$('body').on('click', '#wcblu_ocs_apply', function () {
+			var preset = $ocsPanel.find('input[name="wcblu_ocs_preset"]:checked').val();
+			if (!preset) {
+				return;
+			}
+			var $button = $(this);
+			$button.prop('disabled', true);
+			$.ajax({
+				url: adminajax.ajaxurl,
+				type: 'post',
+				data: {
+					action: 'wcblu_apply_one_click_setup',
+					nonce: adminajax.nonce,
+					preset: preset
+				},
+				success: function (response) {
+					if (response && response.success) {
+						window.location.reload();
+						return;
+					}
+					$button.prop('disabled', false);
+					window.alert((response && response.data && response.data.message) || adminajax.ocsApplyError);
+				},
+				error: function () {
+					$button.prop('disabled', false);
+					window.alert(adminajax.ocsApplyError);
+				}
+			});
 		});
 	});
 } )(jQuery);

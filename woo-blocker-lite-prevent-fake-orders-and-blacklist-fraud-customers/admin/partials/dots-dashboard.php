@@ -27,8 +27,20 @@ if ( !function_exists( 'wbclu_hpos_get_post_meta' ) ) {
                     case '_billing_email':
                         $meta_value = $order->get_billing_email();
                         break;
+                    case '_billing_first_name':
+                        $meta_value = $order->get_billing_first_name();
+                        break;
+                    case '_billing_last_name':
+                        $meta_value = $order->get_billing_last_name();
+                        break;
                     case '_order_total':
                         $meta_value = $order->get_total();
+                        break;
+                    case '_order_currency':
+                        $meta_value = $order->get_currency();
+                        break;
+                    case '_payment_method':
+                        $meta_value = $order->get_payment_method();
                         break;
                     default:
                         $meta_value = $order->get_meta( $meta_key, true );

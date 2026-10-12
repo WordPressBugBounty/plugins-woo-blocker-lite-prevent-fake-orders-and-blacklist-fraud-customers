@@ -527,7 +527,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             $billing_email = ( isset( $edd_email ) && !empty( $edd_email ) && !wp_verify_nonce( sanitize_email( $edd_email ), 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) ? sanitize_email( $edd_email ) : '' );
             $email = wcblu_safe_trim( $billing_email );
             // validate billing email
-            $errorEmail = $this->verify_email( $email );
+            $errorEmail = $this->verify_email( $email, true );
             if ( $errorEmail && function_exists( 'edd_set_error' ) ) {
                 edd_set_error( 'Blocked_email', $errorEmail );
                 $flagForEnterUserToBannedList = 1;
@@ -555,7 +555,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             } else {
                 $ip = $remote_addr;
             }
-            $errorIp = $this->verify_ip( $ip );
+            $errorIp = $this->verify_ip( $ip, true );
             if ( $errorIp && function_exists( 'edd_set_error' ) ) {
                 edd_set_error( 'Blocked_user_browser', $errorIp );
                 $flagForEnterUserToBannedList = 1;
@@ -575,7 +575,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
                     return;
                 }
-                $errorEmail = $this->verify_email( $email );
+                $errorEmail = $this->verify_email( $email, true );
                 if ( $errorEmail && function_exists( 'edd_set_error' ) ) {
                     edd_set_error( 'Blocked_email', $errorEmail );
                     $flagForEnterUserToBannedList = 1;
@@ -603,7 +603,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
                 } else {
                     $ip = $remote_addr;
                 }
-                $errorIp = $this->verify_ip( $ip );
+                $errorIp = $this->verify_ip( $ip, true );
                 if ( $errorIp && function_exists( 'edd_set_error' ) ) {
                     edd_set_error( 'Blocked_IP', $errorIp );
                     $flagForEnterUserToBannedList = 1;
@@ -767,7 +767,10 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         }
     }
 
-    private function verify_email( $email ) {
+    private function verify_email( $email, $force_check = false ) {
+        if ( !$force_check && function_exists( 'wcbfc_is_email_blacklist_enabled' ) && !wcbfc_is_email_blacklist_enabled() ) {
+            return '';
+        }
         $getpluginoption = get_option( 'wcblu_option' );
         $getpluginoptionarray = json_decode( $getpluginoption, true );
         $status = '';
@@ -1008,7 +1011,10 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
      * @return string
      * Function to return verify ip address
      */
-    private function verify_ip( $ip ) {
+    private function verify_ip( $ip, $force_check = false ) {
+        if ( !$force_check && function_exists( 'wcbfc_is_ip_blacklist_enabled' ) && !wcbfc_is_ip_blacklist_enabled() ) {
+            return '';
+        }
         $getpluginoption = get_option( 'wcblu_option' );
         $getpluginoptionarray = json_decode( $getpluginoption, true );
         $status = '';
@@ -1388,6 +1394,9 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
      * function to return verify ip for registration.
      */
     private function verify_ip_register( $ip ) {
+        if ( function_exists( 'wcbfc_is_ip_blacklist_enabled' ) && !wcbfc_is_ip_blacklist_enabled() ) {
+            return '';
+        }
         $getpluginoption = get_option( 'wcblu_option' );
         $getpluginoptionarray = json_decode( $getpluginoption, true );
         $status = '';
@@ -1414,6 +1423,9 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
      * function to return verify emails in registration
      */
     private function verify_email_register( $email ) {
+        if ( function_exists( 'wcbfc_is_email_blacklist_enabled' ) && !wcbfc_is_email_blacklist_enabled() ) {
+            return '';
+        }
         $getpluginoption = get_option( 'wcblu_option' );
         $getpluginoptionarray = json_decode( $getpluginoption, true );
         $status = '';
@@ -1994,6 +2006,9 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
         $default_blocked_routes = array(( '1' === $disable_rest_api ? '/wc/v3/orders/' : '' ), ( '1' === $disable_rest_api ? '/wc/v3/orders' : '' ));
         $blocked_routes = apply_filters( 'wcblu_rest_blocked_routes', $default_blocked_routes );
         foreach ( $blocked_routes as $blocked ) {
+            if ( '' === $blocked ) {
+                continue;
+            }
             if ( 0 === strpos( $route, $blocked ) ) {
                 return new WP_Error('rest_forbidden_route', sprintf( __( 'The REST API route "%s" is disabled on this site.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), esc_html( $route ) ), array(
                     'status' => 403,
@@ -2001,6 +2016,53 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Publ
             }
         }
         return $response;
+    }
+
+    /**
+     * Find the first country that matches the high-risk country rule.
+     *
+     * When "Block other than selected countries" is enabled the selected list acts as an
+     * allowed list, so a country matches the rule when it is not part of the list.
+     *
+     * @param array  $countries      Country codes to check, in priority order.
+     * @param array  $countries_list Selected countries.
+     * @param string $block_others   '1' when the selected countries are the allowed ones.
+     *
+     * @return string Matched country code, empty string when nothing matched.
+     */
+    private function wcbfc_get_unsafe_country_match( $countries, $countries_list, $block_others = '0' ) {
+        if ( empty( $countries_list ) || !is_array( $countries_list ) ) {
+            return '';
+        }
+        foreach ( $countries as $country ) {
+            $country = ( is_string( $country ) ? wcblu_safe_trim( $country ) : '' );
+            if ( '' === $country ) {
+                continue;
+            }
+            $in_list = in_array( $country, $countries_list, true );
+            $matched = ( '1' === $block_others ? !$in_list : $in_list );
+            if ( true === $matched ) {
+                return $country;
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Build the fraud reason for the high-risk country rule.
+     *
+     * @param string $country_code Matched country code.
+     * @param string $block_others '1' when the selected countries are the allowed ones.
+     *
+     * @return string
+     */
+    private function wcbfc_get_unsafe_country_message( $country_code, $block_others = '0' ) {
+        $countries = WC()->countries->countries;
+        $country_name = ( isset( $countries[$country_code] ) ? $countries[$country_code] : $country_code );
+        if ( '1' === $block_others ) {
+            return 'Ordered from a non-allowed country - ' . $country_name;
+        }
+        return 'Ordered from a risk country - ' . $country_name;
     }
 
     /**

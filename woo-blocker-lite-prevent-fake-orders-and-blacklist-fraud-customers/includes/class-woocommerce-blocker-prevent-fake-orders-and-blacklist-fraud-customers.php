@@ -166,6 +166,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers {
         $this->loader->add_action( 'wp_ajax_add_plugin_user_wbl', $plugin_admin, 'wp_add_plugin_wbl_pro' );
         $this->loader->add_action( 'wp_ajax_nopriv_add_plugin_user_wbl', $plugin_admin, 'wp_add_plugin_wbl_pro' );
         $this->loader->add_action( 'wp_ajax_wcblu_reset_settings', $plugin_admin, 'wcblu_reset_settings' );
+        $this->loader->add_action( 'wp_ajax_wcblu_verify_recaptcha_keys', $plugin_admin, 'wcblu_verify_recaptcha_keys' );
         $this->loader->add_action( 'wp_ajax_export_settings', $plugin_admin, 'wcblu_export_settings' );
         $this->loader->add_action( 'wp_ajax_import_settings', $plugin_admin, 'wcblu_import_settings' );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'welcome_screen_pages_blacklist_users' );

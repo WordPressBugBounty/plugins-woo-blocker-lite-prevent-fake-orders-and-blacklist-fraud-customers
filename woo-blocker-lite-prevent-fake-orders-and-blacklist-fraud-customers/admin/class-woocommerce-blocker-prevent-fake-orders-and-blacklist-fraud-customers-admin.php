@@ -114,13 +114,19 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             wp_enqueue_script(
                 'jquery-wblp-order-widget-js',
                 plugin_dir_url( __FILE__ ) . 'js/wblp-order-widget.js',
-                array(),
+                array('jquery'),
                 $this->version,
                 false
             );
             wp_localize_script( 'jquery-wblp-order-widget-js', 'wblp_order_ajax', array(
                 'ajaxurl' => admin_url( 'admin-ajax.php' ),
                 'nonce'   => wp_create_nonce( 'wcblu-ajax-nonce' ),
+                'i18n'    => array(
+                    'select_field'    => __( 'Select at least one detail to continue.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                    'confirm_block'   => __( 'Block Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                    'confirm_unblock' => __( 'Unblock Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                    'not_blocked'     => __( 'Order details not available to update.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                ),
             ) );
         }
         // Dashboard widget styles (Blacklist Users Report).
@@ -249,16 +255,31 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             false
         );
         wp_localize_script( $this->plugin_name, 'adminajax', array(
-            'ajaxurl'              => admin_url( 'admin-ajax.php' ),
-            'ajax_icon'            => plugin_dir_url( __FILE__ ) . '/images/ajax-loader.gif',
-            'nonce'                => wp_create_nonce( 'wcblu-ajax-nonce' ),
-            'dpb_api_url'          => WB_STORE_URL,
-            'resetConfirm'         => esc_html__( 'Are you sure you want to reset all settings? This action cannot be undone.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
-            'importError'          => array(
+            'ajaxurl'                => admin_url( 'admin-ajax.php' ),
+            'ajax_icon'              => plugin_dir_url( __FILE__ ) . '/images/ajax-loader.gif',
+            'nonce'                  => wp_create_nonce( 'wcblu-ajax-nonce' ),
+            'dpb_api_url'            => WB_STORE_URL,
+            'resetConfirm'           => esc_html__( 'Are you sure you want to reset all settings? This action cannot be undone.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'importError'            => array(
                 'invalidFile' => esc_html__( 'Please add JSON file', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
                 'exmptyFile'  => esc_html__( 'Please choose JSON file', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
             ),
-            'convert_to_pro_nonce' => wp_create_nonce( 'wcblu_convert_to_pro_purchase' ),
+            'convert_to_pro_nonce'   => wp_create_nonce( 'wcblu_convert_to_pro_purchase' ),
+            'recaptcha_verify_nonce' => wp_create_nonce( 'wcblu_verify_recaptcha_nonce' ),
+            'recaptchaVerifyError'   => esc_html__( 'Verification failed. Please check your network connection and try again.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsOn'                  => esc_html__( 'ON', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsOff'                 => esc_html__( 'OFF', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsRules'               => esc_html__( '%1$s rules will be enabled', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsWeights'             => esc_html__( 'Weights: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsAutoBlacklist'       => esc_html__( 'Automatic Blacklisting: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsAutoIp'              => esc_html__( 'Automatically block high-risk IPs: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsBeforePay'           => esc_html__( 'Before Payment Checking: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsUpdateStatus'        => esc_html__( 'Enable Update Order Status: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsPlaceOrder'          => esc_html__( 'Place order: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsMediumRisk'          => esc_html__( 'Medium Risk: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsHighRisk'            => esc_html__( 'High Risk: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsApplyError'          => esc_html__( 'Could not apply setup. Please try again.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            'ocsPreviewIntro'        => esc_html__( 'Here\'s what will be applied with the selected %s setup.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
         ) );
         wp_enqueue_script( 'jquery-ui-dialog' );
         $getpluginoption = get_option( 'wcblu_option' );
@@ -629,6 +650,57 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
     }
 
     /**
+     * Verify the saved Google reCAPTCHA keys against the Google siteverify API.
+     */
+    public function wcblu_verify_recaptcha_keys() {
+        check_ajax_referer( 'wcblu_verify_recaptcha_nonce', 'nonce' );
+        if ( !current_user_can( 'manage_woocommerce' ) ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'You are not allowed to verify these settings.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ), 403 );
+        }
+        $general_option = json_decode( get_option( 'wcblu_general_option' ), true );
+        $general_option = ( is_array( $general_option ) ? $general_option : array() );
+        $version = ( !empty( $general_option['wcbfc_recaptcha_version'] ) ? $general_option['wcbfc_recaptcha_version'] : '' );
+        if ( 'wcblu_v2_keys' !== $version && 'wcblu_v3_keys' !== $version ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'Please select a reCAPTCHA version and save the settings first.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ) );
+        }
+        $site_key_field = ( 'wcblu_v2_keys' === $version ? 'wcblu_v2_keys_value' : 'wcblu_v3_keys_value' );
+        $secret_key_field = ( 'wcblu_v2_keys' === $version ? 'wcblu_v2_secret_keys_value' : 'wcblu_v3_secret_keys_value' );
+        $site_key = ( !empty( $general_option[$site_key_field] ) ? $general_option[$site_key_field] : '' );
+        $secret_key = ( !empty( $general_option[$secret_key_field] ) ? $general_option[$secret_key_field] : '' );
+        if ( empty( $site_key ) || empty( $secret_key ) ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'Please enter and save both the Site Key and the Secret Key before verifying.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ) );
+        }
+        $response = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', array(
+            'timeout' => 15,
+            'body'    => array(
+                'secret'   => $secret_key,
+                'response' => 'wcblu-connection-test',
+            ),
+        ) );
+        if ( is_wp_error( $response ) ) {
+            wp_send_json_error( array(
+                'message' => sprintf( esc_html__( 'Could not reach Google reCAPTCHA: %s', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ), $response->get_error_message() ),
+            ) );
+        }
+        $body = json_decode( wp_remote_retrieve_body( $response ), true );
+        $error_codes = ( !empty( $body['error-codes'] ) ? (array) $body['error-codes'] : array() );
+        if ( in_array( 'invalid-input-secret', $error_codes, true ) || in_array( 'missing-input-secret', $error_codes, true ) || in_array( 'bad-request', $error_codes, true ) ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'The Secret Key was rejected by Google. Please check the saved keys and try again.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ) );
+        }
+        wp_send_json_success( array(
+            'message' => esc_html__( 'Connection successful. Your saved reCAPTCHA keys are accepted by Google.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+        ) );
+    }
+
+    /**
      * Remove email address from blacklist if whiltelisted.
      */
     public function wcblu_check_blacklist_whitelist() {
@@ -701,6 +773,33 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                     update_option( 'wcblu_option', $wcblu_option_array );
                 }
             }
+            /**
+             * Whitelist first name, last name, and phone.
+             */
+            if ( isset( $wcbfc_enable_whitelist_first_name ) && '1' === $wcbfc_enable_whitelist_first_name && !empty( $wcblu_settings_whitelist_first_name ) ) {
+                $wcblu_option = ( !empty( get_option( 'wcblu_option' ) ) ? get_option( 'wcblu_option' ) : '' );
+                $wcblu_option = json_decode( $wcblu_option, true );
+                if ( is_array( $wcblu_option ) && !empty( $wcblu_option['wcblu_block_first_name'] ) ) {
+                    $wcblu_option['wcblu_block_first_name'] = wcbfc_strip_whitelisted_names_from_block_list( $wcblu_option['wcblu_block_first_name'], $wcblu_settings_whitelist_first_name );
+                    update_option( 'wcblu_option', wp_json_encode( $wcblu_option ) );
+                }
+            }
+            if ( isset( $wcbfc_enable_whitelist_last_name ) && '1' === $wcbfc_enable_whitelist_last_name && !empty( $wcblu_settings_whitelist_last_name ) ) {
+                $wcblu_option = ( !empty( get_option( 'wcblu_option' ) ) ? get_option( 'wcblu_option' ) : '' );
+                $wcblu_option = json_decode( $wcblu_option, true );
+                if ( is_array( $wcblu_option ) && !empty( $wcblu_option['wcblu_block_last_name'] ) ) {
+                    $wcblu_option['wcblu_block_last_name'] = wcbfc_strip_whitelisted_names_from_block_list( $wcblu_option['wcblu_block_last_name'], $wcblu_settings_whitelist_last_name );
+                    update_option( 'wcblu_option', wp_json_encode( $wcblu_option ) );
+                }
+            }
+            if ( isset( $wcbfc_enable_whitelist_phone ) && '1' === $wcbfc_enable_whitelist_phone && !empty( $wcblu_settings_whitelist_phone ) ) {
+                $wcblu_option = ( !empty( get_option( 'wcblu_option' ) ) ? get_option( 'wcblu_option' ) : '' );
+                $wcblu_option = json_decode( $wcblu_option, true );
+                if ( is_array( $wcblu_option ) && !empty( $wcblu_option['wcblu_block_phone'] ) ) {
+                    $wcblu_option['wcblu_block_phone'] = wcbfc_strip_whitelisted_phones_from_block_list( $wcblu_option['wcblu_block_phone'], $wcblu_settings_whitelist_phone );
+                    update_option( 'wcblu_option', wp_json_encode( $wcblu_option ) );
+                }
+            }
             $wcblugeneraloption_array['wcbfc_recaptcha_status'] = $wcbfc_recaptcha_status;
             $wcblugeneraloption_array['wcbfc_recaptcha_version'] = $wcbfc_recaptcha_version;
             $wcblugeneraloption_array['wcblu_v2_keys_value'] = $wcblu_v2_keys_value;
@@ -759,6 +858,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                 FILTER_REQUIRE_ARRAY
             );
             $wcbfc_unsafe_countries_ip = filter_input( INPUT_POST, 'wcbfc_unsafe_countries_ip', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wcbfc_unsafe_countries_block_others = filter_input( INPUT_POST, 'wcbfc_unsafe_countries_block_others', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_unsafe_countries_weight = filter_input( INPUT_POST, 'wcbfc_unsafe_countries_weight', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_billing_phone_number_order = filter_input( INPUT_POST, 'wcbfc_billing_phone_number_order', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             $wcbfc_billing_shipping_geo_match = filter_input( INPUT_POST, 'wcbfc_billing_shipping_geo_match', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
@@ -806,6 +906,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbfc_blocked_user_email_weight = ( empty( $wcbfc_blocked_user_email_weight ) ? '0' : $wcbfc_blocked_user_email_weight );
             $wcbfc_unsafe_countries = ( empty( $wcbfc_unsafe_countries ) ? '0' : $wcbfc_unsafe_countries );
             $wcbfc_unsafe_countries_ip = ( empty( $wcbfc_unsafe_countries_ip ) ? '0' : $wcbfc_unsafe_countries_ip );
+            $wcbfc_unsafe_countries_block_others = ( empty( $wcbfc_unsafe_countries_block_others ) ? '0' : $wcbfc_unsafe_countries_block_others );
             $wcblu_define_unsafe_countries_list = ( empty( $wcblu_define_unsafe_countries_list ) ? array() : $wcblu_define_unsafe_countries_list );
             $wcbfc_unsafe_countries_weight = ( empty( $wcbfc_unsafe_countries_weight ) ? '0' : $wcbfc_unsafe_countries_weight );
             $wcbfc_billing_phone_number_order = ( empty( $wcbfc_billing_phone_number_order ) ? '0' : $wcbfc_billing_phone_number_order );
@@ -854,6 +955,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             $wcbluruleoption_array['wcbfc_blocked_user_email_weight'] = $wcbfc_blocked_user_email_weight;
             $wcbluruleoption_array['wcbfc_unsafe_countries'] = $wcbfc_unsafe_countries;
             $wcbluruleoption_array['wcbfc_unsafe_countries_ip'] = $wcbfc_unsafe_countries_ip;
+            $wcbluruleoption_array['wcbfc_unsafe_countries_block_others'] = $wcbfc_unsafe_countries_block_others;
             $wcbluruleoption_array['wcblu_define_unsafe_countries_list'] = $wcblu_define_unsafe_countries_list;
             $wcbluruleoption_array['wcbfc_unsafe_countries_weight'] = $wcbfc_unsafe_countries_weight;
             $wcbluruleoption_array['wcbfc_billing_phone_number_order'] = $wcbfc_billing_phone_number_order;
@@ -891,6 +993,35 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             'success' => 'true',
         ), admin_url( 'admin.php' ) ) );
         exit;
+    }
+
+    /**
+     * Apply a One Click Setup preset from the Rules page.
+     *
+     * @return void
+     */
+    public function wcblu_apply_one_click_setup() {
+        check_ajax_referer( 'wcblu-ajax-nonce', 'nonce' );
+        if ( !current_user_can( 'manage_woocommerce' ) ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'You are not allowed to update these settings.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ) );
+        }
+        if ( !function_exists( 'wcbfc_apply_one_click_preset' ) ) {
+            wp_send_json_error( array(
+                'message' => esc_html__( 'Setup is not available.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+            ) );
+        }
+        $preset = ( isset( $_POST['preset'] ) ? sanitize_key( wp_unslash( $_POST['preset'] ) ) : '' );
+        $result = wcbfc_apply_one_click_preset( $preset );
+        if ( is_wp_error( $result ) ) {
+            wp_send_json_error( array(
+                'message' => $result->get_error_message(),
+            ) );
+        }
+        wp_send_json_success( array(
+            'message' => esc_html__( 'Setup applied. Reloading rules…', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+        ) );
     }
 
     /**
@@ -974,24 +1105,82 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                     'class' => array(),
                 ),
             );
-            if ( $fscore > 0 && $fscore <= $mediumRisk ) {
-                $label = '<span class="dashicons dashicons-shield-alt low"></span>';
-            } else {
-                if ( $fscore > $mediumRisk && $fscore <= $highRisk ) {
-                    $label = '<span class="dashicons dashicons-shield-alt medium"></span>';
-                } else {
-                    if ( $fscore > $highRisk ) {
-                        $label = '<span class="dashicons dashicons-shield-alt high"></span>';
-                    } else {
-                        $label = '<span class="dashicons dashicons-shield-alt empty"></span>';
-                    }
-                }
-            }
-            if ( isset( $wcbfc_whitelisted_email ) && !empty( $wcbfc_whitelisted_email ) && 'wcblu_anti_fraud' === $column ) {
-                $label = '<span class="dashicons dashicons-shield-alt wh-empty"></span>';
+            $whitelisted = ( 'wcblu_anti_fraud' === $column && isset( $wcbfc_whitelisted_email ) ? $wcbfc_whitelisted_email : '' );
+            $label = $this->wcblu_get_risk_badge_html(
+                $fscore,
+                $mediumRisk,
+                $highRisk,
+                $whitelisted
+            );
+            if ( 'wcblu_anti_fraud' === $column ) {
+                $label .= $this->wcblu_get_monitor_badge_html( $order );
             }
             echo wp_kses( $label, $allow_html_args );
         }
+    }
+
+    /**
+     * Build the Risk Status badge markup for the order list column.
+     *
+     * @param float  $fscore      Fraud score.
+     * @param float  $medium_risk Medium risk threshold.
+     * @param float  $high_risk   High risk threshold.
+     * @param string $whitelisted Whitelisted email, when the order bypassed the fraud checks.
+     *
+     * @return string
+     */
+    private function wcblu_get_risk_badge_html(
+        $fscore,
+        $medium_risk,
+        $high_risk,
+        $whitelisted = ''
+    ) {
+        if ( !empty( $whitelisted ) ) {
+            return '<span class="wcblu-risk-badge whitelisted"><span class="wcblu-risk-dot"></span>' . esc_html__( 'Whitelisted', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</span>';
+        }
+        $fscore = floatval( $fscore );
+        $medium_risk = floatval( $medium_risk );
+        $high_risk = floatval( $high_risk );
+        if ( $fscore > 0 && $fscore <= $medium_risk ) {
+            $level = 'low';
+            $text = esc_html__( 'Low', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        } else {
+            if ( $fscore > $medium_risk && $fscore <= $high_risk ) {
+                $level = 'medium';
+                $text = esc_html__( 'Medium', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            } else {
+                if ( $fscore > $high_risk ) {
+                    $level = 'high';
+                    $text = esc_html__( 'High', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+                } else {
+                    $level = 'empty';
+                    $text = '';
+                }
+            }
+        }
+        $display_score = min( 100, max( 0, (int) round( $fscore ) ) );
+        $label = sprintf( '%d%%', $display_score );
+        $label = ( '' === $text ? $label : $label . ' ' . $text );
+        return '<span class="wcblu-risk-badge ' . esc_attr( $level ) . '"><span class="wcblu-risk-dot"></span>' . esc_html( $label ) . '</span>';
+    }
+
+    /**
+     * Badge shown when the order was scored in Monitor Only mode.
+     *
+     * @param mixed $order Order object or post ID.
+     * @return string
+     */
+    private function wcblu_get_monitor_badge_html( $order ) {
+        $mode = '';
+        if ( $order instanceof WC_Order ) {
+            $mode = $order->get_meta( 'wcbfc_protection_mode', true );
+        } elseif ( is_numeric( $order ) ) {
+            $mode = get_post_meta( (int) $order, 'wcbfc_protection_mode', true );
+        }
+        if ( 'monitor' !== $mode ) {
+            return '';
+        }
+        return '<span class="wcblu-risk-badge monitored">' . esc_html__( 'Monitored', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) . '</span>';
     }
 
     /**
@@ -1021,21 +1210,15 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                     'class' => array(),
                 ),
             );
-            if ( $fscore > 0 && $fscore <= $mediumRisk ) {
-                $label = '<span class="dashicons dashicons-shield-alt low"></span>';
-            } else {
-                if ( $fscore > $mediumRisk && $fscore <= $highRisk ) {
-                    $label = '<span class="dashicons dashicons-shield-alt medium"></span>';
-                } else {
-                    if ( $fscore > $highRisk ) {
-                        $label = '<span class="dashicons dashicons-shield-alt high"></span>';
-                    } else {
-                        $label = '<span class="dashicons dashicons-shield-alt empty"></span>';
-                    }
-                }
-            }
-            if ( isset( $wcbfc_whitelisted_email ) && !empty( $wcbfc_whitelisted_email ) ) {
-                $label = '<span class="dashicons dashicons-shield-alt wh-empty"></span>';
+            $whitelisted = ( 'wcblu_anti_fraud' === $column && isset( $wcbfc_whitelisted_email ) ? $wcbfc_whitelisted_email : '' );
+            $label = $this->wcblu_get_risk_badge_html(
+                $fscore,
+                $mediumRisk,
+                $highRisk,
+                $whitelisted
+            );
+            if ( 'wcblu_anti_fraud' === $column ) {
+                $label .= $this->wcblu_get_monitor_badge_html( $post->ID );
             }
             echo wp_kses( $label, $allow_html_args );
         }
@@ -1116,7 +1299,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
             // Block order widget
             add_meta_box(
                 'wcblu-bo-meta-box-id',
-                esc_html__( 'Block Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                esc_html__( 'Fraud Prevention - actions', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
                 array($this, 'wcblu_bo_meta_box_callback'),
                 $screen,
                 'side',
@@ -1141,30 +1324,29 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
         if ( class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
             $wcbfc_score_arry = $order->get_meta( 'wcbfc_score', true );
             $wcbfc_score_msg_arry = $order->get_meta( 'wcbfc_score_msg', true );
+            $wcbfc_score_details = $order->get_meta( 'wcbfc_score_details', true );
             $wcbfc_whitelisted_email = $order->get_meta( 'wcbfc_whitelisted_email', true );
             $order_score = $order->get_meta( 'wcbfc_order_score', true );
         } else {
             $wcbfc_score_arry = get_post_meta( $order_id, 'wcbfc_score', true );
             $wcbfc_score_msg_arry = get_post_meta( $order_id, 'wcbfc_score_msg', true );
+            $wcbfc_score_details = get_post_meta( $order_id, 'wcbfc_score_details', true );
             $wcbfc_whitelisted_email = get_post_meta( $order_id, 'wcbfc_whitelisted_email', true );
             $order_score = get_post_meta( $order_id, 'wcbfc_order_score', true );
         }
         $wcbfc_score_arry = ( empty( $wcbfc_score_arry ) ? array() : $wcbfc_score_arry );
         $wcbfc_score_msg_arry = ( empty( $wcbfc_score_msg_arry ) ? array() : $wcbfc_score_msg_arry );
+        $wcbfc_score_details = ( isset( $wcbfc_score_details ) && is_array( $wcbfc_score_details ) ? $wcbfc_score_details : array() );
         $fscore = 0;
-        $score_lables = '';
         $color = '#ccc';
         $label = 'risk';
-        $risk_label_color = '';
-        if ( isset( $wcbfc_whitelisted_email ) && !empty( $wcbfc_whitelisted_email ) ) {
-            $score_lables .= '<li>' . $wcbfc_whitelisted_email . '</li>';
-        }
+        $is_whitelisted = isset( $wcbfc_whitelisted_email ) && !empty( $wcbfc_whitelisted_email );
+        $order_obj = ( $order instanceof WC_Order ? $order : wc_get_order( $order_id ) );
         if ( '0' === $order_score ) {
             $fscore = '0';
         } else {
             foreach ( $wcbfc_score_arry as $key => $val ) {
                 $fscore = $fscore + (int) $val;
-                $score_lables .= '<li>' . $wcbfc_score_msg_arry[$key] . '</li>';
             }
         }
         $fscore = ( $fscore >= 100 ? 100 : $fscore );
@@ -1182,70 +1364,154 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                 }
             }
         }
-        $allow_html_args = array(
-            'li' => array(),
-        );
-        if ( isset( $wcbfc_whitelisted_email ) && !empty( $wcbfc_whitelisted_email ) ) {
+        if ( $is_whitelisted ) {
             $color = '#4f575d';
-            $risk_label_color = '#4f575d';
-        } else {
-            $risk_label_color = '#D54E21';
         }
+        $rule_ui_map = ( function_exists( 'wcbfc_get_fraud_rule_ui_map' ) ? wcbfc_get_fraud_rule_ui_map() : array() );
+        $visible_limit = 2;
+        $rule_index = 0;
+        $hidden_count = max( 0, count( $wcbfc_score_arry ) - $visible_limit );
         ?>
-		<div class="wcbfc_position">
-			<input class="wcblu_chart" data-width="50%" data-fgColor="<?php 
+		<div class="wcblu-fc-score-wrap">
+			<div class="wcblu-fc-score-text" style="color:<?php 
         echo esc_attr( $color );
-        ?>" data-thickness=".4" data-readOnly=true value="0" rel="<?php 
-        echo esc_attr( $fscore );
-        ?>">
-		</div>
-		<span class="mb-score-label" style="color:<?php 
-        echo esc_attr( $color );
-        ?>;"><?php 
-        echo esc_html( $fscore . ' % ' );
+        ?>;">
+				<span class="wcblu-fc-score-pct"><?php 
+        echo esc_html( (string) $fscore );
+        ?>%</span>
+				<span class="wcblu-fc-score-label"><?php 
         echo esc_html( $label );
         ?></span>
-		<div class="mb-score-label-list">
-			<button type="button" class="button wcblu-fc-details-toggle" data-show-text="<?php 
-        esc_attr_e( 'Show more', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?>" data-hide-text="<?php 
-        esc_attr_e( 'Hide details', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?>">
-				<span class="wcblu-toggle-text"><?php 
-        esc_html_e( 'Show more', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-        ?></span>
-				<span class="dashicons dashicons-arrow-down-alt2 wcblu-toggle-icon" aria-hidden="true"></span>
-			</button>
-			<div class="wcblu-fc-details-content" style="display: none;">
-				<ul style="color:<?php 
-        echo esc_attr( $risk_label_color );
-        ?>">
-					<?php 
-        echo wp_kses( $score_lables, $allow_html_args );
-        ?>
-				</ul>
 			</div>
+			<div class="wcbfc_position">
+				<input class="wcblu_chart" data-width="80" data-height="80" data-fgColor="<?php 
+        echo esc_attr( $color );
+        ?>" data-bgColor="#f0f0f1" data-thickness=".18" data-displayInput="true" data-readOnly=true value="0" rel="<?php 
+        echo esc_attr( $fscore );
+        ?>">
+			</div>
+		</div>
+		<?php 
+        $monitor_badge = $this->wcblu_get_monitor_badge_html( ( $order instanceof WC_Order ? $order : $order_id ) );
+        if ( $monitor_badge ) {
+            echo '<p class="wcblu-monitor-note">' . wp_kses( $monitor_badge, array(
+                'span' => array(
+                    'class' => array(),
+                ),
+            ) ) . '</p>';
+        }
+        if ( $is_whitelisted ) {
+            echo '<p class="wcblu-fc-whitelist-note">' . esc_html( $wcbfc_whitelisted_email ) . '</p>';
+        }
+        ?>
+		<div class="mb-score-label-list wcblu-fc-rules<?php 
+        echo ( $is_whitelisted ? ' is-whitelisted' : '' );
+        ?>">
+			<?php 
+        if ( !empty( $wcbfc_score_arry ) ) {
+            ?>
+				<strong class="wcblu-fc-rules-title"><?php 
+            echo esc_html__( 'Matched fraud rules', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></strong>
+				<?php 
+            foreach ( $wcbfc_score_arry as $rule_key => $rule_weight ) {
+                $rule_index++;
+                $ui = ( isset( $rule_ui_map[$rule_key] ) ? $rule_ui_map[$rule_key] : array() );
+                $title = ( isset( $ui['title'] ) ? $ui['title'] : (( isset( $wcbfc_score_msg_arry[$rule_key] ) ? $wcbfc_score_msg_arry[$rule_key] : $rule_key )) );
+                $description = ( isset( $ui['description'] ) ? $ui['description'] : '' );
+                $icon = ( isset( $ui['icon'] ) ? $ui['icon'] : 'dashicons-shield' );
+                $details = ( isset( $wcbfc_score_details[$rule_key] ) && is_array( $wcbfc_score_details[$rule_key] ) ? $wcbfc_score_details[$rule_key] : array() );
+                if ( empty( $details ) && $order_obj && function_exists( 'wcbfc_get_fraud_score_rule_details' ) ) {
+                    $details = wcbfc_get_fraud_score_rule_details( $order_obj, $rule_key );
+                }
+                $is_hidden = $rule_index > $visible_limit;
+                ?>
+					<div class="wcblu-fc-rule<?php 
+                echo ( $is_hidden ? ' wcblu-fc-rule-more' : '' );
+                ?>"<?php 
+                echo ( $is_hidden ? ' style="display:none;"' : '' );
+                ?>>
+						<div class="wcblu-fc-rule-head">
+							<span class="dashicons <?php 
+                echo esc_attr( $icon );
+                ?>" aria-hidden="true"></span>
+							<div class="wcblu-fc-rule-copy">
+								<strong><?php 
+                echo esc_html( $title );
+                ?></strong>
+								<?php 
+                if ( '' !== $description ) {
+                    ?>
+									<p><?php 
+                    echo esc_html( $description );
+                    ?></p>
+								<?php 
+                }
+                ?>
+								<?php 
+                if ( !empty( $details ) ) {
+                    ?>
+									<div class="wcblu-fc-rule-details">
+										<?php 
+                    foreach ( $details as $detail_label => $detail_value ) {
+                        ?>
+											<div><strong><?php 
+                        echo esc_html( $detail_label );
+                        ?>:</strong> <?php 
+                        echo esc_html( html_entity_decode( wp_strip_all_tags( (string) $detail_value ), ENT_QUOTES ) );
+                        ?></div>
+										<?php 
+                    }
+                    ?>
+									</div>
+								<?php 
+                }
+                ?>
+							</div>
+							<span class="wcblu-fc-rule-weight">+<?php 
+                echo esc_html( (string) (int) $rule_weight );
+                ?>%</span>
+						</div>
+					</div>
+					<?php 
+            }
+            if ( $hidden_count > 0 ) {
+                ?>
+					<button type="button" class="button wcblu-fc-details-toggle" data-show-text="<?php 
+                esc_attr_e( 'Show more', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+                ?>" data-hide-text="<?php 
+                esc_attr_e( 'Hide details', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+                ?>">
+						<span class="wcblu-toggle-text"><?php 
+                esc_html_e( 'Show more', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+                ?></span>
+						<span class="dashicons dashicons-arrow-down-alt2 wcblu-toggle-icon" aria-hidden="true"></span>
+					</button>
+					<?php 
+            }
+        }
+        ?>
 		</div>
 	
 		<script type="text/javascript">
-			jQuery('.wcblu_chart').knob();
-			var data = jQuery('.wcblu_chart').attr('rel');
+			jQuery('#wcblu-meta-box-id .wcblu_chart').knob();
+			var data = jQuery('#wcblu-meta-box-id .wcblu_chart').attr('rel');
 			jQuery({value: 0}).animate({value: data}, {
 				duration: 3000,
 				easing  : 'swing',
 				step    : function () {
-					jQuery('.wcblu_chart').val(Math.ceil(this.value)).trigger('change');
+					jQuery('#wcblu-meta-box-id .wcblu_chart').val(Math.ceil(this.value)).trigger('change');
 				}
 			});
-			jQuery('.wcblu-fc-details-toggle').off('click').on('click', function(e) {
+			jQuery('#wcblu-meta-box-id .wcblu-fc-details-toggle').off('click').on('click', function(e) {
 				e.preventDefault();
 				var $button = jQuery(this);
-				var $content = $button.closest('.mb-score-label-list').find('.wcblu-fc-details-content');
+				var $content = $button.closest('.mb-score-label-list').find('.wcblu-fc-rule-more');
 				var $text = $button.find('.wcblu-toggle-text');
 				var $icon = $button.find('.wcblu-toggle-icon');
 				$content.slideToggle(200);
 				setTimeout(function() {
-					if ($content.is(':visible')) {
+					if ($content.filter(':visible').length) {
 						$text.text($button.data('hide-text') || 'Hide details');
 						$icon.removeClass('dashicons-arrow-down-alt2').addClass('dashicons-arrow-up-alt2');
 					} else {
@@ -1262,59 +1528,266 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
      * Block order widget in order 
      */
     public function wcblu_bo_meta_box_callback( $order ) {
-        $block_flag = false;
-        if ( class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
-            // HPOS usage is enabled.
+        $is_pro = function_exists( 'wbpfoabfc_fs' ) && wbpfoabfc_fs()->is__premium_only() && wbpfoabfc_fs()->can_use_premium_code();
+        if ( is_a( $order, 'WC_Order' ) ) {
             $order_id = $order->get_id();
-        } else {
-            // Traditional CPT-based orders are in use.
+        } elseif ( isset( $order->ID ) ) {
             $order_id = $order->ID;
+        } else {
+            return;
         }
         $order = wc_get_order( $order_id );
-        if ( isset( $order ) && $order instanceof WC_Order ) {
-            $first_name = $order->get_billing_first_name();
-            // Get billing first name
-            $last_name = $order->get_billing_last_name();
-            // Get billing last name
-            $email = $order->get_billing_email();
-            // Get billing email
-            $ip_address = $order->get_customer_ip_address();
-            // Get customer IP address
-        } else {
-            $first_name = $last_name = $email = $ip_address = '';
+        if ( !is_a( $order, 'WC_Order' ) ) {
+            return;
         }
-        $wcblu_option = get_option( 'wcblu_option', '' );
-        // Get option with a default value
-        $wcblu_optionArray = json_decode( $wcblu_option, true );
-        // Ensure $wcblu_optionArray is an array to avoid undefined index notices
-        if ( !is_array( $wcblu_optionArray ) ) {
-            $wcblu_optionArray = [];
+        $fields = wcbfc_get_order_blockable_fields( $order );
+        $wcblu_option = json_decode( get_option( 'wcblu_option', '' ), true );
+        $wcblu_option = ( is_array( $wcblu_option ) ? $wcblu_option : array() );
+        $is_blocked = false;
+        $field_state = array();
+        foreach ( $fields as $key => $field ) {
+            $list = ( isset( $wcblu_option[$field['list_key']] ) && is_array( $wcblu_option[$field['list_key']] ) ? $wcblu_option[$field['list_key']] : array() );
+            $has_value = '' !== $field['value'];
+            $already_blocked = $has_value && wcbfc_is_value_in_block_list( $field['value'], $list, $field['match'] );
+            if ( $already_blocked ) {
+                $is_blocked = true;
+            }
+            $field_state[$key] = array(
+                'checked'  => $already_blocked || $has_value && !empty( $field['default'] ),
+                'disabled' => !$has_value,
+            );
         }
-        // Use null coalescing operator to handle missing keys
-        $wcblu_block_first_name = ( is_array( $wcblu_optionArray['wcblu_block_first_name'] ?? null ) ? $wcblu_optionArray['wcblu_block_first_name'] : [] );
-        $wcblu_block_last_name = ( is_array( $wcblu_optionArray['wcblu_block_last_name'] ?? null ) ? $wcblu_optionArray['wcblu_block_last_name'] : [] );
-        $wcblu_block_email = ( is_array( $wcblu_optionArray['wcblu_block_email'] ?? null ) ? $wcblu_optionArray['wcblu_block_email'] : [] );
-        $wcblu_block_ip = ( is_array( $wcblu_optionArray['wcblu_block_ip'] ?? null ) ? $wcblu_optionArray['wcblu_block_ip'] : [] );
-        $block_flag = in_array( $first_name, $wcblu_block_first_name, true ) || in_array( $last_name, $wcblu_block_last_name, true ) || in_array( $email, $wcblu_block_email, true ) || in_array( $ip_address, $wcblu_block_ip, true );
-        if ( $block_flag ) {
-            ?>
-			<p class="description"><?php 
-            echo esc_html__( 'This order has been blocked.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-            ?></p>
-		<?php 
-        } else {
-            ?>
-			<p class="description"><?php 
-            echo esc_html__( 'Click the button below to block this order.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-            ?>
+        if ( !$is_pro ) {
+            $is_blocked = true;
+            $fields = array(
+                'first_name' => array(
+                    'label' => __( 'First Name', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                    'value' => 'John',
+                ),
+                'last_name'  => array(
+                    'label' => __( 'Last Name', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                    'value' => 'Doe',
+                ),
+                'email'      => array(
+                    'label' => __( 'Email', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                    'value' => 'dummy@dummy.com',
+                ),
+                'ip'         => array(
+                    'label' => __( 'IP Address', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ),
+                    'value' => '0.0.0.0',
+                ),
+            );
+            $field_state = array(
+                'first_name' => array(
+                    'checked'  => false,
+                    'disabled' => false,
+                ),
+                'last_name'  => array(
+                    'checked'  => false,
+                    'disabled' => false,
+                ),
+                'email'      => array(
+                    'checked'  => false,
+                    'disabled' => false,
+                ),
+                'ip'         => array(
+                    'checked'  => false,
+                    'disabled' => false,
+                ),
+            );
+        }
+        $wrapper_class = ( $is_pro ? 'wcblu-bo-widget' : 'wcblu-bo-widget wcblu-upgrade-pro-to-unlock' );
+        ?>
+		<div class="<?php 
+        echo esc_attr( $wrapper_class );
+        ?>" data-order-id="<?php 
+        echo esc_attr( (string) $order_id );
+        ?>">
 			<?php 
-            echo wp_kses_post( wc_help_tip( __( 'The customer\'s details (First Name, Last Name, Email, and IP) will be added to the blacklist, preventing future order placements.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' ) ) );
+        if ( !$is_pro ) {
             ?>
-			<div><a href="javascript:void(0)" class="wcblu-block-order-button button" id="wcbli_bo_btn"><?php 
-            echo esc_html__( 'Block Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
-            ?></a></div>
-		<?php 
+				<div class="wcblu-pro-label"></div>
+			<?php 
         }
+        ?>
+			<?php 
+        if ( $is_blocked ) {
+            ?>
+				<div class="wcblu-bo-section wcblu-bo-section-unblock">
+					<div class="wcblu-bo-section-head">
+						<span class="dashicons dashicons-unlock" aria-hidden="true"></span>
+						<strong><?php 
+            echo esc_html__( 'Unblock Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></strong>
+					</div>
+					<p><?php 
+            echo esc_html__( 'Remove customer details from blacklist and allow future orders.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></p>
+					<button type="button" class="button wcblu-bo-btn wcblu-bo-btn-unblock" id="wcbli_ubo_btn" <?php 
+            disabled( !$is_pro );
+            ?>>
+						<span class="dashicons dashicons-unlock" aria-hidden="true"></span>
+						<span class="wcblu-bo-btn-text"><?php 
+            echo esc_html__( 'Unblock Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></span>
+					</button>
+				</div>
+			<?php 
+        } else {
+            ?>
+			<div class="wcblu-bo-section wcblu-bo-section-block">
+				<div class="wcblu-bo-section-head">
+					<span class="dashicons dashicons-lock" aria-hidden="true"></span>
+					<strong><?php 
+            echo esc_html__( 'Block Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></strong>
+				</div>
+				<p><?php 
+            echo esc_html__( 'Block this order and add details to blacklist.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></p>
+				<button type="button" class="button wcblu-bo-btn wcblu-bo-btn-block" id="wcbli_bo_btn" <?php 
+            disabled( !$is_pro );
+            ?>>
+					<span class="dashicons dashicons-lock" aria-hidden="true"></span>
+					<span class="wcblu-bo-btn-text"><?php 
+            echo esc_html__( 'Block Order', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+            ?></span>
+				</button>
+			</div>
+			<?php 
+        }
+        ?>
+			<div class="wcblu-bo-fields">
+				<strong><?php 
+        echo esc_html__( 'Block What?', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></strong>
+				<?php 
+        foreach ( $fields as $key => $field ) {
+            $state = ( isset( $field_state[$key] ) ? $field_state[$key] : array(
+                'checked'  => false,
+                'disabled' => true,
+            ) );
+            $disabled = !$is_pro || !empty( $state['disabled'] );
+            $label = $field['label'];
+            if ( '' !== $field['value'] ) {
+                $label .= ' (' . $field['value'] . ')';
+            }
+            ?>
+					<label>
+						<input type="checkbox" name="wcblu_bo_fields[]" value="<?php 
+            echo esc_attr( $key );
+            ?>" <?php 
+            checked( !empty( $state['checked'] ) );
+            ?> <?php 
+            disabled( $disabled );
+            ?>>
+						<span><?php 
+            echo esc_html( $label );
+            ?></span>
+					</label>
+				<?php 
+        }
+        ?>
+			</div>
+		</div>
+		<div class="wcblu-bo-modal" id="wcblu_bo_modal" style="display:none;" role="dialog" aria-modal="true">
+			<div class="wcblu-bo-modal-inner">
+				<div class="wcblu-bo-modal-header">
+					<h3 class="wcblu-bo-modal-title-block"><?php 
+        echo esc_html__( 'What happens when you block an order?', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></h3>
+					<h3 class="wcblu-bo-modal-title-unblock" style="display:none;"><?php 
+        echo esc_html__( 'What happens when you unblock an order?', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></h3>
+					<button type="button" class="wcblu-bo-modal-close" aria-label="<?php 
+        echo esc_attr__( 'Close', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>"><span class="dashicons dashicons-no-alt"></span></button>
+				</div>
+				<div class="wcblu-bo-modal-body wcblu-bo-modal-body-block">
+					<div class="wcblu-bo-modal-item">
+						<span class="wcblu-bo-modal-icon is-block"><span class="dashicons dashicons-dismiss"></span></span>
+						<div>
+							<strong><?php 
+        echo esc_html__( 'Customer details are added to blacklist', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></strong>
+							<p><?php 
+        echo esc_html__( 'Selected details (email, IP, etc.) will be registered in the blacklist.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+						</div>
+					</div>
+					<div class="wcblu-bo-modal-item">
+						<span class="wcblu-bo-modal-icon is-shield"><span class="dashicons dashicons-shield"></span></span>
+						<div>
+							<strong><?php 
+        echo esc_html__( 'Future orders will be blocked', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></strong>
+							<p><?php 
+        echo esc_html__( 'This customer won\'t be able to place future orders from the selected details.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+						</div>
+					</div>
+					<div class="wcblu-bo-modal-item">
+						<span class="wcblu-bo-modal-icon is-view"><span class="dashicons dashicons-visibility"></span></span>
+						<div>
+							<strong><?php 
+        echo esc_html__( 'You can unblock anytime', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></strong>
+							<p><?php 
+        echo esc_html__( 'You can remove them from the blacklist anytime if needed.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+						</div>
+					</div>
+					<p class="wcblu-bo-modal-example"><?php 
+        echo esc_html__( 'Example: if you block email and IP, the customer cannot place orders using the same email or from the same IP again.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+				</div>
+				<div class="wcblu-bo-modal-body wcblu-bo-modal-body-unblock" style="display:none;">
+					<div class="wcblu-bo-modal-item">
+						<span class="wcblu-bo-modal-icon is-view"><span class="dashicons dashicons-unlock"></span></span>
+						<div>
+							<strong><?php 
+        echo esc_html__( 'Selected details are removed from blacklist', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></strong>
+							<p><?php 
+        echo esc_html__( 'Only the checked details will be removed from the blacklist.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+						</div>
+					</div>
+					<div class="wcblu-bo-modal-item">
+						<span class="wcblu-bo-modal-icon is-shield"><span class="dashicons dashicons-yes-alt"></span></span>
+						<div>
+							<strong><?php 
+        echo esc_html__( 'Future orders will be allowed', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></strong>
+							<p><?php 
+        echo esc_html__( 'This customer can place future orders using the unblocked details.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+						</div>
+					</div>
+					<div class="wcblu-bo-modal-item">
+						<span class="wcblu-bo-modal-icon is-block"><span class="dashicons dashicons-lock"></span></span>
+						<div>
+							<strong><?php 
+        echo esc_html__( 'You can block again anytime', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></strong>
+							<p><?php 
+        echo esc_html__( 'You can add the same details back to the blacklist if needed.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+						</div>
+					</div>
+					<p class="wcblu-bo-modal-example"><?php 
+        echo esc_html__( 'Example: if you unblock email and IP, the customer can place orders again using the same email or IP.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+				</div>
+				<div class="wcblu-bo-modal-footer">
+					<button type="button" class="button wcblu-bo-modal-cancel"><?php 
+        echo esc_html__( 'Cancel', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></button>
+					<button type="button" class="button wcblu-bo-modal-confirm"></button>
+				</div>
+			</div>
+		</div>
+		<?php 
     }
 
     /**
@@ -1322,60 +1795,55 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
      */
     public function wcblu_block_order_details_update_blacklist() {
         check_ajax_referer( 'wcblu-ajax-nonce', 'nonce' );
-        $order_id = filter_input( INPUT_POST, 'order_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-        $order = wc_get_order( $order_id );
-        $first_name = $order->get_billing_first_name();
-        // Get billing first name
-        $last_name = $order->get_billing_last_name();
-        // Get billing last name
-        $email = $order->get_billing_email();
-        // Get billing email
-        $ip_address = $order->get_customer_ip_address();
-        // Get customer IP address
-        $wcbluoption_array = get_option( 'wcblu_option', array() );
-        $wcbluoption_array = ( !empty( $wcbluoption_array ) ? json_decode( $wcbluoption_array, true ) : array() );
-        // Ensure the main option is an array
-        if ( !is_array( $wcbluoption_array ) ) {
-            $wcbluoption_array = array();
+        if ( !current_user_can( 'manage_woocommerce' ) && !current_user_can( 'edit_shop_orders' ) ) {
+            wp_send_json( 'not_allowed' );
         }
-        // Ensure each key exists and is an array
-        $keys = [
-            'wcblu_block_first_name',
-            'wcblu_block_last_name',
-            'wcblu_block_email',
-            'wcblu_block_ip'
-        ];
-        foreach ( $keys as $key ) {
-            if ( !isset( $wcbluoption_array[$key] ) || !is_array( $wcbluoption_array[$key] ) ) {
-                $wcbluoption_array[$key] = [];
+        if ( !(function_exists( 'wbpfoabfc_fs' ) && wbpfoabfc_fs()->is__premium_only() && wbpfoabfc_fs()->can_use_premium_code()) ) {
+            wp_send_json( 'not_allowed' );
+        }
+        $order_id = filter_input( INPUT_POST, 'order_id', FILTER_SANITIZE_NUMBER_INT );
+        $action = filter_input( INPUT_POST, 'wcblu_action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        $fields = filter_input(
+            INPUT_POST,
+            'fields',
+            FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+            FILTER_REQUIRE_ARRAY
+        );
+        $order = wc_get_order( $order_id );
+        $action = ( 'unblock' === $action ? 'unblock' : 'block' );
+        if ( !is_a( $order, 'WC_Order' ) ) {
+            wp_send_json( 'not_blocked' );
+        }
+        $allowed_fields = wcbfc_get_order_blockable_fields( $order );
+        $selected_fields = ( is_array( $fields ) ? array_values( array_intersect( array_keys( $allowed_fields ), $fields ) ) : array() );
+        $wcbluoption_array = json_decode( get_option( 'wcblu_option', '' ), true );
+        $wcbluoption_array = ( is_array( $wcbluoption_array ) ? $wcbluoption_array : array() );
+        $has_value = false;
+        foreach ( $selected_fields as $field_key ) {
+            $field = $allowed_fields[$field_key];
+            $value = $field['value'];
+            if ( '' === $value ) {
+                continue;
+            }
+            $list_key = $field['list_key'];
+            if ( !isset( $wcbluoption_array[$list_key] ) || !is_array( $wcbluoption_array[$list_key] ) ) {
+                $wcbluoption_array[$list_key] = array();
+            }
+            if ( 'unblock' === $action ) {
+                $wcbluoption_array[$list_key] = wcbfc_remove_value_from_block_list( $wcbluoption_array[$list_key], $value, $field['match'] );
+                $has_value = true;
+            } elseif ( !wcbfc_is_value_in_block_list( $value, $wcbluoption_array[$list_key], $field['match'] ) ) {
+                $wcbluoption_array[$list_key][] = $value;
+                $has_value = true;
+            } else {
+                $has_value = true;
             }
         }
-        $has_value = false;
-        // Add new values
-        if ( !empty( $first_name ) ) {
-            $wcbluoption_array['wcblu_block_first_name'][] = $first_name;
-            $has_value = true;
-        }
-        if ( !empty( $last_name ) ) {
-            $wcbluoption_array['wcblu_block_last_name'][] = $last_name;
-            $has_value = true;
-        }
-        if ( !empty( $email ) ) {
-            $wcbluoption_array['wcblu_block_email'][] = $email;
-            $has_value = true;
-        }
-        if ( !empty( $ip_address ) ) {
-            $wcbluoption_array['wcblu_block_ip'][] = $ip_address;
-            $has_value = true;
-        }
         if ( $has_value ) {
-            $wcbluoption_array = wp_json_encode( $wcbluoption_array );
-            update_option( 'wcblu_option', $wcbluoption_array );
-            $return = 'Blocked';
-        } else {
-            $return = 'not_blocked';
+            update_option( 'wcblu_option', wp_json_encode( $wcbluoption_array ) );
+            wp_send_json( ( 'unblock' === $action ? 'Unblocked' : 'Blocked' ) );
         }
-        wp_send_json( $return );
+        wp_send_json( 'not_blocked' );
     }
 
     /**
@@ -1453,6 +1921,16 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
         echo esc_html( $fscore . ' % ' );
         echo esc_html( $label );
         ?></span>
+			<?php 
+        $monitor_badge = $this->wcblu_get_monitor_badge_html( $order_id );
+        if ( $monitor_badge ) {
+            echo '<p class="wcblu-monitor-note">' . wp_kses( $monitor_badge, array(
+                'span' => array(
+                    'class' => array(),
+                ),
+            ) ) . '</p>';
+        }
+        ?>
 			<div class="mb-score-label-list">
 				<ul style="color:<?php 
         echo esc_attr( $risk_label_color );
@@ -1871,7 +2349,11 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Admi
                 'class' => true,
             ),
             'label'      => array(
-                'for' => true,
+                'for'   => true,
+                'class' => true,
+            ),
+            'span'       => array(
+                'class' => true,
             ),
             'div'        => array(
                 'id'    => true,

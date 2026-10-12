@@ -80,6 +80,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Acti
             $wcbluruleoption_array['wcbfc_blocked_user_email_check']     = '0';
             $wcbluruleoption_array['wcbfc_blocked_user_email_weight']    = '0';
             $wcbluruleoption_array['wcbfc_unsafe_countries']             = '1';
+            $wcbluruleoption_array['wcbfc_unsafe_countries_block_others'] = '0';
             $wcbluruleoption_array['wcblu_define_unsafe_countries_list'] = '';
             $wcbluruleoption_array['wcbfc_unsafe_countries_weight']      = '25';
     
@@ -89,6 +90,7 @@ class Woocommerce_Blocker_Prevent_Fake_Orders_And_Blacklist_Fraud_Customers_Acti
 
         if( !isset( $default_sett_opt ) && empty( $default_sett_opt ) ) {
             $wcblugeneraloption_array['wcbfc_fraud_check_before_pay']       = '0';
+            $wcblugeneraloption_array['wcbfc_protection_mode']              = 'automatic';
             $wcblugeneraloption_array['wcblu_pre_payment_message']          = '';
             $wcblugeneraloption_array['wcbfc_update_order_status_on_score'] = '0';
             $wcblugeneraloption_array['wcbfc_settings_low_risk_threshold']  = '25';

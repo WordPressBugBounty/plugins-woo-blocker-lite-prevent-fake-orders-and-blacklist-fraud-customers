@@ -429,7 +429,7 @@ function wbclu_free_general_settings_content() {
                     <div class="heading_div">
                         <div class="heading_section">
                             <h2><?php 
-    echo esc_html__( 'Whitelist Options: Email, Payment Method, Role, and IP Address', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    echo esc_html__( 'Whitelist Options: Email, Payment Method, Role, IP, First Name, Last Name, and Phone', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
     ?><a href="https://docs.thedotstore.com/article/516-how-to-do-special-email-whitelisting-using-fraud-prevention-plugin" class="main-title-tooltip" target="_blank"></a> <div class="wcblu-pro-label"></div></h2>
                         </div>
                     </div>
@@ -532,6 +532,81 @@ function wbclu_free_general_settings_content() {
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <th scope="row" class="titledesc">
+                                    <label><?php 
+    echo esc_html__( 'First Name Whitelisting', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                                        <div class="wcbfc-tooltip-rules">
+                                            <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+    echo esc_html__( 'First names listed below will not be subject to fraud score actions. Enter one first name per line. Billing and shipping first names are checked.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                    </label>
+                                </th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="wcbfc_enable_whitelist_first_name" name="wcbfc_enable_whitelist_first_name" value="" checked>
+                                        <div class="slider round"></div>
+                                    </label>
+                                    <label for="wcbfc_enable_whitelist_first_name"><?php 
+    echo esc_html__( 'Enable First Name Whitelisting', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></label>
+                                    <div class="wcblu_rule_field">
+                                        <textarea name="wcblu_settings_whitelist_first_name" id="wcblu_settings_whitelist_first_name" style="width:100%; height: 100px;" class="" placeholder="">John</textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="titledesc">
+                                    <label><?php 
+    echo esc_html__( 'Last Name Whitelisting', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                                        <div class="wcbfc-tooltip-rules">
+                                            <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+    echo esc_html__( 'Last names listed below will not be subject to fraud score actions. Enter one last name per line. Billing and shipping last names are checked.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                    </label>
+                                </th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="wcbfc_enable_whitelist_last_name" name="wcbfc_enable_whitelist_last_name" value="" checked>
+                                        <div class="slider round"></div>
+                                    </label>
+                                    <label for="wcbfc_enable_whitelist_last_name"><?php 
+    echo esc_html__( 'Enable Last Name Whitelisting', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></label>
+                                    <div class="wcblu_rule_field">
+                                        <textarea name="wcblu_settings_whitelist_last_name" id="wcblu_settings_whitelist_last_name" style="width:100%; height: 100px;" class="" placeholder="">Doe</textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="titledesc">
+                                    <label><?php 
+    echo esc_html__( 'Phone Whitelisting', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?>
+                                        <div class="wcbfc-tooltip-rules">
+                                            <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+    echo esc_html__( 'Phone numbers listed below will not be subject to fraud score actions. Enter one phone number per line. Billing and shipping phones are checked. Country-code and local formats are treated as the same number.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></span>
+                                        </div>
+                                    </label>
+                                </th>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" id="wcbfc_enable_whitelist_phone" name="wcbfc_enable_whitelist_phone" value="" checked>
+                                        <div class="slider round"></div>
+                                    </label>
+                                    <label for="wcbfc_enable_whitelist_phone"><?php 
+    echo esc_html__( 'Enable Phone Whitelisting', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+    ?></label>
+                                    <div class="wcblu_rule_field">
+                                        <textarea name="wcblu_settings_whitelist_phone" id="wcblu_settings_whitelist_phone" style="width:100%; height: 100px;" class="" placeholder="">+(90) 9090909090</textarea>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="heading_div">
@@ -609,38 +684,38 @@ function wbclu_free_general_settings_content() {
         ?><a href="https://docs.thedotstore.com/article/1057-how-to-enhance-security-with-recaptcha-to-protect-your-checkout-from-bots" class="main-title-tooltip" target="_blank"></a></h2>
                     </div>
                 </div>
-                <table class="form-table table-outer general-settings res-cl">
+                <table class="form-table table-outer general-settings res-cl wcblu-recaptcha-section">
                     <tbody>
                         <tr>
-                            <th scope="row" class="titledesc">
-                                <label> <?php 
+                            <td class="wcblu-recaptcha-cell">
+                                <div class="wcblu-recaptcha-field">
+                                    <label for="wcbfc_recaptcha_status"><?php 
         echo esc_html__( 'Enable reCAPTCHA', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
         ?>
-                                    <div class="wcbfc-tooltip-rules">
-                                        <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+                                        <div class="wcbfc-tooltip-rules">
+                                            <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
         echo esc_html__( 'Enable reCAPTCHA on checkout page', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
         ?></span>
-                                    </div>
-                                </label>
-                            </th>
-                            <td>
-                                <label class="switch">
-                                    <?php 
+                                        </div>
+                                    </label>
+                                    <div class="wcblu-recaptcha-field-control">
+                                        <label class="switch">
+                                            <?php 
         $wcbfc_status = '';
         if ( empty( $wcbfc_recaptcha_status ) && '' === $wcbfc_recaptcha_status ) {
             ?>
-                                        <input checked type="checkbox" id="wcbfc_recaptcha_status"
-                                            name="wcbfc_recaptcha_status" value="">
-                                        <?php 
+                                                <input checked type="checkbox" id="wcbfc_recaptcha_status"
+                                                    name="wcbfc_recaptcha_status" value="">
+                                                <?php 
         } else {
             ?>
-                                        <input <?php 
+                                                <input <?php 
             if ( !empty( $wcbfc_recaptcha_status ) && '1' === $wcbfc_recaptcha_status ) {
                 ?> checked <?php 
             }
             ?>
-                                            type="checkbox" id="wcbfc_recaptcha_status"
-                                            name="wcbfc_recaptcha_status" value="<?php 
+                                                    type="checkbox" id="wcbfc_recaptcha_status"
+                                                    name="wcbfc_recaptcha_status" value="<?php 
             if ( !empty( $wcbfc_recaptcha_status ) && '1' === $wcbfc_recaptcha_status ) {
                 echo "1";
                 $wcbfc_status = 'show_it';
@@ -649,56 +724,275 @@ function wbclu_free_general_settings_content() {
                 $wcbfc_status = 'hide_it';
             }
             ?>">
-                                        <?php 
+                                                <?php 
         }
         ?>
-                                    <div class="slider round"></div>
-                                </label>
+                                            <div class="slider round"></div>
+                                        </label>
+                                    </div>
+                                </div>
                                 <div class="wcblu_captcha_settings <?php 
         echo esc_attr( $wcbfc_status );
         ?>">
-                                    <div class="wcblu_rule_field">
-                                        <select name="wcbfc_recaptcha_version" id="wcbfc_recaptcha_version" class="">
-                                            <option value=""><?php 
+                                    <div class="wcblu-recaptcha-layout">
+                                        <div class="wcblu-recaptcha-config">
+                                            <div class="wcblu-recaptcha-field">
+                                                <label for="wcbfc_recaptcha_version"><?php 
+        echo esc_html__( 'Version', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></label>
+                                                <div class="wcblu-recaptcha-field-control">
+                                                    <select name="wcbfc_recaptcha_version" id="wcbfc_recaptcha_version" class="">
+                                                        <option value=""><?php 
         echo esc_html__( 'Select Captcha Version', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
         ?></option>
-                                            <option value="wcblu_v2_keys" <?php 
+                                                        <option value="wcblu_v2_keys" <?php 
         selected( $wcbfc_recaptcha_version, 'wcblu_v2_keys' );
         ?>>
-                                                <?php 
+                                                            <?php 
         echo esc_html__( 'v2 reCAPTCHA', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
         ?>
-                                            </option>
-                                            <option value="wcblu_v3_keys" <?php 
+                                                        </option>
+                                                        <option value="wcblu_v3_keys" <?php 
         selected( $wcbfc_recaptcha_version, 'wcblu_v3_keys' );
         ?>>
-                                                <?php 
+                                                            <?php 
         echo esc_html__( 'v3 reCAPTCHA', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
         ?>
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="wcblu_v2_keys wcblu_versions_key" style="display:<?php 
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="wcblu-recaptcha-tabs">
+                                                <button type="button" class="wcblu-recaptcha-tab active" data-wcblu-tab="setup"><?php 
+        echo esc_html__( 'Manual Setup', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></button>
+                                                <button type="button" class="wcblu-recaptcha-tab" data-wcblu-tab="help"><?php 
+        echo esc_html__( 'Help', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></button>
+                                            </div>
+                                            <div class="wcblu-recaptcha-tab-panel" data-wcblu-panel="setup">
+                                                <p class="wcblu-recaptcha-intro"><?php 
+        echo esc_html__( 'To get your reCAPTCHA keys, follow the steps below.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+                                                <div class="wcblu-recaptcha-steps">
+                                                    <h4><?php 
+        echo esc_html__( 'Step 1: Get Your reCAPTCHA Keys', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></h4>
+                                                    <ol>
+                                                        <li><?php 
+        echo esc_html__( 'Click the button below to go to Google reCAPTCHA admin.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></li>
+                                                        <li><?php 
+        echo esc_html__( 'Create or select your site and generate keys.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></li>
+                                                        <li><?php 
+        echo esc_html__( 'Copy the Site Key and Secret Key.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></li>
+                                                    </ol>
+                                                    <a class="button wcblu-recaptcha-google-btn" href="https://www.google.com/recaptcha/admin/create" target="_blank" rel="noopener noreferrer">
+                                                        <span class="wcblu-recaptcha-google-icon" aria-hidden="true"></span>
+                                                        <?php 
+        echo esc_html__( 'Find Keys on Google', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                                        <span class="dashicons dashicons-external" aria-hidden="true"></span>
+                                                    </a>
+                                                    <p class="wcblu-recaptcha-note"><span class="dashicons dashicons-info-outline" aria-hidden="true"></span><?php 
+        echo esc_html__( 'You will be redirected to Google reCAPTCHA admin.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+                                                </div>
+                                                <div class="wcblu_v2_keys wcblu_versions_key" style="display:<?php 
         echo ( 'wcblu_v2_keys' === $wcbfc_recaptcha_version ? 'block' : 'none' );
         ?>;">
-                                        <div class="wcblu_rule_field"><input type="text" name="wcblu_v2_keys_value" placeholder="Enter v2 Site Key" value="<?php 
+                                                    <div class="wcblu-recaptcha-field">
+                                                        <label for="wcblu_v2_keys_value"><?php 
+        echo esc_html__( 'Site Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                                            <div class="wcbfc-tooltip-rules">
+                                                                <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+        echo esc_html__( 'Public key used to display the v2 reCAPTCHA widget on your checkout form.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                                            </div>
+                                                        </label>
+                                                        <div class="wcblu-recaptcha-field-control wcblu-recaptcha-key-field">
+                                                            <input type="password" id="wcblu_v2_keys_value" name="wcblu_v2_keys_value" autocomplete="off" data-lpignore="true" placeholder="<?php 
+        echo esc_attr__( 'Enter Site Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>" value="<?php 
         echo esc_attr( $wcblu_v2_keys_value );
-        ?>"></div>
-                                        <div class="wcblu_rule_field"><input type="text" name="wcblu_v2_secret_keys_value" placeholder="Enter v2 Secret Key" value="<?php 
+        ?>">
+                                                            <button type="button" class="wcblu-recaptcha-toggle-key" title="<?php 
+        echo esc_attr__( 'Show/Hide Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>"><span class="dashicons dashicons-hidden"></span></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="wcblu-recaptcha-field">
+                                                        <label for="wcblu_v2_secret_keys_value"><?php 
+        echo esc_html__( 'Secret Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                                            <div class="wcbfc-tooltip-rules">
+                                                                <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+        echo esc_html__( 'Private key used to validate the v2 reCAPTCHA response with Google.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                                            </div>
+                                                        </label>
+                                                        <div class="wcblu-recaptcha-field-control wcblu-recaptcha-key-field">
+                                                            <input type="password" id="wcblu_v2_secret_keys_value" name="wcblu_v2_secret_keys_value" autocomplete="off" data-lpignore="true" placeholder="<?php 
+        echo esc_attr__( 'Enter Secret Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>" value="<?php 
         echo esc_attr( $wcblu_v2_secret_keys_value );
-        ?>"></div>
-                                    </div>
-                                    <div class="wcblu_v3_keys wcblu_versions_key" style="display:<?php 
+        ?>">
+                                                            <button type="button" class="wcblu-recaptcha-toggle-key" title="<?php 
+        echo esc_attr__( 'Show/Hide Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>"><span class="dashicons dashicons-hidden"></span></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="wcblu_v3_keys wcblu_versions_key" style="display:<?php 
         echo ( 'wcblu_v3_keys' === $wcbfc_recaptcha_version ? 'block' : 'none' );
         ?>;">
-                                        <div class="wcblu_rule_field"><input type="text" name="wcblu_v3_keys_value" placeholder="Enter v3 Site Key" value="<?php 
+                                                    <div class="wcblu-recaptcha-field">
+                                                        <label for="wcblu_v3_keys_value"><?php 
+        echo esc_html__( 'Site Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                                            <div class="wcbfc-tooltip-rules">
+                                                                <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+        echo esc_html__( 'Public key used to load the invisible v3 reCAPTCHA script on your checkout form.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                                            </div>
+                                                        </label>
+                                                        <div class="wcblu-recaptcha-field-control wcblu-recaptcha-key-field">
+                                                            <input type="password" id="wcblu_v3_keys_value" name="wcblu_v3_keys_value" autocomplete="off" data-lpignore="true" placeholder="<?php 
+        echo esc_attr__( 'Enter Site Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>" value="<?php 
         echo esc_attr( $wcblu_v3_keys_value );
-        ?>"></div>
-                                        <div class="wcblu_rule_field"><input type="text" name="wcblu_v3_secret_keys_value" placeholder="Enter v3 Secret Key" value="<?php 
+        ?>">
+                                                            <button type="button" class="wcblu-recaptcha-toggle-key" title="<?php 
+        echo esc_attr__( 'Show/Hide Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>"><span class="dashicons dashicons-hidden"></span></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="wcblu-recaptcha-field">
+                                                        <label for="wcblu_v3_secret_keys_value"><?php 
+        echo esc_html__( 'Secret Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                                            <div class="wcbfc-tooltip-rules">
+                                                                <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+        echo esc_html__( 'Private key used to validate the v3 reCAPTCHA score with Google.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                                            </div>
+                                                        </label>
+                                                        <div class="wcblu-recaptcha-field-control wcblu-recaptcha-key-field">
+                                                            <input type="password" id="wcblu_v3_secret_keys_value" name="wcblu_v3_secret_keys_value" autocomplete="off" data-lpignore="true" placeholder="<?php 
+        echo esc_attr__( 'Enter Secret Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>" value="<?php 
         echo esc_attr( $wcblu_v3_secret_keys_value );
-        ?>"></div>
+        ?>">
+                                                            <button type="button" class="wcblu-recaptcha-toggle-key" title="<?php 
+        echo esc_attr__( 'Show/Hide Key', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>"><span class="dashicons dashicons-hidden"></span></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="wcblu-recaptcha-verify">
+                                                    <button type="button" class="button wcblu-recaptcha-verify-btn" id="wcblu_verify_recaptcha_keys"><?php 
+        echo esc_html__( 'Verify Connection', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></button>
+                                                    <span class="wcblu-recaptcha-verify-loader" style="display:none;"><img src="<?php 
+        echo esc_url( admin_url( 'images/spinner.gif' ) );
+        ?>" alt=""></span>
+                                                    <div class="wcblu-recaptcha-verify-result"></div>
+                                                    <p class="wcblu-recaptcha-note"><?php 
+        echo esc_html__( 'Save settings and click to verify your keys.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="wcblu-recaptcha-tab-panel" data-wcblu-panel="help" style="display:none;">
+                                                <p class="wcblu-recaptcha-intro"><?php 
+        echo esc_html__( 'Not sure which version fits your store? Check the points below.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+                                                <div class="wcblu-recaptcha-steps">
+                                                    <h4><?php 
+        echo esc_html__( 'Which version should I use?', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></h4>
+                                                    <ol>
+                                                        <li><?php 
+        echo esc_html__( 'v2 reCAPTCHA shows the I am not a robot checkbox on the checkout form.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></li>
+                                                        <li><?php 
+        echo esc_html__( 'v3 reCAPTCHA runs in the background and scores the visitor without any interaction.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></li>
+                                                        <li><?php 
+        echo esc_html__( 'Keys are version specific, so generate new keys when you switch the version.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></li>
+                                                    </ol>
+                                                    <a class="button wcblu-recaptcha-google-btn" href="https://docs.thedotstore.com/article/1057-how-to-enhance-security-with-recaptcha-to-protect-your-checkout-from-bots" target="_blank" rel="noopener noreferrer">
+                                                        <?php 
+        echo esc_html__( 'Read Documentation', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                                        <span class="dashicons dashicons-external" aria-hidden="true"></span>
+                                                    </a>
+                                                    <p class="wcblu-recaptcha-note"><span class="dashicons dashicons-info-outline" aria-hidden="true"></span><?php 
+        echo esc_html__( 'The guide covers key generation, domain setup and troubleshooting.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="wcblu-recaptcha-preview">
+                                            <h3><?php 
+        echo esc_html__( 'Preview on Checkout Form', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                                <div class="wcbfc-tooltip-rules">
+                                                    <span class="wcbfc-tooltiptext wcbfc-tooltip-bottom"><?php 
+        echo esc_html__( 'A sample of how reCAPTCHA appears on your checkout form.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                                </div>
+                                            </h3>
+                                            <div class="wcblu-recaptcha-preview-card">
+                                                <h4><?php 
+        echo esc_html__( 'Checkout Form Preview', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></h4>
+                                                <span class="wcblu-recaptcha-preview-label"><?php 
+        echo esc_html__( 'Email address', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?> <em>*</em></span>
+                                                <span class="wcblu-recaptcha-preview-input"></span>
+                                                <span class="wcblu-recaptcha-preview-label"><?php 
+        echo esc_html__( 'Phone', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?> <em>*</em></span>
+                                                <span class="wcblu-recaptcha-preview-input"></span>
+                                                <div class="wcblu-recaptcha-preview-v2" style="display:<?php 
+        echo ( 'wcblu_v3_keys' === $wcbfc_recaptcha_version ? 'none' : 'flex' );
+        ?>;">
+                                                    <span class="wcblu-recaptcha-preview-checkbox"></span>
+                                                    <span class="wcblu-recaptcha-preview-text"><?php 
+        echo esc_html__( "I'm not a robot", 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></span>
+                                                    <span class="wcblu-recaptcha-preview-brand">
+                                                        <span class="dashicons dashicons-update" aria-hidden="true"></span>
+                                                        <strong>reCAPTCHA</strong>
+                                                        <small><?php 
+        echo esc_html__( 'Privacy - Terms', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></small>
+                                                    </span>
+                                                </div>
+                                                <div class="wcblu-recaptcha-preview-v3" style="display:<?php 
+        echo ( 'wcblu_v3_keys' === $wcbfc_recaptcha_version ? 'block' : 'none' );
+        ?>;">
+                                                    <span class="wcblu-recaptcha-preview-badge">
+                                                        <span class="dashicons dashicons-update" aria-hidden="true"></span>
+                                                        <?php 
+        echo esc_html__( 'protected by reCAPTCHA', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?>
+                                                    </span>
+                                                    <p><?php 
+        echo esc_html__( 'v3 verifies customers silently, so only this badge is shown on the checkout form.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+                                                </div>
+                                                <p class="wcblu-recaptcha-preview-note"><span class="dashicons dashicons-info-outline" aria-hidden="true"></span><?php 
+        echo esc_html__( 'This is a preview only. The actual reCAPTCHA will appear on your live site.', 'woo-blocker-lite-prevent-fake-orders-and-blacklist-fraud-customers' );
+        ?></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                <div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
