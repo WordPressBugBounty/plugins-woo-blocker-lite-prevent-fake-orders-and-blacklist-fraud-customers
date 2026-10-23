@@ -18,7 +18,7 @@ It will Prevent fake orders and Blacklist fraud customers of your store.
 
 == Description ==
 
-Are fraudulent transactions causing headaches for your WooCommerce store? Level up your store security with our <a href ="https://bit.ly/3oovL5F" target="_blank">Fraud Prevention For WooCommerce and EDD plugin!</a>
+Are fraudulent transactions causing headaches for your WooCommerce store? Level up your store security with our <a href ="https://www.thedotstore.com/woocommerce-anti-fraud/?utm_source=wporg&utm_medium=freepluginlink&utm_campaign=fraud_free&utm_term=wporg_free_to_pro" target="_blank">Fraud Prevention For WooCommerce and EDD plugin!</a>
 
 This plugin is not just an Fraud Prevention tool, but an <strong>overall safety solution.</strong> From custom fraud identification rules to advanced user blocking and comprehensive dashboard reports, it has all you need to <strong>secure your WooCommerce transactions effectively.</strong>
 
@@ -75,12 +75,12 @@ At Dotstore, we focus on WooCommerce plugins that are easy to use, highly custom
 Choose Dotstore, and get the most out of your WooCommerce store.
 
 
-== 📣 PREMIUM: Fraud Prevention Plugin —  <a href ="https://bit.ly/3oovL5F" target="_blank">Try Pro Version Today!</a> ==
+== 📣 PREMIUM: Fraud Prevention Plugin —  <a href ="https://www.thedotstore.com/woocommerce-anti-fraud/?utm_source=wporg&utm_medium=freepluginlink&utm_campaign=fraud_free&utm_term=wporg_free_to_pro" target="_blank">Try Pro Version Today!</a> ==
 
 
 == ✅ NEED EVEN MORE FEATURES? ==
 
-Upgrade to <a href ="https://bit.ly/3oovL5F" target="_blank">Fraud Prevention For WooCommerce and EDD PRO</a> to get all the advanced features.
+Upgrade to <a href ="https://www.thedotstore.com/woocommerce-anti-fraud/?utm_source=wporg&utm_medium=freepluginlink&utm_campaign=fraud_free&utm_term=wporg_free_to_pro" target="_blank">Fraud Prevention For WooCommerce and EDD PRO</a> to get all the advanced features.
 
 
 * All free plugin key features
@@ -110,7 +110,7 @@ Upgrade to <a href ="https://bit.ly/3oovL5F" target="_blank">Fraud Prevention Fo
 🔖 <a href ="https://www.thedotstore.com/woocommerce-fraud-protection/" target="_blank">How to set up fraud Protection in WooCommerce?</a>
 
 
-== 📣 PREMIUM: Fraud Prevention Plugin —  <a href ="https://bit.ly/3oovL5F" target="_blank">Try Pro Version Today!</a> ==
+== 📣 PREMIUM: Fraud Prevention Plugin —  <a href ="https://www.thedotstore.com/woocommerce-anti-fraud/?utm_source=wporg&utm_medium=freepluginlink&utm_campaign=fraud_free&utm_term=wporg_free_to_pro" target="_blank">Try Pro Version Today!</a> ==
 
 
 == ☎️ CONTACT US ==
